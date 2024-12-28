@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rssbridge
+  namespace: rssbridge
+spec:
+  releaseName: rssbridge
+  chart:
+    spec:
+      chart: rss-bridge
+      version: 0.5.2
+      sourceRef:
+        kind: HelmRepository
+        name: rssbridge
+        namespace: rssbridge
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  values:
+    image:
+      repository: ghcr.io/rss-bridge/rss-bridge
+      pullPolicy: IfNotPresent
+      tag: sha-f0db6a2
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: lets-encrypt
+        hosts:
+          - host: rssbridge.brennoflavio.com.br
+            paths:
+              - path: /
+        tls:
+          - secretName: rssbridge-tls
+            hosts:
+              - rssbridge.brennoflavio.com.br
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
