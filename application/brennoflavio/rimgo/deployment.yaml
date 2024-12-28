@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rimgo
+  namespace: rimgo
+  labels:
+    app: rimgo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rimgo
+  template:
+    metadata:
+      labels:
+        app: rimgo
+    spec:
+      containers:
+      - name: rimgo
+        image: codeberg.org/rimgo/rimgo
+        ports:
+        - containerPort: 3000
+        env:
+        - name: ADDRESS
+          value: "0.0.0.0"
+        - name: PORT
+          value: "3000"
+        - name: FIBER_PREFORK
+          value: "false"
+        - name: IMGUR_CLIENT_ID
+          value: 546c25a59c58ad7
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
