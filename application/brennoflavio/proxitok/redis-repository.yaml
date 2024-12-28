@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: redis
+  namespace: proxitok
+spec:
+  interval: 1m
+  type: oci
+  url: oci://registry-1.docker.io/bitnamicharts

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chrome
+  namespace: proxitok
+  labels:
+    app: chrome
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chrome
+  template:
+    metadata:
+      labels:
+        app: chrome
+    spec:
+      containers:
+        - name: chrome
+          image: zenika/alpine-chrome:with-chromedriver
+          securityContext:
+            capabilities:
+              add:
+              - SYS_ADMIN
+            privileged: false
+      resources:
+        limits:
+          cpu: 1000m
+          memory: 1024Mi
+        requests:
+          cpu: 2000m
+          memory: 2048Mi

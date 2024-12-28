@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxitok
+  namespace: proxitok
+  labels:
+    app: proxitok
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxitok
+  template:
+    metadata:
+      labels:
+        app: proxitok
+    spec:
+      containers:
+      - name: proxitok
+        image: ghcr.io/pablouser1/proxitok:master
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LATTE_CACHE
+          value: /cache
+        - name: API_CACHE
+          value: redis
+        - name: REDIS_HOST
+          value: redis-master.proxitok.svc.cluster.local
+        - name: REDIS_PORT
+          value: "6379"
+        - name: API_CHROMEDRIVER
+          value: http://chrome.proxitok.svc.cluster.local:9515
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi

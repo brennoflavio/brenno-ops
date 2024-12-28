@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chrome
+  namespace: proxitok
+  labels:
+    app: chrome
+spec:
+  selector:
+    app: chrome
+  ports:
+    - protocol: TCP
+      port: 9515
+      targetPort: 9515
