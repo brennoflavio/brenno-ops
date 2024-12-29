@@ -42,7 +42,7 @@ nextcloud:
         previews.config.php: ENC[AES256_GCM,data:v0gpq6W8UwvKzNGFicQi1k0V5jhX3AeR/P/Fd8RWx7Zq8/j9kMeVy9bCwZJri+V5xhlJ6KDkPjwTKOE4wPFz9d0xZwXbLpw5csB3oGhMm7vpYKV/8xh6Pn0NARFGfUF253AMMTtt95Z5oovNWGGWQkL5l3GLLnqv9cj9fbORZtJpp/xfIqJEcQmIUHw9cyC+flPnAlKuYts8Ec8KFZ2uob8QxXIRfzdaT2k11I7ihZLgxNemjNyFT4gAqu0v1k4i6FfUO1FwPmyFs2rEI2YlVBJrBjfFHv3JK1hwh+oBUUnsSWfXdc01hNSBQlBd6tCIcxId7PDEWzL+E2Bmz0SJdsfgH6n6VF3TjXZ5u1ops7er/fXqM38WIWrrTOkPtNrOaf2PQOy1LGxbYmhol0cpDxmGaS8Gsysq/OD8+DysPwaEKTpuD3YhKLDxqkS5g0laoTaJ8XP19RqsciLZL4KpLo86PPY5VTMWkVFc1zgoRQCqXItTvIs=,iv:RdEzIRCRjS4nH5/jSy2sys16U+cJ7MubQM4isGkf5B0=,tag:iWmz71XjObVnDfK6FyUeFQ==,type:str]
         maintenance.config.php: ENC[AES256_GCM,data:MQDacROjlQbMhvava1AgR4rTSfyIOig20+55++hS5/QL0i9SsUXJb2afbIl0F1QUvQ2RMcpvqrQwJ6vN,iv:guStOHYvEmsnQdesevu1QJo1+tR83oBdnBNuHH46vz4=,tag:iTuGmPHsi/d2T7/e4ukzHw==,type:str]
         proxy.config.php: ENC[AES256_GCM,data:7hLo70ryj43RZ3s5zUZTXzU0N8ddshiUj9d1WRpfy3WieRshJXSuzx0b6O+cz89c+FeaMOGjD8HOepAvVOv4JnH9M33C8AunL5FdJeiN/i+r+O9a8svxdEpmJQOW4W/6U+UD1b/3wjhWaA7xlabOS4lhmuanMx7FKbNI2iWX0dxd/qbwSYjd9Lc4KM/v2PCiF+sYKUNojue7EbEUDP5JzD7J2/F5MNi8qVnr,iv:K4HgRr1gxIVpEH9jZth8hqjdTYskCtlWHUNtV8jtPXQ=,tag:ZhTBEWoMuMY+/9QtlgIc4g==,type:str]
-        logging.config.php: ENC[AES256_GCM,data:ldVKJpnsJpI0EGz3VFqf5HpMTfs2ZozeLa2vgXSBBgpxtoqVbQX4UBAn1gls6C6fPwEhe6Pb32DjYff1eQ9h7wIJWgRXXdY0s69UZ7pFHHbJ2eWvbBEPWGwX+cCzXtCLK++ag1jSxItJ0xfBl4Gp/fcxRCYN/99uk4f372Guab/jhkJ02vCHNzobx30ASlDcyqk//gQQ,iv:V/qcgz0LCdM/NDg9hHeyeLnzEriOpJzRvlhnzZQf4JM=,tag:miltAgPTCx8pcQAB/FaaCw==,type:str]
+        logging.config.php: ENC[AES256_GCM,data:QTZmWDoIBWCIlq6yhJXgoEIWOBXtH3xgc5svD7+hK/2nkJuG0djxu+c/Hl6/LT1HZZmssRb5+e9Kk04hS+1DaAHgJTCOdo9zt5Slp880V5dxvlN3BuVA9phnBufhLAhWwPyjJ/4xlg==,iv:pYVXRgBv6EKozJgQiKpdfOoaS6vq4CEfJP1MJtxeNxU=,tag:2gyYcaeTvjG+9rI7VtMq8Q==,type:str]
         phone.config.php: ENC[AES256_GCM,data:yboIygE5PU712WeH3bztjQCSQVnJ0+q6Z2i23zFH5W2sV5AubwcRzI0kQ4r4BCEImQkhaxtw0/+Y8vaSew==,iv:eW6+ZOBVGARVJNYX2s9U34lEy1w96NSC34tlfLdDnD4=,tag:TONzFC1dcFqhpCKppCDUlg==,type:str]
         bruteforce.config.php: ENC[AES256_GCM,data:0+sX92fvIDjSpbO44axzZB36X0RGmnc3BHvGadAJaETbpM2wFveT4nYqFtyh7aJYoPChfJWv/p8NewutoDhRarCh5f86tKXbIQjebA==,iv:x/7nb0WACglGhWLYzFywwFe8E0CUgPzvhCR7eh3oo2k=,tag:2QZpIfewKlyfkXiEbgvr9g==,type:str]
 persistence:
@@ -118,8 +118,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-12-28T22:17:35Z"
-    mac: ENC[AES256_GCM,data:aP0svrKaWWqA9RxvfBp95tKPj7GtGXgjV3pobIWzaWkrqbaaB5PjPCn1Uyx4w7p7lnwfGHdbZ59S35hD2gQf/ouvakjE8gd90WHRuU2VQP1J62Gn5EKCzhQJh6tnmEDIVfRyc34cgNLGR4khsqhWDsQPHZp2o+k7hgPfFA3y+rk=,iv:SuzLZ8lydXI5s2sfzVzpEZMyhWu+U22QXL7Z6eFvZI0=,tag:BAUsjZvk4/9JiMkpurgsaw==,type:str]
+    lastmodified: "2024-12-29T04:39:14Z"
+    mac: ENC[AES256_GCM,data:OiVeCwliLy6/uaCav5eiU3Lf57djaVTGex6iI/V8RBSGh2GhU90xtQQyps+HeLjq+0MS+tcDVlHWVYMINeUfNiSenQR+czQnsIQHr8UrCATV3cEifwXq/NHGixvRqaOpyJdtWcdwHWmyBDm1css4lkfEJFSdwjvXLPwact3eqSQ=,iv:ip0q36Tdr+drcqOGrXbHe7Grs5Ijs+1g9iqyrkMWprU=,tag:VYSOMFecp4FXM5uqVHQHYg==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-
