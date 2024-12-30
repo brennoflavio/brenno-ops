@@ -18,15 +18,15 @@ nextcloud:
     password: ENC[AES256_GCM,data:BnEVyTCADU9CD3RWylLgWg==,iv:1yZsXg/TJtQpkENkqQLQikkomhTsSuIRtZ1H+1fHTgM=,tag:uDsMXS35MDuF5cEDKCSAxw==,type:str]
     mail:
         enabled: ENC[AES256_GCM,data:BrJ/rQ==,iv:0n3VYROQ3/SF32AMoUq5tLYHG0tkhhFibhhqB3vsDmw=,tag:pDfqCH9xGMX84loaCQW0vQ==,type:bool]
-        fromAddress: ENC[AES256_GCM,data:88jTtw1rAc9lzpl0GHmPU2RabJK4mzaT5+BvYeDHszJ3vmI=,iv:S4gphTJYdDahh4Xq2wq0ivQMCKzpbX3VnqzOVAkAg0o=,tag:QNY7SqKVdUXCxVaNoQ746w==,type:str]
+        fromAddress: ENC[AES256_GCM,data:wB4Myoc=,iv:v6QEvPWaJymfeu5BGmIDr/EYhOna6c7JC7NYuENMFnE=,tag:DbW3dGOKUdrhjeQhgfoOoA==,type:str]
         domain: ENC[AES256_GCM,data:J11zgkFLyU4zfkPpoELHOCNdimptbP1v4lRcL4g=,iv:2Nji8d+OqIyDR5Uk/cuEsLqQENjBqfZfBewQ3ypH34c=,tag:89S8KXDjc4o86ScWhfbBfQ==,type:str]
         smtp:
             host: ENC[AES256_GCM,data:MPv/+KHrSGWqexhlQJ/qVEyszFBaSGENRVYmHebLVXNrwA==,iv:2zQyM9gyppBa1CqSt7OtTyKza2YkpkeefM80suTo8Z4=,tag:1c44kpGrgUGitDdFyL+0fg==,type:str]
-            secure: ENC[AES256_GCM,data:xmaI,iv:1wd2O5KpqBu71xiWF3lJK/XSfGICemO+MbhtDDODMio=,tag:aCzd7EKIAFcDMnyxtcZt9Q==,type:str]
+            secure: ENC[AES256_GCM,data:1cL9cto66JQ=,iv:+aZ7H8jNPdUYdhmzQNKrlP4L4gv8n81w+7aDS4zCmfc=,tag:Q3D2AdkFqJ061mZibtTylQ==,type:str]
             port: ENC[AES256_GCM,data:Z98V,iv:azMn2FeTR7IfZ8oXMOsUbnUEPhWy0OtdU3Yw2T5rAMY=,tag:2ZFLSwjjWqdZBhoBuxrwIA==,type:int]
             authtype: ENC[AES256_GCM,data:WqfJHbc=,iv:CKQkPMeDj8/pherMagceIoS//4LPB/yvWtCjiNDWRfs=,tag:R020tix9dZe49cJTUrWRWA==,type:str]
-            name: ENC[AES256_GCM,data:Car86dUhuVe9eAg4hS2l4gkAG9k=,iv:w2mV71aEEFLiCNaeARrkjPTxXgWQs8QUvOGMtgjZZAw=,tag:FP+ToZ2H/W1Tm6vswXFRkA==,type:str]
-            password: ENC[AES256_GCM,data:H5EcsT3KU6Lca2FcL3DR677EC7urRwCTnt54KuXvR461h1IW7OZ49g==,iv:hxZ3YaWHWrDLdaUdtpzZBhGyJB5snpl7gZ0A+kxf58U=,tag:wuKp2dpBxTtjXghOBDpxYA==,type:str]
+            name: ENC[AES256_GCM,data:YQ458u6IBAfgBQXmILFlQI9+yEc=,iv:bR3hi0zxK6D1kA2YJAa0KKhxrFSMn2VJnBS4RTUP+Zg=,tag:SbWivzQXlEyTvIb7IzjfUg==,type:str]
+            password: ENC[AES256_GCM,data:LkbJxR1mB+WzH0MCpAvSSuU0ghU55Dog+04r+AzP1Ow5yFejcU9aPSjTlW0=,iv:+Tr9g/D9qJCsHjO+Fr+11ft9udApKNataLN4vyxXTrs=,tag:yU2OiAcdG6q/Oe++yuHzxg==,type:str]
     objectStore:
         s3:
             enabled: ENC[AES256_GCM,data:StgnAw==,iv:KpZp81q/1h2AQ+A1BvN15nWN09Ic1na7HGEoCjwzeJ8=,tag:agWyB8896GQo3iaSQlPM+Q==,type:bool]
@@ -118,8 +118,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-12-29T04:39:14Z"
-    mac: ENC[AES256_GCM,data:OiVeCwliLy6/uaCav5eiU3Lf57djaVTGex6iI/V8RBSGh2GhU90xtQQyps+HeLjq+0MS+tcDVlHWVYMINeUfNiSenQR+czQnsIQHr8UrCATV3cEifwXq/NHGixvRqaOpyJdtWcdwHWmyBDm1css4lkfEJFSdwjvXLPwact3eqSQ=,iv:ip0q36Tdr+drcqOGrXbHe7Grs5Ijs+1g9iqyrkMWprU=,tag:VYSOMFecp4FXM5uqVHQHYg==,type:str]
+    lastmodified: "2024-12-30T23:19:06Z"
+    mac: ENC[AES256_GCM,data:kQhf8S6C/XBQMTo9VWdexcKwzUyrhpU64Tb0DJ0cgC8AxM/wORjK8qL1y/VSZORVgRdYfm9Px4NDqatU8wXwHcQ6ga/jquXIk+X8twj0dbwUb+VT1ewUspglkc/lL2km+DAE5ILkfM3+jM/p8KFm1qR62BlHZUT+P3OUXYRhm4E=,iv:LmqtJmhDsZzr4gvmfl56Pq2orFwg6o95f8x1XL7RdTE=,tag:vv/nPee89iio5pzeOJctvA==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-
