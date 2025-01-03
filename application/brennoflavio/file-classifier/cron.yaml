@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: file-classifier
+  namespace: file-classifier
+spec:
+  schedule: "*/5 * * * *"
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: file-classifier
+            image: ghcr.io/brennoflavio/file_classifier:f63fcb24db6130b427d3703d4e7fcc7583d8a22a
+
+            resources:
+              limits:
+                cpu: 100m
+                memory: 128Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            env:
+            - name: NEXTCLOUD_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: file-classifier
+                  key: NEXTCLOUD_USERNAME
+            - name: NEXTCLOUD_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: file-classifier
+                  key: NEXTCLOUD_PASSWORD
+            - name: NEXTCLOUD_DAV_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: file-classifier
+                  key: NEXTCLOUD_DAV_ENDPOINT
+            - name: NEXTCLOUD_FOLDER
+              valueFrom:
+                secretKeyRef:
+                  name: file-classifier
+                  key: NEXTCLOUD_FOLDER
+            - name: NEXTCLOLUD_MAPPING_FILE
+              valueFrom:
+                secretKeyRef:
+                  name: file-classifier
+                  key: NEXTCLOLUD_MAPPING_FILE
