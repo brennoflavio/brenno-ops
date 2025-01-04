@@ -1,0 +1,13 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+- repo: https://github.com/adrienverge/yamllint.git
+  rev: v1.21.0  # or higher tag
+  hooks:
+      - id: yamllint
+        args: [--format, parsable, --strict]
+
+-   repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+    rev: 0.2.3
+    hooks:
+    -   id: yamlfmt

@@ -1,0 +1,231 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nextcloud-temp
+  namespace: nextcloud
+spec:
+  containers:
+  - env:
+    - name: OVERWRITEPROTOCOL
+      value: https
+    - name: MYSQL_HOST
+      value: nextcloud-mariadb
+    - name: MYSQL_DATABASE
+      value: nextcloud
+    - name: MYSQL_USER
+      valueFrom:
+        secretKeyRef:
+          key: db-username
+          name: nextcloud-db
+    - name: MYSQL_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: db-password
+          name: nextcloud-db
+    - name: NEXTCLOUD_ADMIN_USER
+      valueFrom:
+        secretKeyRef:
+          key: nextcloud-username
+          name: nextcloud
+    - name: NEXTCLOUD_ADMIN_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: nextcloud-password
+          name: nextcloud
+    - name: NEXTCLOUD_TRUSTED_DOMAINS
+      value: nextcloud.brennoflavio.com.br
+    - name: NEXTCLOUD_DATA_DIR
+      value: /var/www/html/data
+    - name: MAIL_FROM_ADDRESS
+      value: hello
+    - name: MAIL_DOMAIN
+      value: nextcloud.brennoflavio.com.br
+    - name: SMTP_SECURE
+      value: starttls
+    - name: SMTP_PORT
+      value: "587"
+    - name: SMTP_AUTHTYPE
+      value: LOGIN
+    - name: SMTP_HOST
+      valueFrom:
+        secretKeyRef:
+          key: smtp-host
+          name: nextcloud
+    - name: SMTP_NAME
+      valueFrom:
+        secretKeyRef:
+          key: smtp-username
+          name: nextcloud
+    - name: SMTP_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: smtp-password
+          name: nextcloud
+    - name: REDIS_HOST
+      value: nextcloud-redis-master
+    - name: REDIS_HOST_PORT
+      value: "6379"
+    - name: REDIS_HOST_PASSWORD
+      value: changeme
+    - name: OBJECTSTORE_S3_SSL
+      value: "true"
+    - name: OBJECTSTORE_S3_USEPATH_STYLE
+      value: "false"
+    - name: OBJECTSTORE_S3_AUTOCREATE
+      value: "false"
+    - name: OBJECTSTORE_S3_REGION
+      value: us-east-005
+    - name: OBJECTSTORE_S3_PORT
+      value: "443"
+    - name: OBJECTSTORE_S3_STORAGE_CLASS
+      value: STANDARD
+    - name: OBJECTSTORE_S3_HOST
+      value: s3.us-east-005.backblazeb2.com
+    - name: OBJECTSTORE_S3_BUCKET
+      value: nextcloud-brennoflavio
+    - name: OBJECTSTORE_S3_KEY
+      value: "0055585291314840000000007"
+    - name: OBJECTSTORE_S3_SECRET
+      value: K005xbQMSlte51g6AgEYMh3DJi4P0j4
+    - name: OBJECTSTORE_S3_SSE_C_KEY
+      value: qTaJy2kng5EE7Ssss1iUL1G2TqN3KnWpYs9kZqXx4w0=
+    image: nextcloud:30.0.4-apache
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        httpHeaders:
+        - name: Host
+          value: nextcloud.brennoflavio.com.br
+        path: /status.php
+        port: 80
+        scheme: HTTP
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    name: nextcloud
+    ports:
+    - containerPort: 80
+      name: http
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        httpHeaders:
+        - name: Host
+          value: nextcloud.brennoflavio.com.br
+        path: /status.php
+        port: 80
+        scheme: HTTP
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/www/
+      name: nextcloud-main
+      subPath: root
+    - mountPath: /var/www/html
+      name: nextcloud-main
+      subPath: html
+    - mountPath: /var/www/html/data
+      name: nextcloud-main
+      subPath: data
+    - mountPath: /var/www/html/config
+      name: nextcloud-main
+      subPath: config
+    - mountPath: /var/www/html/custom_apps
+      name: nextcloud-main
+      subPath: custom_apps
+    - mountPath: /var/www/tmp
+      name: nextcloud-main
+      subPath: tmp
+    - mountPath: /var/www/html/themes
+      name: nextcloud-main
+      subPath: themes
+    - mountPath: /var/www/html/config/bruteforce.config.php
+      name: nextcloud-config
+      subPath: bruteforce.config.php
+    - mountPath: /var/www/html/config/logging.config.php
+      name: nextcloud-config
+      subPath: logging.config.php
+    - mountPath: /var/www/html/config/maintenance.config.php
+      name: nextcloud-config
+      subPath: maintenance.config.php
+    - mountPath: /var/www/html/config/phone.config.php
+      name: nextcloud-config
+      subPath: phone.config.php
+    - mountPath: /var/www/html/config/previews.config.php
+      name: nextcloud-config
+      subPath: previews.config.php
+    - mountPath: /var/www/html/config/proxy.config.php
+      name: nextcloud-config
+      subPath: proxy.config.php
+    - mountPath: /var/www/html/config/.htaccess
+      name: nextcloud-config
+      subPath: .htaccess
+    - mountPath: /var/www/html/config/apache-pretty-urls.config.php
+      name: nextcloud-config
+      subPath: apache-pretty-urls.config.php
+    - mountPath: /var/www/html/config/apcu.config.php
+      name: nextcloud-config
+      subPath: apcu.config.php
+    - mountPath: /var/www/html/config/apps.config.php
+      name: nextcloud-config
+      subPath: apps.config.php
+    - mountPath: /var/www/html/config/autoconfig.php
+      name: nextcloud-config
+      subPath: autoconfig.php
+    - mountPath: /var/www/html/config/imaginary.config.php
+      name: nextcloud-config
+      subPath: imaginary.config.php
+    - mountPath: /var/www/html/config/redis.config.php
+      name: nextcloud-config
+      subPath: redis.config.php
+    - mountPath: /var/www/html/config/reverse-proxy.config.php
+      name: nextcloud-config
+      subPath: reverse-proxy.config.php
+    - mountPath: /var/www/html/config/s3.config.php
+      name: nextcloud-config
+      subPath: s3.config.php
+    - mountPath: /var/www/html/config/smtp.config.php
+      name: nextcloud-config
+      subPath: smtp.config.php
+    - mountPath: /var/www/html/config/swift.config.php
+      name: nextcloud-config
+      subPath: swift.config.php
+    - mountPath: /var/www/html/config/upgrade-disable-web.config.php
+      name: nextcloud-config
+      subPath: upgrade-disable-web.config.php
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-7czdx
+      readOnly: true
+  volumes:
+  - name: nextcloud-main
+    persistentVolumeClaim:
+      claimName: nextcloud-nextcloud
+  - configMap:
+      defaultMode: 420
+      name: nextcloud-config
+    name: nextcloud-config
+  - name: kube-api-access-7czdx
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace

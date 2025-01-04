@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frp
+  namespace: frp
+  labels:
+    app: frp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frp
+  template:
+    metadata:
+      labels:
+        app: frp
+    spec:
+      containers:
+      - name: frp
+        image: ghcr.io/fatedier/frps:v0.61.1
+        command: ["/usr/bin/frps", "-c", "/usr/bin/frps-config/frps.toml"]
+        ports:
+        - containerPort: 7000
+        - containerPort: 8080
+        volumeMounts:
+        - name: frp-config
+          mountPath: /usr/bin/frps-config
+          readOnly: true
+      volumes:
+      - name: frp-config
+        secret:
+          secretName: frp-secret
