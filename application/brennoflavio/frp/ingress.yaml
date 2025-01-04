@@ -1,0 +1,48 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homeassistant
+  namespace: frp
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+spec:
+  rules:
+  - host: homeassistant.brennoflavio.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frp-http
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - homeassistant.brennoflavio.com.br
+    secretName: homeassistant-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pihole
+  namespace: frp
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+spec:
+  rules:
+  - host: pihole.brennoflavio.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frp-http
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - pihole.brennoflavio.com.br
+    secretName: pihole-tls

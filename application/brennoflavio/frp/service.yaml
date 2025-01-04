@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frp
+  namespace: frp
+spec:
+  selector:
+    app: frp
+  ports:
+    - protocol: TCP
+      port: 7000
+      targetPort: 7000
+      nodePort: 30000
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frp-http
+  namespace: frp
+  labels:
+    app: frp
+spec:
+  selector:
+    app: frp
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: ClusterIP
