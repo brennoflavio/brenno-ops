@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog
+  namespace: blog
+  labels:
+    app: blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      containers:
+      - name: blog
+        image: ghcr.io/brennoflavio/brennoflavio.com.br:61ef9ac317d29e8d64738339b67e40eba181052c
+        ports:
+        - containerPort: 80
