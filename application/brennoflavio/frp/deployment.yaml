@@ -23,6 +23,7 @@ spec:
         ports:
         - containerPort: 7000
         - containerPort: 8080
+        - containerPort: 5353
         volumeMounts:
         - name: frp-config
           mountPath: /usr/bin/frps-config

@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dns-certificate
+  namespace: dns
+spec:
+  secretName: dns-tls
+  issuerRef:
+    name: lets-encrypt
+    kind: ClusterIssuer
+  commonName: dns.brennoflavio.com.br
+  dnsNames:
+  - dns.brennoflavio.com.br
