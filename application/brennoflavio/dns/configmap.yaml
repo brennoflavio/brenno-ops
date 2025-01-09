@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: dns
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  auto;
+
+    error_log  /var/log/nginx/error.log notice;
+    pid        /var/run/nginx.pid;
+
+    events {
+        worker_connections  1024;
+    }
+
+    stream {
+        # DNS upstream pool
+        upstream dns {
+            zone dns 64k;
+            server 147.79.106.245:30001;
+        }
+
+      # DoT server for decryption
+      server {
+            listen 853 ssl;
+            ssl_certificate /etc/nginx/ssl/tls.crt;
+            ssl_certificate_key /etc/nginx/ssl/tls.key;
+            proxy_pass dns;
+        }
+    }
