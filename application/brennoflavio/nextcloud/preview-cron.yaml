@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: preview-generator
+  namespace: nextcloud
+spec:
+  schedule: "*/10 * * * *"
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: preview-generator
+            image: bitnami/kubectl
+            command:
+            - /bin/sh
+            - -c
+            - |
+              kubectl exec $(kubectl get pods -l "app.kubernetes.io/name=nextcloud" -n nextcloud -o jsonpath='{.items[0].metadata.name}') -n nextcloud -- su -s /bin/sh www-data -c "php occ preview:pre-generate"
+            volumeMounts:
+              - name: preview-secret
+                mountPath: /.kube/config
+                subPath: config
+                readOnly: true
+          volumes:
+            - name: preview-secret
+              secret:
+                secretName: preview-generator-secret

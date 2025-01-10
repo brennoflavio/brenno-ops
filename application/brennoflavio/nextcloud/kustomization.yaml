@@ -5,6 +5,8 @@ resources:
   - namespace.yaml
   - repository.yaml
   - release.yaml
+  - preview-secret.yaml
+  - preview-cron.yaml
 secretGenerator:
   - name: nextcloud-values
     files:
