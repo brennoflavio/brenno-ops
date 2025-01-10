@@ -76,10 +76,11 @@ mariadb:
 collabora:
     enabled: ENC[AES256_GCM,data:vxOu1Q==,iv:U6uLk6GvW0vn7ezve39w4y4kHIZImv96SA11ytu9cdc=,tag:6jarujaC0pCcttUfduz0Hw==,type:bool]
     collabora:
-        server_name: ENC[AES256_GCM,data:H05kozH5D5daoQ95e/EXD+Yho00sKnxTP2IiN5+juQ==,iv:gEFuHaV8UDMX3YTTX0Hd2z1zwKsJ4M4Sjri7YQdd4tQ=,tag:hVKnsCxzGmLGtxx+ftW1bQ==,type:str]
+        username: ENC[AES256_GCM,data:TZHQp28=,iv:MPWv4KIhm3YDRkZfox2EGU3/+u5eDyR7+mW7yc33s88=,tag:TuwRS7Oc5zIcxOBSRAr7Iw==,type:str]
+        password: ENC[AES256_GCM,data:in+0bB+XDzHooqyUfzfbsOcmjFBHkj/HLbGNpA/+W+I=,iv:B2/LXVwyYTLFR8pxRw+7GDvDyKajEDLBbSZ2dPgBDOY=,tag:DWmv0uGwIwKavi19y5225w==,type:str]
         aliasgroups:
-            - host: ENC[AES256_GCM,data:twDB2o1g3Rlf5puLSSw1qnsN9a7didfgNd22g1Q=,iv:y9jEUmRicNobpfntggbqznBUDbbFtnjkqJ/dRjxjeNo=,tag:S52vW+nzNbN2aYMoEd/VoA==,type:str]
-              aliases: []
+            - host: ENC[AES256_GCM,data:WOhM9jAAJK3eFFe1nOkQk3F3gXg8xIT5W93eXLTotjeWt0m7B0SRqas=,iv:foqpS4fKKjSbmHXB+75uCUVsQIzgF6RJvmklbRw6S8U=,tag:nAS8XVq6S2/KRV7QjjADgQ==,type:str]
+        server_name: ENC[AES256_GCM,data:KTOSEL5aerikphTn/UPXtb8PZD7me9aFhIs6dkyNLw==,iv:89rWMtBHbhOqoOEfPj6KUdeMMW/0gcFxeCE1f56rD9o=,tag:dBs9I9W9CiYU/ySBbP51qA==,type:str]
     ingress:
         enabled: ENC[AES256_GCM,data:56saJg==,iv:kl4nNQdmS4feXER4ok02IQYTZKT1Lz7E/TUBUFGxhAg=,tag:SRgKwYEVYw1U/qwIu1/ElQ==,type:bool]
         className: ENC[AES256_GCM,data:hL/4mwk=,iv:dGMbld7CArn9aI7bLSH4ZeT/w3zwxE9c6/MhqT2uQ08=,tag:VsChUKRijqfk483X7A0yYg==,type:str]
@@ -116,8 +117,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2025-01-09T16:24:28Z"
-    mac: ENC[AES256_GCM,data:0jQk8dSgG/HO0cv/m/HSYoDH8Mcr0N6lyvRSIp8RQqVlkJEJTxjPCTEsHpJhZd/xXu+b9SXKr3xysaVyUTVmH+nEEB/iovj6ZIoKEqdjVivG718OnX6jS8AZltRC/MaDjda6GWJPpbKl/tVOLdALnoAzh5sjD2eSaYFE3iJqGck=,iv:aOJ+YK8UXr0+YRRk82DFcVbaWppgUfk1/oPVkHuMQPA=,tag:tR6xYA+PE8W8fO+6UQ88aw==,type:str]
+    lastmodified: "2025-01-10T11:46:11Z"
+    mac: ENC[AES256_GCM,data:Af8+s+72KtPbj+8sM5DXZY2BTNqy14p9WgpbXlESDcud5ReTxGvfsfkz4yiY/6F7kNa1JDWFKGOlLEKsRrTvyG66ZPHsCQ0CLzzygv14eTXTu59dopYGk96ZcIYMFo0lrZJcOMji69+yQp4DsASPRWF6QD2MT/e6FFZHH8nu+Z4=,iv:UZuSqTBIXVyElo51t/S9rJVM9KX9mEhkrG7nAWpc4Vk=,tag:hmjmT2Ips+oW1CGYzFE6HA==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-
