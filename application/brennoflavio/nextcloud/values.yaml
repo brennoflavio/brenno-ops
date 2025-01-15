@@ -37,7 +37,7 @@ nextcloud:
     defaultConfigs:
         imaginary.config.php: ENC[AES256_GCM,data:IkV4xQ==,iv:ZaVYtikwViMzR611nmvFsauMVMXyYG1RY4a/OgKEiJg=,tag:PuWprWvhsjJ5KNQHlZxE9g==,type:bool]
     configs:
-        previews.config.php: ENC[AES256_GCM,data:v0gpq6W8UwvKzNGFicQi1k0V5jhX3AeR/P/Fd8RWx7Zq8/j9kMeVy9bCwZJri+V5xhlJ6KDkPjwTKOE4wPFz9d0xZwXbLpw5csB3oGhMm7vpYKV/8xh6Pn0NARFGfUF253AMMTtt95Z5oovNWGGWQkL5l3GLLnqv9cj9fbORZtJpp/xfIqJEcQmIUHw9cyC+flPnAlKuYts8Ec8KFZ2uob8QxXIRfzdaT2k11I7ihZLgxNemjNyFT4gAqu0v1k4i6FfUO1FwPmyFs2rEI2YlVBJrBjfFHv3JK1hwh+oBUUnsSWfXdc01hNSBQlBd6tCIcxId7PDEWzL+E2Bmz0SJdsfgH6n6VF3TjXZ5u1ops7er/fXqM38WIWrrTOkPtNrOaf2PQOy1LGxbYmhol0cpDxmGaS8Gsysq/OD8+DysPwaEKTpuD3YhKLDxqkS5g0laoTaJ8XP19RqsciLZL4KpLo86PPY5VTMWkVFc1zgoRQCqXItTvIs=,iv:RdEzIRCRjS4nH5/jSy2sys16U+cJ7MubQM4isGkf5B0=,tag:iWmz71XjObVnDfK6FyUeFQ==,type:str]
+        previews.config.php: ENC[AES256_GCM,data:HAe3RamwQTDa8Gg0fskv0rUv21+KMgdM7t2K0Jf3e/qBw+t47n+whtULQI9tS840q6DAE57IUna4Jg091ZhvymCpYNt2MtOmHSf4N1kW+cGrOrdVCZSMKYA12J59YYagv71gOYbDYoadsNITv2ManwyKznhVKufk85jktAchssY3ZTJCFsAULMZ6DjouYRsTJDkbcUSm7m7zCkSAdmujNPbrq6MTnSc0cG0mW5YbY3/re4GBhjqOVAtx8+9Pw4VFgilKMYiNuhIiVCUghq6CEbHYuwJM6loopN7gpMHacMxdKrx9EY+WRJlRa4U6Hgcj850GsR2flWqlc2sAX1YM0Bfu93a8BtZWCzP7bpSacRy6AoL7VnTH+D3WH6zDE5wFCLwqElcJORBc2hw+rGc1HHzhv17Oi5x9F+aMfcJH+fKrLo6auK0s9hzwkZsyzjCXV7QXkoATwJ/q1IxJXCQsgw98f4FHQSCK4KdElVqc9AE/iqFxwS9QVCKxzHD5VTFz/tL45X5S83IqTPDQmdQzZ7p8nEbrSmhX58aqhREN25PcJV/B,iv:pXWorMTJEgjAr/cNC4A1vwPVR0K2YIBkEbMUW/wLIIM=,tag:On6ao7iz0c/k5Ng8GDgj3w==,type:str]
         maintenance.config.php: ENC[AES256_GCM,data:MQDacROjlQbMhvava1AgR4rTSfyIOig20+55++hS5/QL0i9SsUXJb2afbIl0F1QUvQ2RMcpvqrQwJ6vN,iv:guStOHYvEmsnQdesevu1QJo1+tR83oBdnBNuHH46vz4=,tag:iTuGmPHsi/d2T7/e4ukzHw==,type:str]
         proxy.config.php: ENC[AES256_GCM,data:7hLo70ryj43RZ3s5zUZTXzU0N8ddshiUj9d1WRpfy3WieRshJXSuzx0b6O+cz89c+FeaMOGjD8HOepAvVOv4JnH9M33C8AunL5FdJeiN/i+r+O9a8svxdEpmJQOW4W/6U+UD1b/3wjhWaA7xlabOS4lhmuanMx7FKbNI2iWX0dxd/qbwSYjd9Lc4KM/v2PCiF+sYKUNojue7EbEUDP5JzD7J2/F5MNi8qVnr,iv:K4HgRr1gxIVpEH9jZth8hqjdTYskCtlWHUNtV8jtPXQ=,tag:ZhTBEWoMuMY+/9QtlgIc4g==,type:str]
         logging.config.php: ENC[AES256_GCM,data:QTZmWDoIBWCIlq6yhJXgoEIWOBXtH3xgc5svD7+hK/2nkJuG0djxu+c/Hl6/LT1HZZmssRb5+e9Kk04hS+1DaAHgJTCOdo9zt5Slp880V5dxvlN3BuVA9phnBufhLAhWwPyjJ/4xlg==,iv:pYVXRgBv6EKozJgQiKpdfOoaS6vq4CEfJP1MJtxeNxU=,tag:2gyYcaeTvjG+9rI7VtMq8Q==,type:str]
@@ -81,6 +81,7 @@ collabora:
         aliasgroups:
             - host: ENC[AES256_GCM,data:WOhM9jAAJK3eFFe1nOkQk3F3gXg8xIT5W93eXLTotjeWt0m7B0SRqas=,iv:foqpS4fKKjSbmHXB+75uCUVsQIzgF6RJvmklbRw6S8U=,tag:nAS8XVq6S2/KRV7QjjADgQ==,type:str]
         server_name: ENC[AES256_GCM,data:KTOSEL5aerikphTn/UPXtb8PZD7me9aFhIs6dkyNLw==,iv:89rWMtBHbhOqoOEfPj6KUdeMMW/0gcFxeCE1f56rD9o=,tag:dBs9I9W9CiYU/ySBbP51qA==,type:str]
+        extra_params: ENC[AES256_GCM,data:nIK2iBMvLuTO3+KeBlXmA9ZWtZ4osbktqHmW0/PcMFNUlEtbZiPY4tXx++2Usw==,iv:9HblaEPL2jjP7IXvSNNGd432rxwLNhxTagr/9+Z3Ajc=,tag:YL7W3b1l0ABD+mdXzsI71A==,type:str]
     ingress:
         enabled: ENC[AES256_GCM,data:56saJg==,iv:kl4nNQdmS4feXER4ok02IQYTZKT1Lz7E/TUBUFGxhAg=,tag:SRgKwYEVYw1U/qwIu1/ElQ==,type:bool]
         className: ENC[AES256_GCM,data:hL/4mwk=,iv:dGMbld7CArn9aI7bLSH4ZeT/w3zwxE9c6/MhqT2uQ08=,tag:VsChUKRijqfk483X7A0yYg==,type:str]
@@ -117,8 +118,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2025-01-10T11:46:11Z"
-    mac: ENC[AES256_GCM,data:Af8+s+72KtPbj+8sM5DXZY2BTNqy14p9WgpbXlESDcud5ReTxGvfsfkz4yiY/6F7kNa1JDWFKGOlLEKsRrTvyG66ZPHsCQ0CLzzygv14eTXTu59dopYGk96ZcIYMFo0lrZJcOMji69+yQp4DsASPRWF6QD2MT/e6FFZHH8nu+Z4=,iv:UZuSqTBIXVyElo51t/S9rJVM9KX9mEhkrG7nAWpc4Vk=,tag:hmjmT2Ips+oW1CGYzFE6HA==,type:str]
+    lastmodified: "2025-01-15T01:51:20Z"
+    mac: ENC[AES256_GCM,data:YTxlNru6jiyrhhDU3nrO3oKMmhZexeKzGw4eBG5NHXBonkz8ppYT1H+AlmBx1CLT/uNO+sOxTZaV7/UvphCAoUxnZy+S3yFwKJy3EJQ7+qvAWSk/noKDI0j699cUbwxKbwkpdhiQ+k6NvurALIIN7uaj6CYbA10p24iQWv3KILk=,iv:PaOT2QE+A7+95h5Ox6X3qx4d8yAhLe7eLmTp9WX0mDk=,tag:ort9Z0zcxZhl3WrRQr+03A==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-
