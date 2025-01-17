@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-smarthome-integration
+  namespace: google-smarthome-integration
+  labels:
+    app: google-smarthome-integration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: google-smarthome-integration
+  template:
+    metadata:
+      labels:
+        app: google-smarthome-integration
+    spec:
+      containers:
+      - name: google-smarthome-integration
+        image: ghcr.io/brennoflavio/google-smart-home-integration:f59a28cf8b8284cdbcecbae3ba47679a4a5358cd
+        command: ["python", "/app/http_server.py"]
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: google-smarthome-integration-oauth
+          mountPath: /var/secret
+          readOnly: true
+        - name: token
+          mountPath: /var/token
+        envFrom:
+        - secretRef:
+            name: google-smarthome-integration-secrets
+      volumes:
+      - name: google-smarthome-integration-oauth
+        secret:
+          secretName: google-smarthome-integration-oauth
+      - name: token
+        persistentVolumeClaim:
+          claimName: token
