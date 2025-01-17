@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: google-smarthome-integration
+  namespace: google-smarthome-integration
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+spec:
+  rules:
+  - host: smarthome.brennoflavio.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: google-smarthome-integration
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - smarthome.brennoflavio.com.br
+    secretName: smarthome-tls
