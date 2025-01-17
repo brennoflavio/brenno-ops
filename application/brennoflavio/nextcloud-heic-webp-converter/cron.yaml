@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nextcloud-heic-webp-converter
+  namespace: nextcloud-heic-webp-converter
+spec:
+  schedule: "*/5 * * * *"
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: nextcloud-heic-webp-converter
+            image: ghcr.io/brennoflavio/nextcloud-heic-webp-converter:f46bdc8a7a36d57b28c52099b1d6e6c61738d76f
+            command: ["python", "/app/main.py"]
+            resources:
+              limits:
+                cpu: 100m
+                memory: 128Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            envFrom:
+            - secretRef:
+                name: nextcloud-heic-webp-converter
