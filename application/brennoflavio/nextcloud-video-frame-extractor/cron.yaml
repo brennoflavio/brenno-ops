@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nextcloud-video-frame-extractor
+  namespace: nextcloud-video-frame-extractor
+spec:
+  schedule: "*/5 * * * *"
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: nextcloud-video-frame-extractor
+            image: ghcr.io/brennoflavio/nextcloud-video-frame-extractor:1285983580426ea3912f8f8cb8f287ba0d30b45f
+            command: ["python", "/app/main.py"]
+            resources:
+              limits:
+                cpu: 100m
+                memory: 128Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            envFrom:
+            - secretRef:
+                name: nextcloud-video-frame-extractor
+            volumeMounts:
+            - name: nextcloud-video-frame-extractor
+              mountPath: /var/db
+          volumes:
+          - name: nextcloud-video-frame-extractor
+            persistentVolumeClaim:
+              claimName: nextcloud-video-frame-extractor
