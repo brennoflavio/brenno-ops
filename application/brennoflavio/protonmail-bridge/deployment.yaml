@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: protonmail-bridge
+  namespace: protonmail-bridge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: protonmail-bridge
+  template:
+    metadata:
+      labels:
+        app: protonmail-bridge
+    spec:
+      volumes: 
+        - name: protonmail-bridge
+          persistentVolumeClaim: 
+            claimName: protonmail-bridge
+      containers:
+      - name: protonmail-bridge
+        volumeMounts:
+          - mountPath: "/root/"
+            name: protonmail-bridge
+        image: shenxn/protonmail-bridge:3.12.0-1
+        ports:
+        - containerPort: 25
+        - containerPort: 143
