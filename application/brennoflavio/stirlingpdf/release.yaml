@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: stirlingpdf
+  namespace: stirlingpdf
+spec:
+  releaseName: stirlingpdf
+  chart:
+    spec:
+      chart: "charts/stirling-pdf"
+      sourceRef:
+        kind: GitRepository
+        name: stirlingpdf
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  values:
+    envs:
+    - name: ALLOW_GOOGLE_VISIBILITY
+      value: "false"
+    - name: APP_LOCALE
+      value: "pt_BR"
+    resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 80m
+      memory: 64Mi
+    ingress:
+      enabled: true
+      pathType: "ImplementationSpecific"
+      annotations:
+        cert-manager.io/cluster-issuer: lets-encrypt
+      hosts:
+        - name: pdf.brennoflavio.com.br
+          path: /        
+          tls: true
+          tlsSecret: stirlingpdf-tls
