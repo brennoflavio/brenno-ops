@@ -61,7 +61,7 @@ resources:
         memory: ENC[AES256_GCM,data:yfao4Hs=,iv:aBF8viwcCJ/v/10omHeIH2L3qN+cHrgOUVwyDZTfFRc=,tag:+R7SlvSG3XsyFKsP5qO83A==,type:str]
         cpu: ENC[AES256_GCM,data:6C+2,iv:V0ad9Qb+IwVXmO+zEvPxG/VRgHLJD8YnfTf/+NKidzQ=,tag:HhMvmFXXyg3xYxBWKj4uEw==,type:str]
     limits:
-        memory: ENC[AES256_GCM,data:s7rT9hY=,iv:fGsa9PqVcbfVXphfoJVlejprWFyjnrcMkhVPAY2GliU=,tag:Am/PcMpHrB9QlhSiprtA1g==,type:str]
+        memory: ENC[AES256_GCM,data:4V9E,iv:ghn9E76MaeYTC5U1P+v1Xy8aePimG2r/xfaZAD1eOXM=,tag:WCPPq1URlwKfDctd//Krtw==,type:str]
         cpu: ENC[AES256_GCM,data:UdkmsQ==,iv:bZ4Rp+wpz3QWMCglFHM/8NTXpLXssiw+mElsc9OMxOE=,tag:1C+S97z9WrO9nO3l45TyfQ==,type:str]
 internalDatabase:
     enabled: ENC[AES256_GCM,data:rqoLMaI=,iv:Y7WHK3+dDAkgwxQtORZdsknLRks0T4nGCR52IcboqS4=,tag:Ef48Hmw4dMFRekaWiwnGXg==,type:bool]
@@ -113,8 +113,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2025-01-16T04:11:02Z"
-    mac: ENC[AES256_GCM,data:zHuHK9x1B9LBN34HaSOGdVZzCIJl3qjH9+etwVRfn4tr8DCrfWIPEJRwQGwka+BL6ADjgrj3BA3DT0vo7BghXNrELwXb47sccLIUqf3SW1X5MjyIsx9TsCR5X9YNqbA+ijgf5Nv/JgqC9Ztu3V37XMbaFW5JEH4IiQJu95q2qbw=,iv:12r+fPjtLZ4LjHEXdvKLwBupF2LXohiL6YjJPPdeCVk=,tag:3geg3fVA9H8jh0ar2f1eRw==,type:str]
+    lastmodified: "2025-02-01T14:32:32Z"
+    mac: ENC[AES256_GCM,data:UaRHv0QBZvBJ15TzqHPXOqTLJSmCva6DmrquklsQIk8+8bL+3jJVV47bQTvhx4rRhYgWTwDpDtJ020alygd28k11qJsvC/pjsyl0xAjKQZ0IB0YZ+x+k102TWot/U3EWBkPzMc+lQ78U4F7xXRw4vVTmWMeDwqZxD44W9qlyARQ=,iv:VtRRFgsLlrGSxXTFfRy54Zs4OHwqz20aHlhYLUFZDT4=,tag:DSbvI57lD2g8fxfURMIB6w==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-
@@ -138,4 +138,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 6357449C423960593235FB6BE056C483022CCA1B
     unencrypted_suffix: _unencrypted
-    version: 3.9.2
+    version: 3.9.4
