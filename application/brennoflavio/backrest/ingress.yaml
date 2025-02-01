@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backrest
+  namespace: backrest
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+spec:
+  rules:
+  - host: backrest.brennoflavio.com.br
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: backrest
+            port:
+              number: 9898
+  tls:
+  - hosts:
+    - backrest.brennoflavio.com.br
+    secretName: backrest-ingress-tls
