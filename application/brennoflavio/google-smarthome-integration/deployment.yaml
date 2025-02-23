@@ -20,6 +20,13 @@ spec:
       - name: google-smarthome-integration
         image: ghcr.io/brennoflavio/google-smart-home-integration:f59a28cf8b8284cdbcecbae3ba47679a4a5358cd
         command: ["python", "/app/http_server.py"]
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 20m
+            memory: 64Mi
         ports:
         - containerPort: 8080
         volumeMounts:

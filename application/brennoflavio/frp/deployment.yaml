@@ -28,6 +28,13 @@ spec:
         - name: frp-config
           mountPath: /usr/bin/frps-config
           readOnly: true
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 20m
+            memory: 64Mi
       volumes:
       - name: frp-config
         secret:

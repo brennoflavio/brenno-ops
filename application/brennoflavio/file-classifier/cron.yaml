@@ -17,7 +17,6 @@ spec:
           containers:
           - name: file-classifier
             image: ghcr.io/brennoflavio/file_classifier:f63fcb24db6130b427d3703d4e7fcc7583d8a22a
-
             resources:
               limits:
                 cpu: 100m
