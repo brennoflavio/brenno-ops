@@ -15,6 +15,7 @@ spec:
       labels:
         app: protonmail-bridge
     spec:
+      terminationGracePeriodSeconds: 30
       volumes: 
         - name: protonmail-bridge
           persistentVolumeClaim: 
@@ -28,6 +29,10 @@ spec:
         ports:
         - containerPort: 25
         - containerPort: 143
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 10"]
         resources:
           limits:
             cpu: 500m
