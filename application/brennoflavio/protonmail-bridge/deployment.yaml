@@ -1,12 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: protonmail-bridge
   namespace: protonmail-bridge
 spec:
+  serviceName: "protonmail-bridge"
   replicas: 1
-  strategy:
-    type: Recreate
+  podManagementPolicy: OrderedReady
   selector:
     matchLabels:
       app: protonmail-bridge
