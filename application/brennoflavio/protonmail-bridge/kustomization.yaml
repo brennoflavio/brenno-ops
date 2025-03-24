@@ -4,5 +4,5 @@ namespace: protonmail-bridge
 resources:
   - namespace.yaml
   - pvc.yaml
-  - deployment.yaml
+  - statefulset.yaml
   - service.yaml

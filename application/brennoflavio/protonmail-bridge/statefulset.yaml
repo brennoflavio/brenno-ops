@@ -1,12 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: protonmail-bridge
   namespace: protonmail-bridge
 spec:
+  serviceName: "protonmail-bridge"
   replicas: 1
-  strategy:
-    type: Recreate
+  podManagementPolicy: OrderedReady
   selector:
     matchLabels:
       app: protonmail-bridge
@@ -15,7 +15,6 @@ spec:
       labels:
         app: protonmail-bridge
     spec:
-      terminationGracePeriodSeconds: 30
       volumes: 
         - name: protonmail-bridge
           persistentVolumeClaim: 
@@ -29,10 +28,6 @@ spec:
         ports:
         - containerPort: 25
         - containerPort: 143
-        lifecycle:
-          preStop:
-            exec:
-              command: ["/bin/sh", "-c", "sleep 10"]
         resources:
           limits:
             cpu: 500m
@@ -40,3 +35,10 @@ spec:
           requests:
             cpu: 300m
             memory: 256Mi
+        livenessProbe:
+          tcpSocket:
+            port: 143
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
