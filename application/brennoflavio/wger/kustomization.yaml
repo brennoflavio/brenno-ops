@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: wger
+resources:
+  - namespace.yaml
+  - repository.yaml
+  - pvc_beat.yaml
+  - pvc_media.yaml
+  - pvc_postgres.yaml
+  - pvc_redis.yaml
+  - pvc_static.yaml
+  - release.yaml
+secretGenerator:
+  - name: wger-values
+    files:
+      - values.yaml=values.yaml
+configurations:
+  - kustomizeconfig.yaml
