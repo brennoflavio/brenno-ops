@@ -1,8 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: wger
-  namespace: wger
-spec:
-  interval: 1m
-  url: https://wger-project.github.io/helm-charts
