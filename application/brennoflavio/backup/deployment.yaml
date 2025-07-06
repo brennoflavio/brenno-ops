@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backup
+  namespace: backup
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backup
+  template:
+    metadata:
+      labels:
+        app: backup
+    spec:
+      containers:
+        - name: backup
+          image: dockurr/samba
+          ports:
+            - containerPort: 445
+              protocol: TCP
+          volumeMounts:
+            - name: backup
+              mountPath: /storage
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          envFrom:
+            - secretRef:
+                name: backup-secrets
+      volumes:
+        - name: backup
+          persistentVolumeClaim:
+            claimName: backup

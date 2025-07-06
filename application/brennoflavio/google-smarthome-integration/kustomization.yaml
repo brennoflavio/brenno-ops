@@ -6,9 +6,4 @@ resources:
   - oauth-secret.yaml
   - environment-variable-secret.yaml
   - pvc.yaml
-  - deployment.yaml
-  - service.yaml
-  - ingress.yaml
-  - calendar-cron.yaml
   - keep-cron.yaml
-  - tasks-cron.yaml

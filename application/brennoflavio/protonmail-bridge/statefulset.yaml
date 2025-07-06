@@ -19,22 +19,28 @@ spec:
         - name: protonmail-bridge
           persistentVolumeClaim: 
             claimName: protonmail-bridge
+        - name: mail-certificate
+          secret:
+            secretName: mail-tls
       containers:
       - name: protonmail-bridge
         volumeMounts:
           - mountPath: "/root/"
             name: protonmail-bridge
+          - name: mail-certificate
+            mountPath: /etc/ssl
+            readOnly: true
         image: shenxn/protonmail-bridge:3.12.0-1
         ports:
         - containerPort: 25
         - containerPort: 143
         resources:
           limits:
-            cpu: 500m
-            memory: 1024Mi
+            cpu: 1000m
+            memory: 2048Mi
           requests:
-            cpu: 300m
-            memory: 256Mi
+            cpu: 500m
+            memory: 512Mi
         livenessProbe:
           tcpSocket:
             port: 143

@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: storage-template
+  namespace: immich
+spec:
+  schedule: "0 7 * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+          - name: storage-template
+            image: curlimages/curl:latest
+            command:
+            - /bin/sh
+            - -c
+            - |
+              curl --request PUT \
+                --url https://photos.brennoflavio.com.br/api/jobs/storageTemplateMigration \
+                --header "content-type: application/json" \
+                --header "x-api-key: $API_KEY" \
+                --data '{
+                "command": "start",
+                "force": false
+              }'
+            env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: storage-template-secret
+                  key: API_KEY
+          restartPolicy: Never
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: immich-tmp
+  namespace: immich
+spec:
+  selector:
+    app.kubernetes.io/instance: immich
+    app.kubernetes.io/name: server
+  ports:
+    - protocol: TCP
+      port: 2283
+      targetPort: 2283
+      nodePort: 30004
+      name: immich
+  type: NodePort

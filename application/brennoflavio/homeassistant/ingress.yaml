@@ -2,23 +2,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: backrest
-  namespace: backrest
+  name: homeassistant
+  namespace: homeassistant
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt
 spec:
   rules:
-  - host: backrest.brennoflavio.com.br
+  - host: homeassistant.brennoflavio.com.br
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: backrest
+            name: homeassistant
             port:
-              number: 9898
+              number: 80
   tls:
   - hosts:
-    - backrest.brennoflavio.com.br
-    secretName: backrest-tls
+    - homeassistant.brennoflavio.com.br
+    secretName: homeassistant-tls

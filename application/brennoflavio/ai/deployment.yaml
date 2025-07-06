@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama-cpp
+  namespace: ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama-cpp
+  template:
+    metadata:
+      labels:
+        app: llama-cpp
+    spec:
+      initContainers:
+      - name: model-downloader
+        image: busybox:latest
+        command: ['sh', '-c']
+        args:
+          - |
+            if [ ! -f /models/mistral-7b-instruct-v0.2.Q5_K_M.gguf ]; then
+              echo "Model file not found, downloading..."
+              wget -O /models/mistral-7b-instruct-v0.2.Q5_K_M.gguf https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q5_K_M.gguf
+              echo "Download complete"
+            else
+              echo "Model file already exists"
+            fi
+        volumeMounts:
+          - name: models
+            mountPath: /models
+      containers:
+      - name: llama-cpp
+        image: ghcr.io/ggml-org/llama.cpp:server
+        args:
+          - "--model"
+          - "/models/mistral-7b-instruct-v0.2.Q5_K_M.gguf"
+          - "--threads"
+          - "8"
+          - "--ctx-size"
+          - "32768"
+          - "--port"
+          - "8080"
+        volumeMounts:
+          - name: models
+            mountPath: /models
+        resources:
+          limits:
+            cpu: 12000m
+            memory: 12000Mi
+          requests:
+            cpu: 8000m
+            memory: 8000Mi
+        ports:
+          - containerPort: 8080
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: models

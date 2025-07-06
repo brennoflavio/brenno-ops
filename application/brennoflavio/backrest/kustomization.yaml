@@ -3,6 +3,6 @@ kind: Kustomization
 namespace: backrest
 resources:
   - namespace.yaml
-  - service.yaml
   - endpointslice.yaml
+  - service.yaml
   - ingress.yaml

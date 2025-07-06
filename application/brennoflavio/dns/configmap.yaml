@@ -19,7 +19,7 @@ data:
         # DNS upstream pool
         upstream dns {
             zone dns 64k;
-            server 147.79.106.245:30001;
+            server 192.168.0.201:53;
         }
 
       # DoT server for decryption
