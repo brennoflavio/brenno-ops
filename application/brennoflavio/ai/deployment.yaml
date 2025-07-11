@@ -41,6 +41,7 @@ spec:
           - "32768"
           - "--port"
           - "8080"
+          - "--jinja"
         volumeMounts:
           - name: models
             mountPath: /models
