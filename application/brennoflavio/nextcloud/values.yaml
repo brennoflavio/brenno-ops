@@ -2,6 +2,7 @@ ingress:
     enabled: ENC[AES256_GCM,data:4DyBJA==,iv:KBxoG6PuXrNMFF2Xrx+QOah1jPXxSqLS7cIeiRYGpEY=,tag:3WDed79OVX6xvumsBmRoJA==,type:bool]
     annotations:
         cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:gudSFOYNARr+WPVg,iv:uHE4j5yLnSnVs2/4jFu2hTq6Qj47ioQv72VYSsB+TsU=,tag:+E3rWFCPQEFJoV3zjC2LDA==,type:str]
+        external-dns.alpha.kubernetes.io/target: ENC[AES256_GCM,data:tja2BtFNWsq5WbzNdi3ABT/ozg==,iv:mXAJpF8CtbUWJq48ZKrFm+6+ZOUWyjdV9W5LNFtmhW0=,tag:8WvFpacL7sHUhD7FcH5X0g==,type:str]
         nginx.ingress.kubernetes.io/affinity: ENC[AES256_GCM,data:I7H5oRg8,iv:QhXRO9TFsFXEAQ4XaHEaJz2hiWv/WwFEdltPXuTFFmI=,tag:Hw2Nt7bQ87M9lQDDSgvsSg==,type:str]
         nginx.ingress.kubernetes.io/server-snippet: ENC[AES256_GCM,data:Yx7vICydNcCZT4SlPUQ1njbhCEWUNji+rQ7enp/JMX/s2PUuYGIrTGEPtIUQ0N3Vrp8NGf652IjxJQU9ajT2Bk1dEiwVAOc7WZvJJ2jfeOXSbIsPzhjCZCpCeE3P3s5DaWqhoakkyaY7p1Y2I6P4FGmdMgeBrRW3emmwXgscqnyzos9EAs0H5H9/gLM8hYuX4PDbWrpBZq5313oGGYtqQMO6r6CdJoiZm2gOyXFpRNQ7YFeRJT5lrfcqscUEM3vJxzok6ttQFuv5XAQq374iXGV36S4iggrrX9ENeV4mxhtCUIKCn2+NmDEhprdoXEM5wuXSaNXnF/De2bTD2URvyzs4x6ezv5ISTjs7VsC1Kc3+kEp7gKwkUoSMaHtn6s4PtSr4t+2txPrt4iEeP9Pwb+ZwO2C+GMqvsZxiZNxodF/7YgI0YnRHsDemL3MRr2t2vjd+dL+pveEA0Mc85W8X88YqtcZiTb/MpD1QhDXQ8JH89qLN/es1MX8IZSqVVVnG0c5VkZiayRhXLhfu9kb0yGKxM45lYm1nCRC0os2jiTxVK8zEnZT+OIwLnTHegNi0bGccY2Xl29xIg9JYWCC2mT8Ei5tk1+Y49hjpQztQFMRzGICuSv9rQy0cmjGC3QZeLAomWn4EqVIrfh9yy3egeyVKTMT2IQTT7D9WymAwuymSaXt5AWQulRdM5WOYNa9/mpM7bmmRKiOBciq2so/9CAg8Emy3NExyUY2sY70puw8EkmNrA6Zv4qie3wHPpUIkqq0xBpYh2iKEPg64n3vB2JOd7ccCUWNbL0LnJnPu+EOk0BSs6tFqSkPvrknqYDJgP6HhiLKwaw19K7f+rKJckaCefpGlAZjOempf4AIhQkMtG2/OH9OLGHKWgg5zWIxeEaPyTsl8rKOZqtIr7g62YLOfGAV6RFcJjgIeGkaJWAB4zX8lPRM4HgYz0uh6gcUv7Vw=,iv:8EsxSVU4GIXR0qoJ1KFk21m+aiA+uphJyXa1bdAYHDA=,tag:5hoJ7QC0xvqVHXEac5BJlg==,type:str]
         nginx.ingress.kubernetes.io/proxy-body-size: ENC[AES256_GCM,data:MQ==,iv:2h2mY0TkJScAYNrrx/j2lMNyEwoBchFXD2TTwqSdchs=,tag:DQWJ3Ep+VY9az6dcO3Vx3g==,type:str]
@@ -121,8 +122,8 @@ nginx:
         headers:
             Strict-Transport-Security: ENC[AES256_GCM,data:AFfZ5M1YEBYWvRtLT9IN9ZRH8i1GmpAbb6IYAE0bQc5CLKkl,iv:2CmIYHQSUO8ueSb4FlvdwNl5WloLwGZWlrkxeDBjj5I=,tag:otR52Jl5jr0sJzhX1ds6nA==,type:str]
 sops:
-    lastmodified: "2025-07-09T04:04:10Z"
-    mac: ENC[AES256_GCM,data:0PZcFuu4RKWiFOpRACXVdHE2rtczeVORg+FwVRQMQBZSSEHtLQA+qdZLM5zn9QVYCTKV76QRd/kTa8fIkO4gfNWGLPyT4P+h9H1NIxHQive9E6WlTe/axkmWWpDtK4k6stMIUUt4EBNfezPGeGgxTXSIpWOJoeZdQs7k8L49bYA=,iv:ki0f6X8v0K7qYJ0s48b+zJpqkI423tAn2vBBMQmWv2w=,tag:mmHxJClfOC3EIE1jSNGIsQ==,type:str]
+    lastmodified: "2025-07-12T03:43:19Z"
+    mac: ENC[AES256_GCM,data:PFWBRUtJzfoKoskJ9VYly0KrRneC5IZL4/vZCWSIiYLo+f+uQtiNTDNUa7cUh4IOVmeFkchCF6IBLMnnJ9rBuKNG5QgQGUP1MEfkZmrRBqjpHMEDvRLfmxOQ5i2u4GCkiPaRwYab6hxOs400NN37bZZakk4x7nkjcUMJPSSrFa8=,iv:+/xEd5K1ggTw0NHAZT6MotfmUd+qfCGjLaBazh8xM3U=,tag:BMpcv+SOAzRQSaG/LbmkcQ==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-

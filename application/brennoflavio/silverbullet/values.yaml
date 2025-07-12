@@ -15,6 +15,7 @@ ingress:
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: ENC[AES256_GCM,data:KA==,iv:0dyppohgdbA0/u2SyFluOGaZn9cDkuC5vGV9mK+CfSE=,tag:NM2LUZo91Y1XFuFMmrQZ/Q==,type:str]
         cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:FDghfGebV8nsG+tG,iv:dlPxkLpKfdfd9NP7YdVdqh9ortzu505ukHsS2QggHlg=,tag:eVXTTuS7aNDwwKi+ch5tJg==,type:str]
+        external-dns.alpha.kubernetes.io/target: ENC[AES256_GCM,data:MJhkQxFiGOAfDzJ1ohIr2fpe9A==,iv:GxszxvTBlPDmuuURIY6Y6RH643bsL/yRqeFJo4kaRl4=,tag:spX4mNKtwCLQ4tPL5sPmFw==,type:str]
 resources:
     requests:
         memory: ENC[AES256_GCM,data:PpnRgt8=,iv:DD9wDQgJZ5AcEqwDC8FvkYZLr9T38qKBgjm7wgBVAu4=,tag:BxseroyldroO0px7prYJMA==,type:str]
@@ -30,13 +31,8 @@ volumeMounts:
     - name: ENC[AES256_GCM,data:r2AtiJs=,iv:+VJH+HN40acBJv+NLoQGtOXYLyAFDDXW3b1ybCgVZTE=,tag:hRsesUbKi6cO8q0igLidRA==,type:str]
       mountPath: ENC[AES256_GCM,data:0KM8hdNw,iv:C3Ebm8xHfsgMlXzIUg72tqsNlwk4j5U/qaeKuttLRJg=,tag:RE7dbf2hd9CSC5XtW2o5ew==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age: []
-    lastmodified: "2024-12-26T22:12:24Z"
-    mac: ENC[AES256_GCM,data:g8s/hUcnWBzis1cFpkU4Anvze0Kg5fuQYtubFPckqHZpgdlExu6VJK0SLo811b7TpEcETraO0Ro1DwXVVElpD3iEbzbo3jOyeLkIRie0q/T6gC+xJvgtPLWoOL+qHlMO2Ccacl9gX9kLrNDBO7AhwywUHdraNdJEWSVr4Z4zgLA=,iv:0PJ2FiUR4E4cUAaGJs6Ktb2tRdw9lTrjDgEWmcUOgaA=,tag:56wni/rIC1fHZN0c5LVgJw==,type:str]
+    lastmodified: "2025-07-12T03:44:10Z"
+    mac: ENC[AES256_GCM,data:oJNp4FYUBBwpWPTIArVSh5ZVZC9yH9OuR5gyZkC1BBoNnxhQxcN56rVx2rTKLu6e+ATvpFTe3FI4vb40CZ6SJ8F2Zw75GqLqF6JckBDvnT9hwr7C9knhSE91U1hufsffZi/azhnFD7hpKR6Vu37DVRno5AHUEPglQmeIULzCLuk=,iv:h98dGTisLq+LVlqRYm71tnka8Y4ey9k0Z61hD7dL0g8=,tag:QgH/QJ5wImA/M5iykJUXRg==,type:str]
     pgp:
         - created_at: "2024-12-26T20:22:39Z"
           enc: |-
@@ -60,4 +56,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 6357449C423960593235FB6BE056C483022CCA1B
     unencrypted_suffix: _unencrypted
-    version: 3.9.2
+    version: 3.10.2

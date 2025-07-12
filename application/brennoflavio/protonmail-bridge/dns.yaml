@@ -1,0 +1,12 @@
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: mail-dns
+  namespace: protonmail-bridge
+spec:
+  endpoints:
+  - dnsName: mail.brennoflavio.com.br
+    recordTTL: 300
+    recordType: CNAME
+    targets:
+    - brennoflavio.com.br

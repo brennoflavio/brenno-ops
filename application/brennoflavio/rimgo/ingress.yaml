@@ -9,6 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
     cert-manager.io/cluster-issuer: lets-encrypt
+    external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
 spec:
   rules:
   - host: rimgo.brennoflavio.com.br

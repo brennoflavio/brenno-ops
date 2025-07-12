@@ -46,6 +46,7 @@ spec:
       annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /
         cert-manager.io/cluster-issuer: lets-encrypt
+        external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
     resources:
       limits:
         cpu: 200m

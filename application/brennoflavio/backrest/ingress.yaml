@@ -6,6 +6,7 @@ metadata:
   namespace: backrest
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt
+    external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
 spec:
   rules:
   - host: backrest.brennoflavio.com.br

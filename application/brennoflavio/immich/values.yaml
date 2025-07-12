@@ -25,6 +25,7 @@ server:
             annotations:
                 cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:Ske2hfnt17c5gE0F,iv:JTyLJgKN9dET81yWeGQWVfO/EzYvXQczQ4p541/zrY0=,tag:w7/YxO2VlijV/xvID+1BCQ==,type:str]
                 nginx.ingress.kubernetes.io/proxy-body-size: ENC[AES256_GCM,data:zg==,iv:8wzWdYM2xNonePoKQsAU4gSlOvqJW2X8KQqm6gl1LCk=,tag:iI8sAL3pJY2rnMoYmS0fvw==,type:str]
+                external-dns.alpha.kubernetes.io/target: ENC[AES256_GCM,data:bRMTyKtlCwKv0PHbohJnG9YeAw==,iv:jFiOFmW8HM1zVloikyho9QmVoyxYvI61ra0YtBUUPN0=,tag:fbt1v8jWoJuz83GPQI8kvQ==,type:str]
             hosts:
                 - host: ENC[AES256_GCM,data:r6l6k0681MmqXU6rnieuixDfNIrb3yBAAxw=,iv:tXqAZUGb1yuCPbQ1vDKzQr/5BQbKbmzy5Ykjw8rQOWk=,tag:J/AptPeBPdgWebhNUVKRrQ==,type:str]
                   paths:
@@ -54,8 +55,8 @@ resources:
         memory: ENC[AES256_GCM,data:hwRF,iv:1at6h3NSdUkqXmtdEsTTsOqF7r5qXEEk41oBZzvbBls=,tag:s0oHcSKDkdyJQkxJxNtR3A==,type:str]
         cpu: ENC[AES256_GCM,data:vGSPxlE=,iv:edXqrSSZ7kkZGmT0I5+/43IliNO4quIMTbgxZ9Wi7wI=,tag:6din6ClUMN7Gqg5tI1xxNQ==,type:str]
 sops:
-    lastmodified: "2025-07-10T12:27:05Z"
-    mac: ENC[AES256_GCM,data:s5YoDn60r7zW/KjCeTAixnhR0pCQViupoWzflNOg7UGv0qZJk862oTXYXgTA27JbsOOsHetqo6C/DYZV2YI7DHZRWCN53AJWRc4eHlaNo4vhvQsJJ640+UiNs3pCHZdMPp374sJqB3khTb+33HkzZqR4EtnL4GsQ1guxlONwhD4=,iv:pI0jCkGxfxal9e9i48fMRcd0NTMFBl/fgZXh4TU6zE0=,tag:GzPQkbNYPdWKzIYEo5MaFg==,type:str]
+    lastmodified: "2025-07-12T03:42:44Z"
+    mac: ENC[AES256_GCM,data:edMi0t4G0S1tR8jiDrQKTKbKU0b4LNoHpyg1TTI0nBWuuRV46D6IipXeVLWkDocvENP5qOTF+txAVmeLM47vq8wJbHeau5iVtE27lNa+Uio1MZ1cIB2VJW9bgQ77vR8AQh2PFP7r+3mQUIkeuquPopmgAja/kyRTSpdVmTuT7vQ=,iv:6K2y5RMJLxl+yhto8e+htXa9N6Aa6h74Zpwq8g5HMxc=,tag:9Xgi1Jbgr2QTnKAr6XfkoQ==,type:str]
     pgp:
         - created_at: "2025-07-07T04:01:07Z"
           enc: |-

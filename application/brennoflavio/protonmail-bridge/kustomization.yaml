@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: protonmail-bridge
 resources:
   - namespace.yaml
+  - dns.yaml
   - certificate.yaml
   - pvc.yaml
   - statefulset.yaml

@@ -27,6 +27,7 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: lets-encrypt
+          external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
         hosts:
           - host: rssbridge.brennoflavio.com.br
             paths:
