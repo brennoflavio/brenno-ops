@@ -5,7 +5,7 @@ metadata:
   namespace: protonmail-bridge
 spec:
   endpoints:
-  - dnsName: mail.brennoflavio.com.br
+  - dnsName: proton.brennoflavio.com.br
     recordTTL: 300
     recordType: CNAME
     targets:

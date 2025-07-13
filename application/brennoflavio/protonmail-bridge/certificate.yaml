@@ -8,6 +8,6 @@ spec:
   issuerRef:
     name: lets-encrypt
     kind: ClusterIssuer
-  commonName: mail.brennoflavio.com.br
+  commonName: proton.brennoflavio.com.br
   dnsNames:
-  - mail.brennoflavio.com.br
+  - proton.brennoflavio.com.br
