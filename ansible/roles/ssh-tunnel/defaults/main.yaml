@@ -1,0 +1,4 @@
+service_group: root
+service_user: root
+service_working_directory: /root
+tunnel_ssh_key_path: /root/.ssh/ssh_tunnel_key

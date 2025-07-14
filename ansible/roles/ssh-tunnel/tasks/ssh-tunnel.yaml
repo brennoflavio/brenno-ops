@@ -1,0 +1,31 @@
+---
+- name: Install OpenSSH client
+  package:
+    name: openssh-client
+    state: present
+
+- name: Deploy SSH private key from vault
+  copy:
+    content: "{{ vault_ssh_private_key }}"
+    dest: "{{ tunnel_ssh_key_path }}"
+    owner: "{{ service_user }}"
+    group: "{{ service_group }}"
+    mode: '0600'
+
+- name: Deploy systemd service file
+  template:
+    src: ssh-tunnel.service.j2
+    dest: "/etc/systemd/system/{{ service_name }}.service"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - reload systemd
+    - restart service
+
+- name: Enable and start SSH tunnel service
+  systemd:
+    name: "{{ service_name }}"
+    enabled: yes
+    state: started
+    daemon_reload: yes

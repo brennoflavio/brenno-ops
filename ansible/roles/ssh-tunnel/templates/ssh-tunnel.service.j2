@@ -1,0 +1,41 @@
+[Unit]
+Description={{ service_description }}
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ service_user }}
+Group={{ service_group }}
+WorkingDirectory={{ service_working_directory }}
+
+# SSH tunnel command with options for stability
+ExecStart=/usr/bin/ssh -N \
+  -o ServerAliveInterval=60 \
+  -o ServerAliveCountMax=3 \
+  -o ExitOnForwardFailure=yes \
+  -o StrictHostKeyChecking=no \
+  -o UserKnownHostsFile=/dev/null \
+  -o PasswordAuthentication=no \
+  -i {{ tunnel_ssh_key_path }} \
+  -p {{ tunnel_remote_ssh_port | default(22) }} \
+  -L 0.0.0.0:{{ tunnel_local_port }}:localhost:{{ tunnel_remote_port }} \
+  {{ tunnel_ssh_user }}@{{ tunnel_remote_host }}
+
+# Restart configuration
+Restart=always
+RestartSec=10
+StartLimitInterval=60
+StartLimitBurst=3
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ReadWritePaths={{ service_working_directory }}
+
+# Capabilities needed for binding to privileged port 25
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

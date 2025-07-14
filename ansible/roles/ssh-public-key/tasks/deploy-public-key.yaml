@@ -1,0 +1,6 @@
+---
+- name: Deploy SSH public key to remote host
+  authorized_key:
+    user: "{{ ssh_user }}"
+    state: present
+    key: "{{ lookup('file', 'ssh_tunnel_key.pub') }}"

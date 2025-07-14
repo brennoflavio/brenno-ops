@@ -1,0 +1,3 @@
+---
+- name: Deploy SSH public key to remote host
+  include_tasks: deploy-public-key.yaml

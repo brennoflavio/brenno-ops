@@ -1,0 +1,2 @@
+- name: Setup SSH tunnel service
+  include_tasks: ssh-tunnel.yaml
