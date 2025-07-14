@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: dns
 resources:
   - namespace.yaml
+  - dns.yaml
   - certificate.yaml
   - configmap.yaml
   - deployment.yaml
