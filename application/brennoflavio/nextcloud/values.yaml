@@ -89,6 +89,7 @@ collabora:
         className: ENC[AES256_GCM,data:jNGWJmk=,iv:dLgf5TfHt9DDQmtAmvIqcjhunX54FaEtap5YN8M/n4k=,tag:ihxkSH8ASsypD1nv5xGy8Q==,type:str]
         annotations:
             cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:zXuA2d5fCMGni+nK,iv:krEG1UO9poNsSUMBqeNixiPoThYQFvdwqWbA3FXIxkA=,tag:2pFbrjIb7a1d6CV7SXYTWQ==,type:str]
+            external-dns.alpha.kubernetes.io/target: ENC[AES256_GCM,data:9Sx+hsuGuWZRiIdHOjZCp0ScGw==,iv:Tlx0Q5E3oU54tKuVRjAvvJOF/GWdLAyJtu9mngz90SY=,tag:ay9/ND9JHPBSd61Qyrxoow==,type:str]
         hosts:
             - host: ENC[AES256_GCM,data:nzdNA92pWCq+VzMIl6admSvpARAgEiyMizwdp7nUtQ==,iv:jnz1mLacNOAScRBryVafGBFIOy0UV5aHfNmnjtKq9pA=,tag:K7qB1872CEAKwFom+R5msw==,type:str]
               paths:
@@ -122,8 +123,8 @@ nginx:
         headers:
             Strict-Transport-Security: ENC[AES256_GCM,data:AFfZ5M1YEBYWvRtLT9IN9ZRH8i1GmpAbb6IYAE0bQc5CLKkl,iv:2CmIYHQSUO8ueSb4FlvdwNl5WloLwGZWlrkxeDBjj5I=,tag:otR52Jl5jr0sJzhX1ds6nA==,type:str]
 sops:
-    lastmodified: "2025-07-12T03:43:19Z"
-    mac: ENC[AES256_GCM,data:PFWBRUtJzfoKoskJ9VYly0KrRneC5IZL4/vZCWSIiYLo+f+uQtiNTDNUa7cUh4IOVmeFkchCF6IBLMnnJ9rBuKNG5QgQGUP1MEfkZmrRBqjpHMEDvRLfmxOQ5i2u4GCkiPaRwYab6hxOs400NN37bZZakk4x7nkjcUMJPSSrFa8=,iv:+/xEd5K1ggTw0NHAZT6MotfmUd+qfCGjLaBazh8xM3U=,tag:BMpcv+SOAzRQSaG/LbmkcQ==,type:str]
+    lastmodified: "2025-07-14T17:16:28Z"
+    mac: ENC[AES256_GCM,data:xT7AXvUw5G7WN2i1DUkjbjhSV4YQfNty/rR7PQer9nrsh6PmJ5+l9JKZdNrD4lUbRH3ydqg8Mfh7b5JgJ/gUGxVCDwEN8+NobCEXusbu0d+lHHxSccoH7EWjmWeOZPVSW5Nwrh7+OqP/LbEwaYYmN2d5iqAjxZGC2jhZD2B/u+s=,iv:QffPxEJAqm8eYrfumcqAlYcRXN3wwwBl0UuwRKNXMdo=,tag:RDKPPtlwFl/7DR5oGzUUGw==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-
