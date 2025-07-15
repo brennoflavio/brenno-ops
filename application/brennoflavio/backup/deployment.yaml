@@ -18,6 +18,7 @@ spec:
           image: dockurr/samba
           ports:
             - containerPort: 445
+              hostPort: 445
               protocol: TCP
           volumeMounts:
             - name: backup
