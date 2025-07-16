@@ -15,35 +15,36 @@
         tunnel_ssh_user: root
         tunnel_remote_host: brennoflavio.com.br
         tunnel_remote_ssh_port: 8822
+        tunnel_private_ip: 192.168.0.202
       loop:
         - service_name: port_25_forward
           service_description: Forward port 25 to remote host
           tunnel_local_port: 25
-          tunnel_remote_port: 8825
+          tunnel_remote_port: 25
         - service_name: port_587_forward
           service_description: Forward port 587 to remote host
           tunnel_local_port: 587
-          tunnel_remote_port: 8587
+          tunnel_remote_port: 587
         - service_name: port_110_forward
           service_description: Forward port 110 to remote host
           tunnel_local_port: 110
-          tunnel_remote_port: 8110
+          tunnel_remote_port: 110
         - service_name: port_143_forward
           service_description: Forward port 143 to remote host
           tunnel_local_port: 143
-          tunnel_remote_port: 8143
+          tunnel_remote_port: 143
         - service_name: port_465_forward
           service_description: Forward port 465 to remote host
           tunnel_local_port: 465
-          tunnel_remote_port: 8465
+          tunnel_remote_port: 465
         - service_name: port_995_forward
           service_description: Forward port 995 to remote host
           tunnel_local_port: 995
-          tunnel_remote_port: 8995
+          tunnel_remote_port: 995
         - service_name: port_993_forward
           service_description: Forward port 993 to remote host
           tunnel_local_port: 993
-          tunnel_remote_port: 8993
+          tunnel_remote_port: 993
         - service_name: port_80_forward
           service_description: Forward port 80 to remote host
           tunnel_local_port: 80

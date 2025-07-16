@@ -1,0 +1,62 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: roundcube
+  namespace: mail
+spec:
+  releaseName: roundcube
+  chart:
+    spec:
+      chart: roundcube
+      version: 1.9.0
+      sourceRef:
+        kind: HelmRepository
+        name: roundcube
+        namespace: mail
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  values:
+    database:
+      source: external
+    externalDatabase:
+      type: sqlite
+      host: /var/roundcube/db
+    imap:
+      host: mail.brennoflavio.com.br
+      port: 993
+      encryption: ssltls
+    smtp:
+      host: mail.brennoflavio.com.br
+      port: 587
+      encryption: starttls
+      username: "%u"
+      password: "%p"
+    deployment:
+      strategy:
+        type: Recreate
+      replicas: 1
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "100m"
+        limits:
+          memory: "256Mi"
+          cpu: "100m"
+      additionalVolumeMounts:
+      - name: roundcube-db
+        mountPath: /var/roundcube/db
+      additionalVolumes:
+      - name: roundcube-db
+        persistentVolumeClaim:
+          claimName: roundcube-db
+    ingress:
+      enabled: true
+      useTLS: true
+      host: mail.brennoflavio.com.br
+      ingressClassName: public
+      tls:
+        secretName: mail-tls
+      additionalAnnotations:
+        cert-manager.io/cluster-issuer: lets-encrypt

@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: solr
+  namespace: mail
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: solr
+  template:
+    metadata:
+      labels:
+        app: solr
+    spec:
+      containers:
+        - name: solr
+          image: solr:9.8.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 4096Mi
+            requests:
+              cpu: 2000m
+              memory: 4096Mi
+          env:
+            - name: SOLR_JAVA_MEM
+              value: "-Xms3g -Xmx3g"
+          ports:
+            - containerPort: 8983
+          volumeMounts:
+            - name: solr
+              mountPath: /var/solr
+      volumes:
+        - name: solr
+          persistentVolumeClaim:
+            claimName: solr

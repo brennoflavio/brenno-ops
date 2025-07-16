@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: autodiscover
+  namespace: mail
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+    external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
+spec:
+  rules:
+  - host: autodiscover.brennoflavio.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: autodiscover
+            port:
+              number: 8000
+  tls:
+  - hosts:
+    - autodiscover.brennoflavio.com.br
+    secretName: autodiscover-tls

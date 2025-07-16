@@ -4,3 +4,17 @@ namespace: mail
 resources:
   - namespace.yaml
   - certificate.yaml
+  - claim.yaml
+  - secret.yaml
+  - dovecot-configs.yaml
+  - solr-claim.yaml
+  - solr-deployment.yaml
+  - solr-service.yaml
+  - deployment.yaml
+  - autodiscover-deployment.yaml
+  - autodiscover-service.yaml
+  - autoconfig-ingress.yaml
+  - autodiscover-ingress.yaml
+  - roundcube-repository.yaml
+  - roundcube-claim.yaml
+  - roundcube-release.yaml

@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: autodiscover
+  namespace: mail
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: autodiscover
+  template:
+    metadata:
+      labels:
+        app: autodiscover
+    spec:
+      containers:
+        - name: autodiscover
+          image: monogramm/autodiscover-email-settings:66c144e
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 25m
+              memory: 64Mi
+          env:
+            - name: COMPANY_NAME
+              value: Brenno Almeida
+            - name: SUPPORT_URL
+              value: https://autodiscover.brennoflavio.com.br
+            - name: DOMAIN
+              value: brennoflavio.com.br
+            - name: IMAP_HOST
+              value: mail.brennoflavio.com.br
+            - name: IMAP_PORT
+              value: "993"
+            - name: IMAP_SOCKET
+              value: SSL
+            - name: SMTP_HOST
+              value: mail.brennoflavio.com.br
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_SOCKET
+              value: STARTTLS
+          ports:
+            - containerPort: 8000
