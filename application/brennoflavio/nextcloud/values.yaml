@@ -28,8 +28,10 @@ nextcloud:
             password: ENC[AES256_GCM,data:LkbJxR1mB+WzH0MCpAvSSuU0ghU55Dog+04r+AzP1Ow5yFejcU9aPSjTlW0=,iv:+Tr9g/D9qJCsHjO+Fr+11ft9udApKNataLN4vyxXTrs=,tag:yU2OiAcdG6q/Oe++yuHzxg==,type:str]
     defaultConfigs:
         imaginary.config.php: ENC[AES256_GCM,data:IkV4xQ==,iv:ZaVYtikwViMzR611nmvFsauMVMXyYG1RY4a/OgKEiJg=,tag:PuWprWvhsjJ5KNQHlZxE9g==,type:bool]
+        redis.config.php: ENC[AES256_GCM,data:c8BPw5Q=,iv:2JHu0/MuOnH7tKYWwzPp2yZ24nK5y0SfiHq/AFJMsFw=,tag:fOIXcxFuHfMp6uuosuCN2w==,type:bool]
     configs:
         previews.config.php: ENC[AES256_GCM,data:W11m2BPPI5He/fF9VVb2tJDZIuXE+hZquW1dHIlxZDCH28Ya36op4RH9kIdGaBsRWEqxNeXq4lzK8eSEcRSoB+vmsZ5ZXmI3Vn57a8ocgXThF+UXBkx7FixK86t16drCUdQBIOHYp3VbdvTMSR7M3tny6Jnci0UgRfuo0PO5j5oSZpgHtRX4QecvJPX7by8eVRBA7YF6InrzuVdy/dev4icR3vC++DxyKruesRZ1UFeNFq/22Gx4iBIchGi09l6jXQhZWY2xj434v0g50Xdf/eRzD9PTYdkQtFpGiWw13JTWrIBXFeodsZ7IOVpDnCblphIxJppkgTIq0TlkghCtLRtLce/vEM0pOt4MYJ90yEghOFn+l7nz+M0LzM2+w+O1yjgJsJmhEOKNbarKpHLxnabufNTYuuPBOC6b2vGbLOzWglU62KwdttbFZ4N3clGPtvu7SwWm9RvYusrvgREo58MK0GNow8w2CzxH0krghBCIVR9kMj3uvG0dFmFK3NH+0zS/7pQ9FNjNQ8DQjHqtAIjtFjzWOXko3H94dfQpf1sGAZCt,iv:qddgChs9SIsariRUGqxTWiw4Ig3+vZa6izoUKyqadhQ=,tag:PCW74jLHP03y4YgKVT9t/Q==,type:str]
+        redis.config.php: ENC[AES256_GCM,data:AJ7VMNC+Wdczu414v/FiXKy83mjCk060ebCkJUzCcFFbYLunpfQkMjy8lCivNkbCxJ9O/Hb5bd4c48+IH/yU/drx28zQCc9ydufcWPD55VtasfpUeUeTVYObsiDuqia3NVH9Od2B7c1hRkaDp3uxu7a/UMZABUKeXbnSD1cfKMMf8yqfSR1ET6O24rXruE+3FmLOLr063savbgU2j7+hyLSrllQ7tbDubxOnZW2toQoIZ5FaqGWm5EFBYlPyPhC4qdtKPtPVKvf/hlXvpFx6cYtr0kI4hZtk9IyLsDC1q9gASTm4UOR8jXY=,iv:NZrYtGRr1lQgUgfjcIEGqdV7IIKxYkdOIpy/0+ZB4Xg=,tag:WDxR8SkVzDpWyoWfrU4M2g==,type:str]
         maintenance.config.php: ENC[AES256_GCM,data:MQDacROjlQbMhvava1AgR4rTSfyIOig20+55++hS5/QL0i9SsUXJb2afbIl0F1QUvQ2RMcpvqrQwJ6vN,iv:guStOHYvEmsnQdesevu1QJo1+tR83oBdnBNuHH46vz4=,tag:iTuGmPHsi/d2T7/e4ukzHw==,type:str]
         proxy.config.php: ENC[AES256_GCM,data:7hLo70ryj43RZ3s5zUZTXzU0N8ddshiUj9d1WRpfy3WieRshJXSuzx0b6O+cz89c+FeaMOGjD8HOepAvVOv4JnH9M33C8AunL5FdJeiN/i+r+O9a8svxdEpmJQOW4W/6U+UD1b/3wjhWaA7xlabOS4lhmuanMx7FKbNI2iWX0dxd/qbwSYjd9Lc4KM/v2PCiF+sYKUNojue7EbEUDP5JzD7J2/F5MNi8qVnr,iv:K4HgRr1gxIVpEH9jZth8hqjdTYskCtlWHUNtV8jtPXQ=,tag:ZhTBEWoMuMY+/9QtlgIc4g==,type:str]
         logging.config.php: ENC[AES256_GCM,data:QTZmWDoIBWCIlq6yhJXgoEIWOBXtH3xgc5svD7+hK/2nkJuG0djxu+c/Hl6/LT1HZZmssRb5+e9Kk04hS+1DaAHgJTCOdo9zt5Slp880V5dxvlN3BuVA9phnBufhLAhWwPyjJ/4xlg==,iv:pYVXRgBv6EKozJgQiKpdfOoaS6vq4CEfJP1MJtxeNxU=,tag:2gyYcaeTvjG+9rI7VtMq8Q==,type:str]
@@ -38,14 +40,7 @@ nextcloud:
 persistence:
     enabled: ENC[AES256_GCM,data:NMvAog==,iv:MjZBOQY0YYLXsFAE6LfFepax5zcqhoOVvN2u7B1Wj2o=,tag:cJBvex7BDJ4uhhL1I8l+0Q==,type:bool]
 redis:
-    enabled: ENC[AES256_GCM,data:vnbZVw==,iv:/8SZ8Jnfq4D/e5jL7c6Ko5o0EQjJUeIlEzqBAohdD8g=,tag:fHNcEr5bMMknjx3xzxLo6g==,type:bool]
-    resources:
-        requests:
-            memory: ENC[AES256_GCM,data:3OMriW0=,iv:hDTYhRi7tw67mz/1VOzpo5gH3jFQY2sMdnD/Sy6Vhno=,tag:6LMl4fapel9nX0t/QgPC3Q==,type:str]
-            cpu: ENC[AES256_GCM,data:Ljb6uA==,iv:F43K/Fjo/pkHfdc/UH9zASbaikTLD/DAAg40I+Il73E=,tag:svc83ujLJoN4C1/pmC8xfg==,type:str]
-        limits:
-            memory: ENC[AES256_GCM,data:+Xty,iv:SkoRGY5zqNMaHoQnStdndxo3p3vNRaJpvmFGaCRkeGE=,tag:uFnfxNL/afGQfg7eIAJdEg==,type:str]
-            cpu: ENC[AES256_GCM,data:P8zQRA==,iv:KrAS8y6uXZqDJfKOQqcubKUeB2aOsCUYg7dHMBF06vo=,tag:jCUFB8BYv7safCZS4yps4A==,type:str]
+    enabled: ENC[AES256_GCM,data:NBe2J7o=,iv:RdB2IbicPkrMqdrgqg5W599D3HfbXXinC2zDlebkALc=,tag:NKg2Ff4R+2FuQ201ZTp8GA==,type:bool]
 cronjob:
     enabled: ENC[AES256_GCM,data:Po0P1A==,iv:fkp8weyt3GRP6pSvZyNemy3M8WkByy5RWaGC9yGotlI=,tag:drAZatEp/txjJTBhNYzUVw==,type:bool]
     resources:
@@ -123,8 +118,13 @@ nginx:
         headers:
             Strict-Transport-Security: ENC[AES256_GCM,data:AFfZ5M1YEBYWvRtLT9IN9ZRH8i1GmpAbb6IYAE0bQc5CLKkl,iv:2CmIYHQSUO8ueSb4FlvdwNl5WloLwGZWlrkxeDBjj5I=,tag:otR52Jl5jr0sJzhX1ds6nA==,type:str]
 sops:
-    lastmodified: "2025-07-14T17:16:28Z"
-    mac: ENC[AES256_GCM,data:xT7AXvUw5G7WN2i1DUkjbjhSV4YQfNty/rR7PQer9nrsh6PmJ5+l9JKZdNrD4lUbRH3ydqg8Mfh7b5JgJ/gUGxVCDwEN8+NobCEXusbu0d+lHHxSccoH7EWjmWeOZPVSW5Nwrh7+OqP/LbEwaYYmN2d5iqAjxZGC2jhZD2B/u+s=,iv:QffPxEJAqm8eYrfumcqAlYcRXN3wwwBl0UuwRKNXMdo=,tag:RDKPPtlwFl/7DR5oGzUUGw==,type:str]
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2025-07-27T16:28:47Z"
+    mac: ENC[AES256_GCM,data:30A4h8WWELxQ2kek8hiHw839kCgdzQxZ+Au1O+YMha5unheOsCrx8kajOHJprxnK3CFk0spWfRxwP+ET9SFC9wuxV7kANRgFRaPazFM84Vu7ah5zzMi74Al1rOLbPL3GPvOHIjy6Sfr/NI4Q9wAes0B1Q0PZ92FLAEVf9ZCXTpI=,iv:Lr2UMxODswDFwmcDZ8v93qwv08v+bKYHaBypDbxz3KY=,tag:i8cfQ8nNizbjaNi5uZcQLg==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-
