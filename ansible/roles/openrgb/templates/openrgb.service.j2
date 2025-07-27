@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenRGB Startup Color Set
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/openrgb --mode direct --color 000000
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

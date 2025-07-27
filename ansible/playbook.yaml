@@ -1,6 +1,7 @@
 - hosts: server
   roles:
     - ssh-public-key
+    - openrgb
 
 - hosts: hostinger
   tasks:

@@ -1,0 +1,42 @@
+---
+- name: Download OpenRGB deb package
+  ansible.builtin.get_url:
+    url: https://openrgb.org/releases/release_candidate_1.0rc1/openrgb_1.0rc1_amd64_bookworm_1fbacde.deb
+    dest: /tmp/openrgb_1.0rc1_amd64_bookworm_1fbacde.deb
+    mode: '0644'
+  become: yes
+
+- name: Install OpenRGB deb package
+  ansible.builtin.apt:
+    deb: /tmp/openrgb_1.0rc1_amd64_bookworm_1fbacde.deb
+    state: present
+  become: yes
+
+- name: Create OpenRGB systemd service
+  ansible.builtin.template:
+    src: openrgb.service.j2
+    dest: /etc/systemd/system/openrgb.service
+    mode: '0644'
+  become: yes
+  register: openrgb_service
+
+- name: Force systemd daemon reload
+  ansible.builtin.systemd:
+    daemon_reload: yes
+  become: yes
+  when: openrgb_service.changed
+
+- name: Enable and restart OpenRGB service
+  ansible.builtin.systemd:
+    name: openrgb
+    enabled: yes
+    state: restarted
+  become: yes
+  when: openrgb_service.changed
+
+- name: Ensure OpenRGB service is started
+  ansible.builtin.systemd:
+    name: openrgb
+    enabled: yes
+    state: started
+  become: yes
