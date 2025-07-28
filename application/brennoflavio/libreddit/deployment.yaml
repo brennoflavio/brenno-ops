@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: libreddit
+  namespace: libreddit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: libreddit
+  template:
+    metadata:
+      labels:
+        app: libreddit
+    spec:
+      containers:
+        - name: libreddit
+          image: quay.io/redlib/redlib:sha-d7ec07c
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          env:
+            - name: PORT
+              value: "8080"
+            - name: SFW_ONLY
+              value: "off"
+            - name: BANNER
+              value: ""
+            - name: ROBOTS_DISABLE_INDEXING
+              value: "on"
+            - name: PUSHSHIFT_FRONTEND
+              value: "undelete.pullpush.io"
+            - name: ENABLE_RSS
+              value: "on"
+            - name: FULL_URL
+              value: "libreddit.brennoflavio.com.br"
+            - name: REDLIB_DEFAULT_THEME
+              value: "system"
+            - name: REDLIB_DEFAULT_FRONT_PAGE
+              value: "default"
+            - name: REDLIB_DEFAULT_LAYOUT
+              value: "card"
+            - name: REDLIB_DEFAULT_WIDE
+              value: "off"
+            - name: REDLIB_DEFAULT_POST_SORT
+              value: "hot"
+            - name: REDLIB_DEFAULT_COMMENT_SORT
+              value: "confidence"
+            - name: REDLIB_DEFAULT_BLUR_SPOILER
+              value: "off"
+            - name: REDLIB_DEFAULT_SHOW_NSFW
+              value: "on"
+            - name: REDLIB_DEFAULT_BLUR_NSFW
+              value: "off"
+            - name: REDLIB_DEFAULT_USE_HLS
+              value: "on"
+            - name: REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION
+              value: "off"
+            - name: REDLIB_DEFAULT_AUTOPLAY_VIDEOS
+              value: "off"
+            - name: REDLIB_DEFAULT_SUBSCRIPTIONS
+              value: ""
+            - name: REDLIB_DEFAULT_HIDE_AWARDS
+              value: "off"
+            - name: REDLIB_DEFAULT_DISABLE_VISIT_REDDIT_CONFIRMATION
+              value: "off"
+            - name: REDLIB_DEFAULT_HIDE_SCORE
+              value: "off"
+            - name: REDLIB_DEFAULT_HIDE_SIDEBAR_AND_SUMMARY
+              value: "off"
+            - name: REDLIB_DEFAULT_FIXED_NAVBAR
+              value: "on"
+          command: ["redlib"]
+          args: ["-a", "0.0.0.0"]

@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: libreddit
+  namespace: libreddit
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+    external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: auth-secret
+    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+spec:
+  rules:
+  - host: libreddit.brennoflavio.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: libreddit
+            port:
+              number: 8080
+  tls:
+  - hosts:
+    - libreddit.brennoflavio.com.br
+    secretName: libreddit-tls
