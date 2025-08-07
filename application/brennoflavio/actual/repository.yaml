@@ -1,8 +1,0 @@
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: actual
-  namespace: actual
-spec:
-  interval: 1m
-  url: https://community-charts.github.io/helm-charts
