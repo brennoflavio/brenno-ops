@@ -7,9 +7,10 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: auth-secret
-    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+    # nginx.ingress.kubernetes.io/auth-type: basic
+    # nginx.ingress.kubernetes.io/auth-secret: auth-secret
+    # nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+    nginx.ingress.kubernetes.io/limit-rps: "10"
 spec:
   rules:
   - host: libreddit.brennoflavio.com.br
