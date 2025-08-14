@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: immich-meme-detector
+  namespace: immich-meme-detector
+spec:
+  schedule: "0 0 1 * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: immich-meme-detector
+            image: ghcr.io/brennoflavio/immich-meme-detector:91bdacc664fcabf6f599d118b7907955e91cce5d
+            resources:
+              limits:
+                cpu: 100m
+                memory: 128Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            envFrom:
+            - secretRef:
+                name: immich-meme-detector
