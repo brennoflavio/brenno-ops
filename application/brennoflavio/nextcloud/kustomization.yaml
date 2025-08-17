@@ -6,6 +6,8 @@ resources:
   - redis-pvc.yaml
   - redis-deployment.yaml
   - redis-service.yaml
+  - mariadb-pvc.yaml
+  - nextcloud-pvc.yaml
   - repository.yaml
   - release.yaml
   - preview-secret.yaml

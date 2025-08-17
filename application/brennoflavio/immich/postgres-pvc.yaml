@@ -6,6 +6,8 @@ metadata:
     io.kompose.service: database
   name: database
   namespace: immich
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
 spec:
   accessModes:
     - ReadWriteOnce

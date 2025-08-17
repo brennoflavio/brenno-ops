@@ -2,6 +2,7 @@
   roles:
     - ssh-public-key
     - openrgb
+    - k3s
 
 - hosts: hostinger
   tasks:

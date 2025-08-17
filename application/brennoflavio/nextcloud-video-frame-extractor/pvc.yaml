@@ -4,6 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: nextcloud-video-frame-extractor
   namespace: nextcloud-video-frame-extractor
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
 spec:
   accessModes:
   - ReadWriteOnce

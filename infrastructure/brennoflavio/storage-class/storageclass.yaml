@@ -5,7 +5,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/ssa: merge
     kustomize.toolkit.fluxcd.io/force: enabled
     storageclass.kubernetes.io/is-default-class: "true"
-  name: microk8s-hostpath
-provisioner: microk8s.io/hostpath
+  name: local-path
+provisioner: rancher.io/local-path
 reclaimPolicy: Delete
 volumeBindingMode: Immediate

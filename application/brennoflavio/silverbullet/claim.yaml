@@ -4,6 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: space
   namespace: silverbullet
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
 spec:
   accessModes: [ReadWriteOnce]
   resources: { requests: { storage: 8Gi } }

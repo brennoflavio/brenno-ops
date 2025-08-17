@@ -6,6 +6,8 @@ metadata:
     io.kompose.service: atuin-claim0
   name: atuin-claim0
   namespace: atuin
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
 spec:
   accessModes:
     - ReadWriteOnce

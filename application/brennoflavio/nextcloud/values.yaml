@@ -10,7 +10,7 @@ ingress:
         - hosts:
             - ENC[AES256_GCM,data:ndcK7fbeKFd2lLvvK4py586A+qk3kQZOxkaaX2o=,iv:T+G+isndmfV4PnEZurMlfSvscZz+S9sQOi8oGgR2uIM=,tag:60oUmdavltVAFBbp+qL5Og==,type:str]
           secretName: ENC[AES256_GCM,data:rXv5zDbNYD1JzXydWIVDKDmEcmQ7,iv:7m/uZAxnIHb4Jk1qX8QXDt7DzmygAQoFCQeMoQrydZY=,tag:J76SBsVxapZSav4exhoOGg==,type:str]
-replicaCount: ENC[AES256_GCM,data:1w==,iv:GA6sy1WdMg285YGEpRXkneiWE9abCyMTs0wqxqRBnI0=,tag:iUfoH1/JxYqjez0pPjpJcA==,type:int]
+replicaCount: ENC[AES256_GCM,data:Sw==,iv:gXB486pCnKBza/tfWvxbvOmDGx9exzOWD13dNghN3i0=,tag:7ik0JBPwrB3QMJL2GXuc1g==,type:int]
 nextcloud:
     host: ENC[AES256_GCM,data:UM+LLMKCQdUhj+wpbzdP3Jxnq/AmsJzBEp+cDvg=,iv:qZTUtpL28q9koiEgiDHux9fQ1lpc2bwBSg7ClQVZJDY=,tag:HCLPgWrLKCRmG1RgMuFxbw==,type:str]
     username: ENC[AES256_GCM,data:8+WNc4N1,iv:385zsuZRzOL/lv1TlFbduqEUQb8Eje33/eOlwBHt9Ag=,tag:yTBGiriqzbx5ihLDuzb06Q==,type:str]
@@ -39,6 +39,7 @@ nextcloud:
         bruteforce.config.php: ENC[AES256_GCM,data:0+sX92fvIDjSpbO44axzZB36X0RGmnc3BHvGadAJaETbpM2wFveT4nYqFtyh7aJYoPChfJWv/p8NewutoDhRarCh5f86tKXbIQjebA==,iv:x/7nb0WACglGhWLYzFywwFe8E0CUgPzvhCR7eh3oo2k=,tag:2QZpIfewKlyfkXiEbgvr9g==,type:str]
 persistence:
     enabled: ENC[AES256_GCM,data:NMvAog==,iv:MjZBOQY0YYLXsFAE6LfFepax5zcqhoOVvN2u7B1Wj2o=,tag:cJBvex7BDJ4uhhL1I8l+0Q==,type:bool]
+    existingClaim: ENC[AES256_GCM,data:/NgyKnlCkQeO,iv:3rAeeTfbaUcZW9Tvmfk7F5x3GZXccPoi0JF31l/Ma6M=,tag:mSjoyw+eoF3fH504rdD7Lg==,type:str]
 redis:
     enabled: ENC[AES256_GCM,data:NBe2J7o=,iv:RdB2IbicPkrMqdrgqg5W599D3HfbXXinC2zDlebkALc=,tag:NKg2Ff4R+2FuQ201ZTp8GA==,type:bool]
 cronjob:
@@ -67,13 +68,14 @@ mariadb:
     primary:
         persistence:
             enabled: ENC[AES256_GCM,data:YkQFOA==,iv:YnCLxu1Up87KtyOLKDzO+xELdO6y7rx637UlYLYJs6s=,tag:j68L4edUqLOtMNXp8XEF+w==,type:bool]
-            resources:
-                requests:
-                    memory: ENC[AES256_GCM,data:6iJFMF0=,iv:im88rwLLiH1aYtx8jDBIBdI6SugDEJ4MxPhINZ8wm3w=,tag:FuTD6T8ejVoS+WIJ86W/GQ==,type:str]
-                    cpu: ENC[AES256_GCM,data:KPW/Jg==,iv:cV0PVUuEVPXZlPV/+CyCjg2zH4CYliLl948xru+L6m8=,tag:R7/E8p06B7dqc7d/HKFa0A==,type:str]
-                limits:
-                    memory: ENC[AES256_GCM,data:EyjM,iv:7mB/tTW2zB4JEOcfJREUFtaObzfO2uU8z3+zyrDH3GQ=,tag:q8HnExY2IDESgw2vhPpnww==,type:str]
-                    cpu: ENC[AES256_GCM,data:iLqPAQ==,iv:TBS7vIB2hd+zmFUMdiwkfdK/nd4XIA+3RBmfitNPads=,tag:6Q9lweQO3RN3vYHDzTWsxQ==,type:str]
+            existingClaim: ENC[AES256_GCM,data:HyocK6+J4g==,iv:rWkofAEMjnBK2ez2h1MB7Gvi/Zfck702xr/Nf6M9ZyQ=,tag:b2owwizgtGhwBe69FYOpTg==,type:str]
+        resources:
+            requests:
+                memory: ENC[AES256_GCM,data:R0oy7bc=,iv:ndaZb1Gkq7jaY4zY1+krO1kBMCuD0uvZIwQd/w0r764=,tag:n9s508KjJIuhhi9Xihrh3Q==,type:str]
+                cpu: ENC[AES256_GCM,data:ezbKwQ==,iv:KH4pjvjSGuARhPjI/ire6N7tBhaIkKZy7YVweidkasU=,tag:mpkhvOdzJTPMj0j1Mr/vIw==,type:str]
+            limits:
+                memory: ENC[AES256_GCM,data:iJ5J,iv:5DNP0m4iG6/8K76cHO2VxQeFA1LXSc1mh3dhUibKYkU=,tag:VcAfTCrL+o2+hSwyW0wgvg==,type:str]
+                cpu: ENC[AES256_GCM,data:uj2y9A==,iv:MK6l6wKo1FzG6VaTlXxDnPccGsKD0locXWcWrSNId9Q=,tag:AMyqLmSu8dvYwUoCCkMSzA==,type:str]
 collabora:
     enabled: ENC[AES256_GCM,data:JabwCg==,iv:49uYF0lt29IbOvlVaHT0CwNcX9olCwNbd5q0RlfVdtA=,tag:/pTL3LaoTQdDWz4TZi1zoQ==,type:bool]
     replicaCount: ENC[AES256_GCM,data:Vg==,iv:j4BNd6LGAM6KwCnfWNya0QqbdE7rh9bXFM/vcTxHgQk=,tag:EMYzvMZe3Q2IHCEv+pZl5Q==,type:int]
@@ -123,8 +125,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2025-07-27T16:28:47Z"
-    mac: ENC[AES256_GCM,data:30A4h8WWELxQ2kek8hiHw839kCgdzQxZ+Au1O+YMha5unheOsCrx8kajOHJprxnK3CFk0spWfRxwP+ET9SFC9wuxV7kANRgFRaPazFM84Vu7ah5zzMi74Al1rOLbPL3GPvOHIjy6Sfr/NI4Q9wAes0B1Q0PZ92FLAEVf9ZCXTpI=,iv:Lr2UMxODswDFwmcDZ8v93qwv08v+bKYHaBypDbxz3KY=,tag:i8cfQ8nNizbjaNi5uZcQLg==,type:str]
+    lastmodified: "2025-08-18T12:24:04Z"
+    mac: ENC[AES256_GCM,data:ay2eFd1cWUspY+bwqUEMfgKC35a5oVfjD9zetFBiY9mIo8ChS81IPqKxyEoQtzpbojtKCgqpCaBgzmC6yJ+keEAulJhZCoko88vGJ7G9F3SCwxnxHiB0LttsIO809sSHnq01TgCSrZJ/EIvHCPhKZLhpC+aZRryw98PFu3inff0=,iv:nWfOElcU8B3uQQeWNvYEbcYE6pM5qnvxbMGDz4gdj1g=,tag:C/8zqtswSNEFpbG2DAbXpA==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-

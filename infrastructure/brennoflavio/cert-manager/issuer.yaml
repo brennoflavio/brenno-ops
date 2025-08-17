@@ -7,8 +7,8 @@ spec:
    email: contato@brennoflavio.com.br
    server: https://acme-v02.api.letsencrypt.org/directory
    privateKeySecretRef:
-     name: lets-encrypt-priviate-key
+     name: lets-encrypt-private-key
    solvers:
    - http01:
        ingress:
-         class: public
+         class: nginx

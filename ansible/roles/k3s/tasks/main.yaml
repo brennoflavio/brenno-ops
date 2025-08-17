@@ -1,0 +1,42 @@
+---
+- name: Check if k3s is already installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/k3s
+  register: k3s_installed
+
+- name: Download and install k3s
+  ansible.builtin.shell: |
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="{{ k3s_exec_args }}" sh -
+  when: not k3s_installed.stat.exists
+  become: true
+
+- name: Ensure k3s service is started and enabled
+  ansible.builtin.systemd:
+    name: k3s
+    state: started
+    enabled: true
+  become: true
+
+- name: Wait for k3s to be ready
+  ansible.builtin.wait_for:
+    port: 6443
+    host: "{{ ansible_default_ipv4.address }}"
+    delay: 10
+    timeout: 300
+  when: not k3s_installed.stat.exists
+
+- name: Ensure kubeconfig has correct permissions
+  ansible.builtin.file:
+    path: /etc/rancher/k3s/k3s.yaml
+    mode: "{{ k3s_kubeconfig_mode }}"
+  become: true
+
+- name: Check k3s service status
+  ansible.builtin.systemd:
+    name: k3s
+  register: k3s_service_status
+  become: true
+
+- name: Display k3s service status
+  ansible.builtin.debug:
+    msg: "K3s service is {{ k3s_service_status.status.ActiveState }}"

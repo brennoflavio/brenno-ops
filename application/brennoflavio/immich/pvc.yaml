@@ -6,6 +6,8 @@ metadata:
     app: immich
   name: immich
   namespace: immich
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
 spec:
   accessModes:
     - ReadWriteOnce

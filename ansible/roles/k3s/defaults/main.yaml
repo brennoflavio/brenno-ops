@@ -1,0 +1,3 @@
+---
+k3s_exec_args: "--disable=traefik --write-kubeconfig-mode 644"
+k3s_kubeconfig_mode: "0644"

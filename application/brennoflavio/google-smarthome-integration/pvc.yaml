@@ -4,6 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: token
   namespace: google-smarthome-integration
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
 spec:
   accessModes:
   - ReadWriteOnce

@@ -3,6 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: mail
   namespace: mail
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
 spec:
   accessModes:
   - ReadWriteOnce
