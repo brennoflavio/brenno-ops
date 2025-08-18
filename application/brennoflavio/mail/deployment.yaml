@@ -29,7 +29,7 @@ spec:
       hostname: mail
       containers:
         - name: mail
-          image: ghcr.io/docker-mailserver/docker-mailserver:15.0.2
+          image: ghcr.io/docker-mailserver/docker-mailserver:15.1.0
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: true
