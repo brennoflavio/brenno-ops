@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ut
+  namespace: ut
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ut
+  template:
+    metadata:
+      labels:
+        app: ut
+    spec:
+      containers:
+        - name: ut
+          image: ghcr.io/brennoflavio/ut-server:4cd55b782a376d8816eb6457e62e4a78d5490d61
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: ut-secrets
+          volumeMounts:
+            - name: ut-storage
+              mountPath: /var/ut
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+      volumes:
+        - name: ut-storage
+          persistentVolumeClaim:
+            claimName: ut
