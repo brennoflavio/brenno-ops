@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synapse
+  namespace: matrix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: synapse
+  template:
+    metadata:
+      labels:
+        app: synapse
+    spec:
+      containers:
+        - name: synapse
+          image: matrixdotorg/synapse:sha-f8a4463
+          ports:
+            - containerPort: 8008
+          volumeMounts:
+            - name: synapse
+              mountPath: /data
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+            requests:
+              cpu: 1000m
+              memory: 2048Mi
+      volumes:
+        - name: synapse
+          persistentVolumeClaim:
+            claimName: synapse

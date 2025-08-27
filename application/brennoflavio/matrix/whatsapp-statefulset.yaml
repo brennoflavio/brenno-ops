@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: whatsapp
+  namespace: matrix
+spec:
+  serviceName: "whatsapp"
+  replicas: 1
+  podManagementPolicy: OrderedReady
+  selector:
+    matchLabels:
+      app: whatsapp
+  template:
+    metadata:
+      labels:
+        app: whatsapp
+    spec:
+      containers:
+      - name: whatsapp
+        image: dock.mau.dev/mautrix/whatsapp:08948811bb0968f5ebccc7ac682aac4134975d51-amd64
+        volumeMounts:
+          - name: whatsapp
+            mountPath: /data
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        ports:
+          - containerPort: 29318
+      volumes:
+        - name: whatsapp
+          persistentVolumeClaim:
+            claimName: whatsapp
