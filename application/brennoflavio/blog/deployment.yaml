@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: blog
-        image: ghcr.io/brennoflavio/brennoflavio.com.br:61ef9ac317d29e8d64738339b67e40eba181052c
+        image: nginx:alpine
         ports:
         - containerPort: 80
         resources:
@@ -28,3 +28,10 @@ spec:
           requests:
             cpu: 20m
             memory: 64Mi
+        volumeMounts:
+        - name: blog-storage
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: blog-storage
+        persistentVolumeClaim:
+          claimName: blog
