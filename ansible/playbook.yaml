@@ -4,6 +4,10 @@
     - openrgb
     - k3s
 
+- hosts: monitoring
+  roles:
+    - uptime-kuma
+
 - hosts: hostinger
   tasks:
     - name: Create multiple SSH forwarding services

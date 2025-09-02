@@ -1,0 +1,124 @@
+---
+- name: Install Docker via snap
+  snap:
+    name: docker
+    state: present
+  become: yes
+
+- name: Ensure Docker service is started and enabled
+  systemd:
+    name: snap.docker.dockerd.service
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Pull Uptime Kuma Docker image
+  docker_image:
+    name: "{{ uptime_kuma_image }}"
+    source: pull
+    state: present
+  become: yes
+
+- name: Create Uptime Kuma volume
+  docker_volume:
+    name: "{{ uptime_kuma_volume_name }}"
+    state: present
+  become: yes
+
+- name: Run Uptime Kuma container
+  docker_container:
+    name: "{{ uptime_kuma_container_name }}"
+    image: "{{ uptime_kuma_image }}"
+    state: started
+    restart_policy: always
+    ports:
+      - "{{ uptime_kuma_bind_ip }}:{{ uptime_kuma_port }}:3001"
+    volumes:
+      - "{{ uptime_kuma_volume_name }}:/app/data"
+    detach: yes
+  become: yes
+
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Install Certbot via snap
+  snap:
+    name: certbot
+    classic: yes
+    state: present
+  become: yes
+
+- name: Create symlink for certbot
+  file:
+    src: /snap/bin/certbot
+    dest: /usr/bin/certbot
+    state: link
+  become: yes
+
+- name: Stop nginx temporarily for certbot
+  systemd:
+    name: nginx
+    state: stopped
+  become: yes
+
+- name: Check if certificate already exists
+  stat:
+    path: "/etc/letsencrypt/live/{{ uptime_kuma_domain }}/fullchain.pem"
+  register: cert_exists
+  become: yes
+
+- name: Generate SSL certificate with Certbot (standalone)
+  command: |
+    certbot certonly --standalone \
+    --non-interactive \
+    --agree-tos \
+    --email {{ certbot_email }} \
+    -d {{ uptime_kuma_domain }} \
+    -d {{ uptime_kuma_secondary_domain }}
+  when: not cert_exists.stat.exists
+  become: yes
+
+- name: Create nginx site configuration
+  template:
+    src: uptime-kuma.conf.j2
+    dest: "/etc/nginx/sites-available/{{ uptime_kuma_domain }}"
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+  notify: reload nginx
+
+- name: Enable nginx site
+  file:
+    src: "/etc/nginx/sites-available/{{ uptime_kuma_domain }}"
+    dest: "/etc/nginx/sites-enabled/{{ uptime_kuma_domain }}"
+    state: link
+  become: yes
+  notify: reload nginx
+
+- name: Remove default nginx site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  become: yes
+  notify: reload nginx
+
+- name: Ensure nginx is started and enabled
+  systemd:
+    name: nginx
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Setup automatic certificate renewal
+  cron:
+    name: "Certbot renewal for {{ uptime_kuma_domain }}"
+    job: "/usr/bin/certbot renew --quiet --post-hook 'systemctl reload nginx'"
+    hour: "3"
+    minute: "30"
+    state: present
+  become: yes

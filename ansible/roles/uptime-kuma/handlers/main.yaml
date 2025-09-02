@@ -1,0 +1,19 @@
+---
+- name: restart uptime-kuma
+  docker_container:
+    name: "{{ uptime_kuma_container_name }}"
+    state: started
+    restart: yes
+  become: yes
+
+- name: reload nginx
+  systemd:
+    name: nginx
+    state: reloaded
+  become: yes
+
+- name: restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+  become: yes

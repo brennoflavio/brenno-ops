@@ -1,0 +1,9 @@
+---
+uptime_kuma_image: louislam/uptime-kuma:1
+uptime_kuma_container_name: uptime-kuma
+uptime_kuma_volume_name: uptime-kuma
+uptime_kuma_bind_ip: 127.0.0.1
+uptime_kuma_port: 3001
+uptime_kuma_domain: status.brennoflavio.com.br
+uptime_kuma_secondary_domain: admin.status.brennoflavio.com.br
+certbot_email: contato@brennoflavio.com.br
