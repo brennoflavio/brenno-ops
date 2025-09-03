@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ut
-          image: ghcr.io/brennoflavio/ut-server:4cd55b782a376d8816eb6457e62e4a78d5490d61
+          image: ghcr.io/brennoflavio/ut-server:b067deacc23ad3f27a4947d4f626d34412ae3ae2
           ports:
             - containerPort: 8000
           envFrom:
