@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: matrix
 resources:
   - namespace.yaml
+  - secret.yaml
   - postgres-pvc.yaml
   - postgres-deployment.yaml
   - postgres-service.yaml
