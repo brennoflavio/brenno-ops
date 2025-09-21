@@ -7,7 +7,7 @@ env:
     DB_PASSWORD: ENC[AES256_GCM,data:oA2cFt/JISNAWUw74RO/xcGGlvRgyQLy/Aryx4S9up0=,iv:KLLDxzedyDsmSf4Xb6Og8bLY4OO6PtrpiZ0osqVPJKM=,tag:zMxSKhd2FFwMHr3GlEJnzQ==,type:str]
     IMMICH_MACHINE_LEARNING_URL: ENC[AES256_GCM,data:R09lu/wIZCc8cSAitETwGOdzRPU/bIMX9TV7kXbZoB76Md/A0qkN60NccN0KUg6nCt7sjnfxUKv11ZLx,iv:B//WmF4zuYHKB2xbdeFnZm8eEietNtn3sF9At2PPpPQ=,tag:NR4ys6Mtmw6p4q9oKJpbQA==,type:str]
 image:
-    tag: ENC[AES256_GCM,data:L9eOB8gQcdM=,iv:zdB57V5GAoi0auq1FgmFp6JBsQ3h7kixFia480QINk4=,tag:ThxdBB4PoWGga7ZsYscc0g==,type:str]
+    tag: ENC[AES256_GCM,data:0INXfLGgq0w=,iv:bdKM+3WL21vJmY09TxWuHXGvyYw2fmpMlYGXj172yg0=,tag:kPunoBGXxuro7DU0/t06xg==,type:str]
 immich:
     metrics:
         enabled: ENC[AES256_GCM,data:le6DgoA=,iv:zRkUS9jN7WWRvq2YoPCSy+7RlsR2g2enFy6RLaAPMok=,tag:q3w3QPxJhkEmK9rjUQ1C4g==,type:bool]
@@ -55,8 +55,13 @@ resources:
         memory: ENC[AES256_GCM,data:hwRF,iv:1at6h3NSdUkqXmtdEsTTsOqF7r5qXEEk41oBZzvbBls=,tag:s0oHcSKDkdyJQkxJxNtR3A==,type:str]
         cpu: ENC[AES256_GCM,data:vGSPxlE=,iv:edXqrSSZ7kkZGmT0I5+/43IliNO4quIMTbgxZ9Wi7wI=,tag:6din6ClUMN7Gqg5tI1xxNQ==,type:str]
 sops:
-    lastmodified: "2025-07-12T03:42:44Z"
-    mac: ENC[AES256_GCM,data:edMi0t4G0S1tR8jiDrQKTKbKU0b4LNoHpyg1TTI0nBWuuRV46D6IipXeVLWkDocvENP5qOTF+txAVmeLM47vq8wJbHeau5iVtE27lNa+Uio1MZ1cIB2VJW9bgQ77vR8AQh2PFP7r+3mQUIkeuquPopmgAja/kyRTSpdVmTuT7vQ=,iv:6K2y5RMJLxl+yhto8e+htXa9N6Aa6h74Zpwq8g5HMxc=,tag:9Xgi1Jbgr2QTnKAr6XfkoQ==,type:str]
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2025-09-21T02:09:44Z"
+    mac: ENC[AES256_GCM,data:kmunEuwgdGPgrjAzcY3ChDBN8G0LNnondGqoSqctwl3Q6jmShW9mGDs/W86qO+1gVTP2n7pKyMvUb1df4Dfz1CKLZqYG+e6GvNXUvEq5cAnhIz4Xqn3ZEUtiDPDy6RbzcWXS+DhaFNisGnutRuW4umcZ2ckCc9KN3IzJ8T+kjaA=,iv:f8RVnFI2aLqr636YXbjXhxo2GIMDShXqTQZJDVBxl7g=,tag:XT7G2/M/B42A8FLGQlGyIQ==,type:str]
     pgp:
         - created_at: "2025-07-07T04:01:07Z"
           enc: |-
