@@ -16,7 +16,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: immich-meme-detector
-            image: ghcr.io/brennoflavio/immich-meme-detector:91bdacc664fcabf6f599d118b7907955e91cce5d
+            image: ghcr.io/brennoflavio/immich-meme-detector:e6a46b74741d3e0fdcac63b675a0ec67c11417a4
             resources:
               limits:
                 cpu: 100m
