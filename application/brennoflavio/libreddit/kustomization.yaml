@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: libreddit
 resources:
   - namespace.yaml
+  - anubis-secret.yaml
   - secret.yaml
   - deployment.yaml
   - service.yaml
