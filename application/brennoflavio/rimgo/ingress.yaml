@@ -21,7 +21,7 @@ spec:
           service:
             name: rimgo
             port:
-              number: 80
+              number: 8080
   tls:
   - hosts:
     - rimgo.brennoflavio.com.br
