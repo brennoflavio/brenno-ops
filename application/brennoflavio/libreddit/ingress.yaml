@@ -16,6 +16,13 @@ spec:
   - host: libreddit.brennoflavio.com.br
     http:
       paths:
+      - path: /vid
+        pathType: Prefix
+        backend:
+          service:
+            name: libreddit
+            port:
+              number: 8080
       - path: /
         pathType: Prefix
         backend:
