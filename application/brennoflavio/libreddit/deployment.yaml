@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: libreddit
-          image: quay.io/redlib/redlib:sha-407a6c0
+          image: ghcr.io/cycneuramus/containers@sha256:4b607fd58f2c170d9bbf073bfedbe570c5b6f29c7e72b3a2285e86d5c7f98af9
           ports:
             - containerPort: 8080
           resources:
