@@ -59,7 +59,7 @@ spec:
             - name: REDLIB_DEFAULT_BLUR_NSFW
               value: "off"
             - name: REDLIB_DEFAULT_USE_HLS
-              value: "off"
+              value: "on"
             - name: REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION
               value: "off"
             - name: REDLIB_DEFAULT_AUTOPLAY_VIDEOS
