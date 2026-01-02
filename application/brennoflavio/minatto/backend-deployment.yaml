@@ -14,22 +14,22 @@ spec:
         app: backend
     spec:
       imagePullSecrets:
-        - name: gcr-secret 
+        - name: gcr-secret
       containers:
-      - name: backend
-        image: ghcr.io/brennoflavio/minatto-backend:master-a024438-1767318878 # {"$imagepolicy": "minatto:backend"}
-        volumeMounts:
-          - name: pocketbase
-            mountPath: /pb/pb_data
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 500m
-            memory: 1Gi
-        ports:
-          - containerPort: 8080
+        - name: backend
+          image: ghcr.io/brennoflavio/minatto-backend:master-bc963a1-1767324613 # {"$imagepolicy": "minatto:backend"}
+          volumeMounts:
+            - name: pocketbase
+              mountPath: /pb/pb_data
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          ports:
+            - containerPort: 8080
       volumes:
         - name: pocketbase
           persistentVolumeClaim:
