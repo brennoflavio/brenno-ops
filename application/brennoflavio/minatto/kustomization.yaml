@@ -8,6 +8,11 @@ resources:
   - backend-deployment.yaml
   - backend-service.yaml
   - backend-ingress.yaml
+  - backend-image-policy.yaml
+  - backend-image-repository.yaml
   - frontend-deployment.yaml
   - frontend-service.yaml
   - frontend-ingress.yaml
+  - frontend-image-policy.yaml
+  - frontend-image-repository.yaml
+  - image-update-automation.yaml
