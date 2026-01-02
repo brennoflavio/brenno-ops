@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: "minatto-4-preview"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      imagePullSecrets:
+        - name: gcr-secret 
+      containers:
+      - name: frontend
+        image: ghcr.io/brennoflavio/minatto-frontend:preview-4-9344f8b-1767391736 # {"$imagepolicy": "minatto-4-preview:frontend"}
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        ports:
+          - containerPort: 80
