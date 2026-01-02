@@ -1,26 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: frontend
   namespace: minatto
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: frontend
   template:
     metadata:
       labels:
-        app: backend
+        app: frontend
     spec:
       imagePullSecrets:
         - name: gcr-secret 
       containers:
-      - name: backend
-        image: ghcr.io/brennoflavio/minatto-backend:master-a024438-1767318878
-        volumeMounts:
-          - name: pocketbase
-            mountPath: /pb/pb_data
+      - name: frontend
+        image: ghcr.io/brennoflavio/minatto-frontend:master-d04e26d-1767319257
         resources:
           limits:
             cpu: 500m
@@ -29,8 +26,4 @@ spec:
             cpu: 500m
             memory: 1Gi
         ports:
-          - containerPort: 8080
-      volumes:
-        - name: pocketbase
-          persistentVolumeClaim:
-            claimName: pocketbase
+          - containerPort: 80
