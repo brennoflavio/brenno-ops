@@ -17,7 +17,7 @@ spec:
         - name: gcr-secret
       containers:
         - name: backend
-          image: ghcr.io/brennoflavio/minatto-backend:master-bc963a1-1767324613 # {"$imagepolicy": "minatto:backend"}
+          image: ghcr.io/brennoflavio/minatto-backend:master-dea788a-1767325908 # {"$imagepolicy": "minatto:backend"}
           volumeMounts:
             - name: pocketbase
               mountPath: /pb/pb_data
