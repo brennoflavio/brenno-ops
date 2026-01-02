@@ -17,7 +17,7 @@ spec:
         - name: gcr-secret
       containers:
         - name: frontend
-          image: ghcr.io/brennoflavio/minatto-frontend:master-dc64114-1767327851 # {"$imagepolicy": "minatto:frontend"}
+          image: ghcr.io/brennoflavio/minatto-frontend:master-1ad911c-1767380587 # {"$imagepolicy": "minatto:frontend"}
           resources:
             limits:
               cpu: 500m
