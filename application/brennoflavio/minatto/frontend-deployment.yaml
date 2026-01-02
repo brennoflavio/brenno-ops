@@ -14,16 +14,16 @@ spec:
         app: frontend
     spec:
       imagePullSecrets:
-        - name: gcr-secret 
+        - name: gcr-secret
       containers:
-      - name: frontend
-        image: ghcr.io/brennoflavio/minatto-frontend:master-d04e26d-1767319257 # {"$imagepolicy": "minatto:frontend"}
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 500m
-            memory: 1Gi
-        ports:
-          - containerPort: 80
+        - name: frontend
+          image: ghcr.io/brennoflavio/minatto-frontend:master-92b1264-1767320059 # {"$imagepolicy": "minatto:frontend"}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          ports:
+            - containerPort: 80
