@@ -10,7 +10,9 @@ resources:
   - nextcloud-pvc.yaml
   - repository.yaml
   - release.yaml
-  - preview-secret.yaml
+  - preview-service-account.yaml
+  - preview-role.yaml
+  - preview-role-binding.yaml
   - preview-cron.yaml
 secretGenerator:
   - name: nextcloud-values
