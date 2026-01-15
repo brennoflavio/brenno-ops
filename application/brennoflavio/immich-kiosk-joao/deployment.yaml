@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-kiosk
+  namespace: immich-kiosk-joao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-kiosk
+  template:
+    metadata:
+      labels:
+        app: immich-kiosk
+    spec:
+      containers:
+        - name: immich-kiosk
+          image: ghcr.io/damongolding/immich-kiosk:0.22.2
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          volumeMounts:
+            - name: immich-kiosk
+              mountPath: /config/config.yaml
+              subPath: config.yaml
+              readOnly: true
+      volumes:
+        - name: immich-kiosk
+          configMap:
+            name: immich-kiosk
