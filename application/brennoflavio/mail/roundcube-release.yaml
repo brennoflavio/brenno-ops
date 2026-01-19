@@ -54,9 +54,10 @@ spec:
     ingress:
       enabled: true
       useTLS: true
-      host: mail.brennoflavio.com.br
+      host: roundcube.brennoflavio.com.br
       ingressClassName: nginx
       tls:
-        secretName: mail-tls
+        secretName: roundcube-tls
       additionalAnnotations:
         cert-manager.io/cluster-issuer: lets-encrypt
+        external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
