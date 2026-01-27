@@ -62,6 +62,12 @@ internalDatabase:
     enabled: ENC[AES256_GCM,data:rqoLMaI=,iv:Y7WHK3+dDAkgwxQtORZdsknLRks0T4nGCR52IcboqS4=,tag:Ef48Hmw4dMFRekaWiwnGXg==,type:bool]
 mariadb:
     enabled: ENC[AES256_GCM,data:khKVeA==,iv:vVWWKGu1k/ZTbxHXCFlsRQp3WGQTPhDTpJalvxsLZ7c=,tag:J3hy1nClZFjoh+JiImVLFg==,type:bool]
+    image:
+        registry: ENC[AES256_GCM,data:rsvrE85Z94NT,iv:2ESF+Udivufq8n+U0W8K6+GTNDZoyNO0ugzA+UT4nlc=,tag:1AM4oSS2s1btdrYFmuka4A==,type:str]
+        repository: ENC[AES256_GCM,data:sVYJ4q4x6T36pjJjsNsprseQvzOS,iv:n7/TSB03iVVwSASgIG4prUGbS8scnJauqT9BLC+ZWOo=,tag:zu16X5aVET47OufHiSjZww==,type:str]
+    global:
+        security:
+            allowInsecureImages: ENC[AES256_GCM,data:b4RQLg==,iv:ye+IXLCjEnS1x+Kulsmf5+kaTczuu8p47xbO1Ar3zZk=,tag:0OlzLU4+LmFTjg2CaR63gw==,type:bool]
     auth:
         password: ENC[AES256_GCM,data:xpeX5ZMjiwbhvqnC9Sap7qQIQ0GawEkIHne/5qeARXc=,iv:0VahAdxuHHOUmi1qORBA07VnswLvRyfSPTRerOPjTJI=,tag:MgYmH60piB4q/VScPggUZQ==,type:str]
         rootPassword: ENC[AES256_GCM,data:odMowvAfmju6vszY9+tclKUbgizN++2iQuvuZACqmTU=,iv:KAYoocyPmHwTJFZvtJB8Saqg2E5YPQW/JEdDJdwnOjo=,tag:X6H5z4k55MppdO+SnHAZSQ==,type:str]
@@ -120,13 +126,8 @@ nginx:
         headers:
             Strict-Transport-Security: ENC[AES256_GCM,data:AFfZ5M1YEBYWvRtLT9IN9ZRH8i1GmpAbb6IYAE0bQc5CLKkl,iv:2CmIYHQSUO8ueSb4FlvdwNl5WloLwGZWlrkxeDBjj5I=,tag:otR52Jl5jr0sJzhX1ds6nA==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age: []
-    lastmodified: "2025-08-18T12:24:04Z"
-    mac: ENC[AES256_GCM,data:ay2eFd1cWUspY+bwqUEMfgKC35a5oVfjD9zetFBiY9mIo8ChS81IPqKxyEoQtzpbojtKCgqpCaBgzmC6yJ+keEAulJhZCoko88vGJ7G9F3SCwxnxHiB0LttsIO809sSHnq01TgCSrZJ/EIvHCPhKZLhpC+aZRryw98PFu3inff0=,iv:nWfOElcU8B3uQQeWNvYEbcYE6pM5qnvxbMGDz4gdj1g=,tag:C/8zqtswSNEFpbG2DAbXpA==,type:str]
+    lastmodified: "2026-01-27T02:42:56Z"
+    mac: ENC[AES256_GCM,data:sBuzYWGuD4eYOkBEzxneZafuvDGd/R5hmYzKV7i67XaDWl5JC9pJGmn8MnTb32tnAZzH1lqTYfmfAyW+Nw7qBpen66d4uIQIfQI5Cc+y1HPtvZdKA1gewzsqNJDtnsSbSgMFUgb8x3uvb/bjwcm9ZANlx8mRohEsyjjkXYwR03g=,iv:i8LxXznzSkNG5K5x7HGhFyx4QxvbHvE84188TpUefqQ=,tag:aV2X5JP8E7csOHBsEJ+cCQ==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-
@@ -150,4 +151,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 6357449C423960593235FB6BE056C483022CCA1B
     unencrypted_suffix: _unencrypted
-    version: 3.10.2
+    version: 3.11.0
