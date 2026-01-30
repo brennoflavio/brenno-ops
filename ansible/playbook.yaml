@@ -51,3 +51,11 @@
           service_description: Forward port 993 to remote host
           tunnel_local_port: 993
           tunnel_remote_port: 993
+        - service_name: port_80_forward
+          service_description: Forward port 80 to remote host
+          tunnel_local_port: 80
+          tunnel_remote_port: 80
+        - service_name: port_443_forward
+          service_description: Forward port 443 to remote host
+          tunnel_local_port: 443
+          tunnel_remote_port: 443
