@@ -4,6 +4,8 @@ githubConfigSecret:
 maxRunners: ENC[AES256_GCM,data:OA==,iv:0wWn1jsIocfA1Wz9rq6/90YtXMfzLkAnFszuwaOofp8=,tag:75ME8rYp7kogkKUCZ0mXng==,type:int]
 minRunners: ENC[AES256_GCM,data:9Q==,iv:FPwt46QqgF6o4w6Tlf4Ovt5XmGSsnCsvrmPzIq/frrw=,tag:jUqNbVu2Xk5o51Ojfu8nHw==,type:int]
 runnerScaleSetName: ENC[AES256_GCM,data:jeenbxkr7kJHpg==,iv:wvs/JBCBbhs/EjuCIk8MLshncozwvF9mQd9CFWpF7e8=,tag:pXrLZFDcBZv+EjllzM53wQ==,type:str]
+containerMode:
+    type: ENC[AES256_GCM,data:yzNoAA==,iv:MDnlIsI3EaSZ8IG7xzwz5+Fs/6ex1WcAn9l8kJgARX0=,tag:aYZDAoqIYpPhfDmDTFUzsw==,type:str]
 template:
     spec:
         containers:
@@ -19,8 +21,8 @@ template:
                     cpu: ENC[AES256_GCM,data:fQ==,iv:OBCvLJDhBNKDHQGx1dSO3HLUZyTHiXEyoOL/H75cHLw=,tag:J8rxyyMKkU07ITvUnfL3Ow==,type:str]
                     memory: ENC[AES256_GCM,data:elWl,iv:f6bkyiM90qdE8YIoZVl3FhduIK7xhqIRBRX1XxuavoQ=,tag:O9u0iwcREtUWzt1o3e3uOw==,type:str]
 sops:
-    lastmodified: "2026-02-18T21:58:26Z"
-    mac: ENC[AES256_GCM,data:8q5GSHspOoVLXgfqWkwvdup/bGsv6ViAZvF/ugYOyqS7X8IH4tU3ygyzNe9qcRzzF5HSASc5bOrAzBlvDBe8Q13Rx1HhF5UGm4kkZXWpPiROGGzrt4FZRa8LrktJsYxyw05vuyXyLvA6bVg+Ou9yXARk4qeZ3mj8JytbpDGborw=,iv:c1wGI8HvgSLNtiiW8aywaV6EviTPlnewiCVDLFBcu3o=,tag:i6ehDvbzZ+Z7o7IbB2+G7Q==,type:str]
+    lastmodified: "2026-02-18T22:39:21Z"
+    mac: ENC[AES256_GCM,data:gxbQ5j+euIymt2KUUiwKyNiuFsJWhMxrRVG6wPP9Bpe1Xr5suBZvYd4a2ovNdNr1ra5FhRBeZHANlviQccH/VPxeEd3mgw10Ji8b1ezbZTDOFbaHPYYOC+38Qj6eei9WvQfDkfUZbc/BXkqvaWq2AX8ANEvtC98H0ubH9bV+kGU=,iv:ifL00RM6X03ICUmk46kAX+E6Qc7pijdbDmfhV9mm/wo=,tag:T9mgu5/5fXXcKucjsHJ7QQ==,type:str]
     pgp:
         - created_at: "2026-02-18T21:58:26Z"
           enc: |-
