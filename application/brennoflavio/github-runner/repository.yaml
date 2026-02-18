@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: github-runner
+  namespace: github-runner
+spec:
+  interval: 1m
+  url: oci://ghcr.io/actions/actions-runner-controller-charts
+  type: "oci"
