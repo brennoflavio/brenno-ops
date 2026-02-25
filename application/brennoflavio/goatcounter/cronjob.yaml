@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: goatcounter-log-importer
+  namespace: goatcounter
+spec:
+  schedule: "0 * * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          serviceAccountName: goatcounter-log-importer
+          restartPolicy: Never
+          containers:
+            - name: log-importer
+              image: debian:12-slim
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -e
+                  if [ ! -x /tools/goatcounter ] || [ ! -x /tools/kubectl ]; then
+                    apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+                    curl -sL https://github.com/arp242/goatcounter/releases/download/v2.7.0/goatcounter-v2.7.0-linux-amd64.gz | gunzip > /tools/goatcounter
+                    chmod +x /tools/goatcounter
+                    curl -sLO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+                    mv kubectl /tools/kubectl
+                    chmod +x /tools/kubectl
+                  fi
+                  POD=$(/tools/kubectl get pods -n ingress-nginx -l app.kubernetes.io/component=controller -o jsonpath='{.items[0].metadata.name}')
+                  /tools/kubectl logs -n ingress-nginx "$POD" --since=1h | /tools/goatcounter import -format=combined -site=https://goatcounter.brennoflavio.com.br -
+              env:
+                - name: GOATCOUNTER_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: goatcounter-api
+                      key: GOATCOUNTER_API_KEY
+              volumeMounts:
+                - name: tools
+                  mountPath: /tools
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+          volumes:
+            - name: tools
+              persistentVolumeClaim:
+                claimName: goatcounter-tools

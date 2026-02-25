@@ -7,3 +7,8 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+  - serviceaccount.yaml
+  - rbac.yaml
+  - secret.yaml
+  - pvc-tools.yaml
+  - cronjob.yaml
