@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goatcounter
+  namespace: goatcounter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goatcounter
+  template:
+    metadata:
+      labels:
+        app: goatcounter
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: goatcounter
+          image: arp242/goatcounter:2.7
+          ports:
+            - containerPort: 8080         
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          args:
+            - serve
+            - -db=sqlite+/data/goatcounter.db
+            - -listen=:8080
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: goatcounter

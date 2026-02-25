@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: goatcounter
+  namespace: goatcounter
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+    external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
+spec:
+  rules:
+  - host: goatcounter.brennoflavio.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: goatcounter
+            port:
+              number: 8080
+  tls:
+  - hosts:
+    - goatcounter.brennoflavio.com.br
+    secretName: goatcounter-tls
