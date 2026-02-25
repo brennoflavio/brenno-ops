@@ -22,8 +22,9 @@ spec:
               args:
                 - |
                   set -e
+                  apt-get update && apt-get install -y --no-install-recommends ca-certificates
                   if [ ! -x /tools/goatcounter ] || [ ! -x /tools/kubectl ]; then
-                    apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+                    apt-get install -y --no-install-recommends curl
                     curl -sL https://github.com/arp242/goatcounter/releases/download/v2.7.0/goatcounter-v2.7.0-linux-amd64.gz | gunzip > /tools/goatcounter
                     chmod +x /tools/goatcounter
                     curl -sLO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
