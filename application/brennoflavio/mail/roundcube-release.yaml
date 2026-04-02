@@ -39,10 +39,10 @@ spec:
       replicas: 1
       resources:
         requests:
-          memory: "256Mi"
+          memory: "512Mi"
           cpu: "100m"
         limits:
-          memory: "256Mi"
+          memory: "512Mi"
           cpu: "100m"
       additionalVolumeMounts:
       - name: roundcube-db
