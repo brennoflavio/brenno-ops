@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: slack
+  namespace: matrix
+spec:
+  serviceName: "slack"
+  replicas: 1
+  podManagementPolicy: OrderedReady
+  selector:
+    matchLabels:
+      app: slack
+  template:
+    metadata:
+      labels:
+        app: slack
+    spec:
+      containers:
+      - name: slack
+        image: dock.mau.dev/mautrix/slack:36dfa197c196ac44ab31ea6af1a51d350b1fc358-amd64
+        volumeMounts:
+          - name: slack
+            mountPath: /data
+          - name: slack-config
+            mountPath: /data/config.yaml
+            subPath: config.yaml
+            readOnly: true
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        ports:
+          - containerPort: 29335
+      volumes:
+        - name: slack
+          emptyDir: {}
+        - name: slack-config
+          secret:
+            secretName: slack-config

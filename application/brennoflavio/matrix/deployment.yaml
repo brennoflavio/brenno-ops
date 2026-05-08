@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synapse
+  namespace: matrix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: synapse
+  template:
+    metadata:
+      labels:
+        app: synapse
+    spec:
+      containers:
+        - name: synapse
+          image: matrixdotorg/synapse:sha-2829a14
+          ports:
+            - containerPort: 8008
+          volumeMounts:
+            - name: synapse
+              mountPath: /data
+            - name: synapse-config
+              mountPath: /data/homeserver.yaml
+              subPath: homeserver.yaml
+              readOnly: true
+            - name: synapse-config
+              mountPath: /data/matrix.brennoflavio.com.br.log.config
+              subPath: matrix.brennoflavio.com.br.log.config
+              readOnly: true
+            - name: synapse-config
+              mountPath: /data/matrix.brennoflavio.com.br.signing.key
+              subPath: matrix.brennoflavio.com.br.signing.key
+              readOnly: true
+            - name: slack-config
+              mountPath: /data/slack-registration.yaml
+              subPath: registration.yaml
+              readOnly: true
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+            requests:
+              cpu: 1000m
+              memory: 2048Mi
+      volumes:
+        - name: synapse
+          persistentVolumeClaim:
+            claimName: synapse
+        - name: synapse-config
+          secret:
+            secretName: synapse-config
+        - name: slack-config
+          secret:
+            secretName: slack-config
