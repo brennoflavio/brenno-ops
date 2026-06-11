@@ -14,6 +14,8 @@ spec:
   path: ./application/brennoflavio
   prune: true
   wait: true
+  dependsOn:
+    - name: infrastructure
   decryption:
     provider: sops
     secretRef:

@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: keda
+  namespace: keda
+spec:
+  releaseName: keda
+  chart:
+    spec:
+      chart: keda
+      version: 2.20.1
+      sourceRef:
+        kind: HelmRepository
+        name: keda
+        namespace: keda
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
