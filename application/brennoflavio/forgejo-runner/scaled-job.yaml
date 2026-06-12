@@ -7,10 +7,11 @@ spec:
   pollingInterval: 15
   minReplicaCount: 0
   maxReplicaCount: 5
-  successfulJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 3
   jobTargetRef:
     backoffLimit: 0
+    ttlSecondsAfterFinished: 86400
     template:
       metadata:
         labels:
