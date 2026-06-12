@@ -111,6 +111,8 @@ spec:
             volumeMounts:
               - name: docker-storage
                 mountPath: /var/lib/docker
+              - name: runner-data
+                mountPath: /data
               - name: lifecycle
                 mountPath: /lifecycle
         volumes:
