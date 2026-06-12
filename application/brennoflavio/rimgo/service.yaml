@@ -14,8 +14,4 @@ spec:
     port: 80
     targetPort: 3000
     name: rimgo
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080
-    name: anubis
   type: ClusterIP

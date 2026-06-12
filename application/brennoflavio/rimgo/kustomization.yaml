@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: rimgo
 resources:
   - namespace.yaml
-  - anubis-secret.yaml
   - deployment.yaml
   - service.yaml
   - ingress.yaml
