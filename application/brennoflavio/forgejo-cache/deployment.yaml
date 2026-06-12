@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forgejo-cache
+  namespace: forgejo-cache
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: forgejo-cache
+  template:
+    metadata:
+      labels:
+        app: forgejo-cache
+    spec:
+      containers:
+        - name: forgejo-cache
+          image: data.forgejo.org/forgejo/runner:12
+          command:
+            - forgejo-runner
+            - -c
+            - /config/cache-config.yaml
+            - cache-server
+          ports:
+            - containerPort: 8088
+              name: cache
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: cache-data
+              mountPath: /cache
+            - name: cache-config
+              mountPath: /config/cache-config.yaml
+              subPath: cache-config.yaml
+              readOnly: true
+      volumes:
+        - name: cache-data
+          persistentVolumeClaim:
+            claimName: forgejo-cache-data
+        - name: cache-config
+          secret:
+            secretName: forgejo-cache-secrets
