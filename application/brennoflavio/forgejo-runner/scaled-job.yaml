@@ -131,6 +131,6 @@ spec:
         name: ubuntu-latest
         address: https://git.brennoflavio.com.br/
         global: "true"
-        labels: ubuntu-latest,docker,clickable-ut24-1x
+        labels: ubuntu-latest,docker,clickable-ut24-1x,snapcraft-core24
       authenticationRef:
         name: forgejo-runner
