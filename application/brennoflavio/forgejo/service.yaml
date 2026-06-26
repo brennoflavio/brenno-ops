@@ -12,3 +12,19 @@ spec:
       targetPort: 3000
       name: forgejo
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgejo-ssh
+  namespace: forgejo
+spec:
+  selector:
+    app: forgejo
+  ports:
+    - protocol: TCP
+      port: 2222
+      targetPort: 2222
+      nodePort: 32222
+      name: ssh
+  type: NodePort
