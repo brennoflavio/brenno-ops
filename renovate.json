@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard"],
+  "enabledManagers": ["flux", "kubernetes"],
+  "includePaths": [
+    "application/brennoflavio/**",
+    "infrastructure/brennoflavio/**"
+  ],
+  "labels": ["dependencies", "kubernetes"],
+  "minimumReleaseAge": "60 days",
+  "internalChecksFilter": "strict",
+  "flux": {
+    "managerFilePatterns": [
+      "/^application\\/brennoflavio\\/.*\\.ya?ml$/",
+      "/^infrastructure\\/brennoflavio\\/.*\\.ya?ml$/"
+    ]
+  },
+  "kubernetes": {
+    "managerFilePatterns": [
+      "/^application\\/brennoflavio\\/.*\\.ya?ml$/",
+      "/^infrastructure\\/brennoflavio\\/.*\\.ya?ml$/"
+    ]
+  },
+  "packageRules": [
+    {
+      "description": "Do not manage personal GHCR images",
+      "matchPackageNames": ["ghcr.io/brennoflavio/**"],
+      "enabled": false
+    },
+    {
+      "description": "Require approval before opening major Kubernetes update PRs",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ]
+}
