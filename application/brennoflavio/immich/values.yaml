@@ -3,7 +3,7 @@ controllers:
         containers:
             main:
                 image:
-                    tag: ENC[AES256_GCM,data:APrXDb3Y,iv:x2y4oEnEohuNq65FCq/u7NXXoX2gZrxVoJWSE/k8iBM=,tag:KQCA3vhG7jeRtIDi0tp5JA==,type:str]
+                    tag: ENC[AES256_GCM,data:fSQyq3Lq,iv:WM0wMDScQBou8hqaNqRBRmzZzlHJ3uXXwo3cWq8lOAs=,tag:BSdK//h6kDWBVNJJJpi9RA==,type:str]
                 env:
                     REDIS_HOSTNAME: ENC[AES256_GCM,data:MHcaB7f5Vo22q5l4pBlCwEO0064j4PvDqL4Pm6VU,iv:fg9+HHThXBxV4xrT0Wv5Ux1CY5yQzSWOh8hy1t8aco4=,tag:bJDH2DgIHpKe/yl3DJ6oZg==,type:str]
                     REDIS_PORT: ENC[AES256_GCM,data:c1DspQ==,iv:VPZgCi4YQ0Is1Jt0at8lbGrKSqftrFdprP+tUMJeBcs=,tag:1RJFoAJ2e23z602pu3GA/A==,type:str]
@@ -73,8 +73,8 @@ machine-learning:
             type: ENC[AES256_GCM,data:YaBRoFV/2OY=,iv:/OQAsFQgeNC/r8r1PAoSNBjzlzNtfj4SpdTAy0skInI=,tag:8eXaCceLN2FwWqhgR/gZsQ==,type:str]
             accessMode: ENC[AES256_GCM,data:DKWC2eCgirT+GkoX+A==,iv:oYdUb3qrvT/rEiYohZR10tnzUCSJLEVZ84sMtoSmhUk=,tag:g8J/wP//+0NRb+sTJHcZKA==,type:str]
 sops:
-    lastmodified: "2026-04-13T22:34:23Z"
-    mac: ENC[AES256_GCM,data:s2/N3aUayDO1iu5VlWiEW3b0K9aGQv7DBrjkyNN0IYtgN9eMeDeFpVbECkSy+VAtnbDWAme3wWkvmpxFCZSotF5UI++CnAHCfFVcgsoTPX7VUmC1rX+IQCEKJ3TQB+l99xEHpYDAG/ffHsLoO0smTGfAgvMfX+jVzkIWl1xCeKo=,iv:mJwQnI3lWBFZpvnDrxEixK0LMkJEvMWvVIaV1cT9bis=,tag:Q4wjV//Bkn1rAYoNlcTnRQ==,type:str]
+    lastmodified: "2026-07-20T17:29:49Z"
+    mac: ENC[AES256_GCM,data:++vHnGFu8fbh3IyGTdFUj7dxNsRugGYkLhNsmhA0KOL3zeSJxP523OHfZ9DxWjhPelZUcLWGYzbSwsSlDH+oC8DVue/n834LxjMVDv9OmOW+Sw+0C57m3iZoK5rSxDQuXFteX/W0VeHhEIwW8xUZKzjI7ialbKaZT3Qe1DNFnzU=,iv:ngzFk9cIAQZJJlSeZF3VEBBi95K6MgeEXAlSRdGeG3w=,tag:7a+lTZrzV5LP9d0PNcQlZQ==,type:str]
     pgp:
         - created_at: "2025-07-07T04:01:07Z"
           enc: |-
