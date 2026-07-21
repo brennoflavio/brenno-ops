@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: endurain-data
+    namespace: endurain
+    annotations:
+        volume.kubernetes.io/selected-node: brenno-server
+spec:
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 10Gi

@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: postgres
+    namespace: endurain
+spec:
+    replicas: 1
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: postgres
+    template:
+        metadata:
+            labels:
+                app: postgres
+        spec:
+            containers:
+                - name: postgres
+                  image: postgres:18.4
+                  ports:
+                      - containerPort: 5432
+                  envFrom:
+                      - secretRef:
+                            name: endurain-secrets
+                  readinessProbe:
+                      exec:
+                          command:
+                              - pg_isready
+                              - -U
+                              - endurain
+                              - -d
+                              - endurain
+                      initialDelaySeconds: 5
+                      periodSeconds: 5
+                  resources:
+                      requests:
+                          cpu: 100m
+                          memory: 256Mi
+                      limits:
+                          cpu: 500m
+                          memory: 1Gi
+                  volumeMounts:
+                      - name: postgres
+                        mountPath: /var/lib/postgresql/data
+            volumes:
+                - name: postgres
+                  persistentVolumeClaim:
+                      claimName: postgres

@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: endurain
+    namespace: endurain
+    annotations:
+        cert-manager.io/cluster-issuer: lets-encrypt
+        external-dns.alpha.kubernetes.io/target: brennoflavio.com.br
+spec:
+    rules:
+        - host: fitness.brennoflavio.com.br
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: endurain
+                            port:
+                                number: 80
+    tls:
+        - hosts:
+              - fitness.brennoflavio.com.br
+          secretName: fitness-tls

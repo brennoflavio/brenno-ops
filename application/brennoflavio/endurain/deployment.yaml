@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: endurain
+    namespace: endurain
+spec:
+    replicas: 1
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: endurain
+    template:
+        metadata:
+            labels:
+                app: endurain
+        spec:
+            securityContext:
+                fsGroup: 1000
+            containers:
+                - name: endurain
+                  image: codeberg.org/endurain-project/endurain:v0.18.3
+                  ports:
+                      - containerPort: 8080
+                  envFrom:
+                      - secretRef:
+                            name: endurain-secrets
+                  readinessProbe:
+                      tcpSocket:
+                          port: 8080
+                      initialDelaySeconds: 10
+                      periodSeconds: 10
+                  livenessProbe:
+                      tcpSocket:
+                          port: 8080
+                      initialDelaySeconds: 30
+                      periodSeconds: 20
+                  resources:
+                      requests:
+                          cpu: 100m
+                          memory: 256Mi
+                      limits:
+                          cpu: 500m
+                          memory: 512Mi
+                  volumeMounts:
+                      - name: data
+                        mountPath: /app/backend/data
+            volumes:
+                - name: data
+                  persistentVolumeClaim:
+                      claimName: endurain-data
