@@ -1,3 +1,4 @@
 .decrypted~values.yaml
 .decrypted~secret.yaml
 .decrypted~*
+.playwright-cli

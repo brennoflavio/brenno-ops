@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: localsend-python
+  namespace: localsend-python
+  labels:
+    app: localsend-python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: localsend-python
+  template:
+    metadata:
+      labels:
+        app: localsend-python
+    spec:
+      containers:
+      - name: localsend-python
+        image: git.brennoflavio.com.br/brennoflavio/localsend-python/docs:522f726
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 20m
+            memory: 64Mi

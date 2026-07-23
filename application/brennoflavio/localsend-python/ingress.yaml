@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: localsend-python
+  namespace: localsend-python
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+    external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+  - host: localsend-python.brennoflavio.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: localsend-python
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - localsend-python.brennoflavio.com.br
+    secretName: localsend-python-tls

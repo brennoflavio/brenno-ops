@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: localsend-python
+  namespace: localsend-python
+  labels:
+    app: localsend-python
+spec:
+  selector:
+    app: localsend-python
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
