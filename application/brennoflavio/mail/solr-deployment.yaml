@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: solr
-          image: solr:9.8.1
+          image: solr:9.10.0
           imagePullPolicy: IfNotPresent
           resources:
             limits:
