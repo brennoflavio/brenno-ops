@@ -1,0 +1,121 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pi
+rules:
+  # Core resources
+  - apiGroups: [""]
+    resources:
+      - namespaces
+      - nodes
+      - nodes/status
+      - pods
+      - pods/log
+      - pods/status
+      - services
+      - endpoints
+      - events
+      - configmaps
+      - serviceaccounts
+      - persistentvolumes
+      - persistentvolumeclaims
+      - resourcequotas
+      - limitranges
+      - replicationcontrollers
+    verbs: ["get", "list", "watch"]
+  # Apps
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+      - deployments/status
+      - replicasets
+      - statefulsets
+      - daemonsets
+      - controllerrevisions
+    verbs: ["get", "list", "watch"]
+  # Batch
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs: ["get", "list", "watch"]
+  # Networking
+  - apiGroups: ["networking.k8s.io"]
+    resources:
+      - ingresses
+      - networkpolicies
+      - ingressclasses
+    verbs: ["get", "list", "watch"]
+  # Autoscaling
+  - apiGroups: ["autoscaling"]
+    resources:
+      - horizontalpodautoscalers
+    verbs: ["get", "list", "watch"]
+  # Policy
+  - apiGroups: ["policy"]
+    resources:
+      - poddisruptionbudgets
+    verbs: ["get", "list", "watch"]
+  # Storage
+  - apiGroups: ["storage.k8s.io"]
+    resources:
+      - storageclasses
+      - volumeattachments
+    verbs: ["get", "list", "watch"]
+  # RBAC (read-only visibility)
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources:
+      - roles
+      - rolebindings
+      - clusterroles
+      - clusterrolebindings
+    verbs: ["get", "list", "watch"]
+  # Flux custom resources (read-only reconciliation visibility)
+  - apiGroups: ["helm.toolkit.fluxcd.io"]
+    resources:
+      - helmreleases
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["kustomize.toolkit.fluxcd.io"]
+    resources:
+      - kustomizations
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["source.toolkit.fluxcd.io"]
+    resources:
+      - buckets
+      - externalartifacts
+      - gitrepositories
+      - helmcharts
+      - helmrepositories
+      - ocirepositories
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["image.toolkit.fluxcd.io"]
+    resources:
+      - imagepolicies
+      - imagerepositories
+      - imageupdateautomations
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["notification.toolkit.fluxcd.io"]
+    resources:
+      - alerts
+      - providers
+      - receivers
+    verbs: ["get", "list", "watch"]
+  # cert-manager
+  - apiGroups: ["cert-manager.io"]
+    resources:
+      - certificates
+      - certificaterequests
+      - issuers
+      - clusterissuers
+    verbs: ["get", "list", "watch"]
+  # Custom resource definitions
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources:
+      - customresourcedefinitions
+    verbs: ["get", "list", "watch"]
+  # Metrics
+  - apiGroups: ["metrics.k8s.io"]
+    resources:
+      - nodes
+      - pods
+    verbs: ["get", "list", "watch"]

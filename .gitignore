@@ -2,3 +2,4 @@
 .decrypted~secret.yaml
 .decrypted~*
 .playwright-cli
+.pi/
