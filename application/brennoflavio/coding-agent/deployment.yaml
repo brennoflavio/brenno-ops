@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coding-agent
+  namespace: coding-agent
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: coding-agent
+  template:
+    metadata:
+      labels:
+        app: coding-agent
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: coding-agent
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent:4dd4a90
+          imagePullPolicy: IfNotPresent
+          workingDir: /home/pi
+          env:
+            - name: HOME
+              value: /home/pi
+            - name: PI_ENVIRONMENT
+              value: docker
+            - name: PI_DATA_DIR
+              value: /data
+            - name: PI_CODING_AGENT_DIR
+              value: /home/pi/.pi/agent
+            - name: WEB_BROWSE_BROWSER_BIN
+              value: /usr/bin/chromium
+            - name: XDG_CACHE_HOME
+              value: /data/cache
+            - name: PLAYWRIGHT_CLI_CONFIG
+              value: /data/playwright-cli/config.json
+            - name: TZ
+              value: America/Sao_Paulo
+          envFrom:
+            - secretRef:
+                name: coding-agent-secrets
+          resources:
+            requests:
+              cpu: 4000m
+              memory: 8Gi
+            limits:
+              cpu: 4000m
+              memory: 8Gi
+          volumeMounts:
+            - name: home
+              mountPath: /home/pi
+            - name: data
+              mountPath: /data
+            - name: state
+              mountPath: /home/pi/.pi/agent
+            - name: dshm
+              mountPath: /dev/shm
+      volumes:
+        - name: home
+          persistentVolumeClaim:
+            claimName: coding-agent-home
+        - name: data
+          persistentVolumeClaim:
+            claimName: coding-agent-data
+        - name: state
+          persistentVolumeClaim:
+            claimName: coding-agent-state
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi

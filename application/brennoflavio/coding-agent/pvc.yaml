@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: coding-agent-home
+  namespace: coding-agent
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: coding-agent-data
+  namespace: coding-agent
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: coding-agent-state
+  namespace: coding-agent
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
