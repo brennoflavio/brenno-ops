@@ -4,11 +4,41 @@
     path: /usr/local/bin/k3s
   register: k3s_installed
 
+- name: Ensure k3s configuration directory exists
+  ansible.builtin.file:
+    path: /etc/rancher/k3s
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: Configure k3s
+  ansible.builtin.copy:
+    src: config.yaml
+    dest: /etc/rancher/k3s/config.yaml
+    mode: "0644"
+  register: k3s_config
+  notify: restart k3s
+  become: true
+
 - name: Download and install k3s
-  ansible.builtin.shell: |
-    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="{{ k3s_exec_args }}" sh -
+  ansible.builtin.shell: >-
+    curl -sfL https://get.k3s.io |
+    INSTALL_K3S_EXEC="{{ k3s_exec_args }}" sh -
   when: not k3s_installed.stat.exists
   become: true
+
+- name: Update k3s service arguments
+  ansible.builtin.shell: >-
+    curl -sfL https://get.k3s.io |
+    INSTALL_K3S_SKIP_DOWNLOAD=true
+    INSTALL_K3S_EXEC="{{ k3s_exec_args }}" sh -
+  when:
+    - k3s_installed.stat.exists
+    - k3s_config.changed
+  become: true
+
+- name: Apply k3s configuration changes
+  ansible.builtin.meta: flush_handlers
 
 - name: Ensure k3s service is started and enabled
   ansible.builtin.systemd:

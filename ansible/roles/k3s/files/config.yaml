@@ -1,0 +1,6 @@
+---
+node-ip: 192.168.20.2
+advertise-address: 192.168.20.2
+tls-san:
+    - 192.168.20.2
+# disable-network-policy: true # Enabled when rotating internal node ip
