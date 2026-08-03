@@ -4,6 +4,17 @@
     path: /usr/local/bin/k3s
   register: k3s_installed
 
+- name: Configure inotify instance limit
+  ansible.builtin.copy:
+    content: |
+      fs.inotify.max_user_instances = 1024
+    dest: /etc/sysctl.d/99-inotify.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: reload inotify sysctl
+  become: true
+
 - name: Ensure k3s configuration directory exists
   ansible.builtin.file:
     path: /etc/rancher/k3s
