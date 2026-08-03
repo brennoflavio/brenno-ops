@@ -6,3 +6,5 @@ resources:
   - repository.yaml
   - release.yaml
   - issuer.yaml
+  - route53-dns01-credentials.yaml
+  - dns01-issuer.yaml

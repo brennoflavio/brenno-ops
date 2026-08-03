@@ -4,8 +4,14 @@ kind: Ingress
 metadata:
   name: pihole
   namespace: pihole
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
 spec:
   ingressClassName: internal-nginx
+  tls:
+  - hosts:
+    - pihole.home.brennoflavio.com.br
+    secretName: pihole-tls
   rules:
   - host: pihole.home.brennoflavio.com.br
     http:
