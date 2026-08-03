@@ -10,6 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
     cert-manager.io/cluster-issuer: lets-encrypt
 spec:
+  ingressClassName: external-nginx
   rules:
   - host: brennoflavio.com.br
     http:

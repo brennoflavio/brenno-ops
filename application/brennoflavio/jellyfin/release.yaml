@@ -26,7 +26,7 @@ spec:
       type: ClusterIP
     ingress:
       enabled: true
-      className: nginx
+      className: external-nginx
       annotations:
         cert-manager.io/cluster-issuer: lets-encrypt
         external-dns.alpha.kubernetes.io/target: brennoflavio.com.br

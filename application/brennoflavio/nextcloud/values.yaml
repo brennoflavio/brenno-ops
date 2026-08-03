@@ -1,5 +1,6 @@
 ingress:
     enabled: ENC[AES256_GCM,data:4DyBJA==,iv:KBxoG6PuXrNMFF2Xrx+QOah1jPXxSqLS7cIeiRYGpEY=,tag:3WDed79OVX6xvumsBmRoJA==,type:bool]
+    className: ENC[AES256_GCM,data:6WHfwc/uXRYqJ34/qY8=,iv:H9pQoNh045Hyj/154i8YrUFl+rS9KJnOrv9QesPjXUE=,tag:VOHjhSmq7OKt7ZzUzaE+lg==,type:str]
     annotations:
         cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:gudSFOYNARr+WPVg,iv:uHE4j5yLnSnVs2/4jFu2hTq6Qj47ioQv72VYSsB+TsU=,tag:+E3rWFCPQEFJoV3zjC2LDA==,type:str]
         external-dns.alpha.kubernetes.io/target: ENC[AES256_GCM,data:tja2BtFNWsq5WbzNdi3ABT/ozg==,iv:mXAJpF8CtbUWJq48ZKrFm+6+ZOUWyjdV9W5LNFtmhW0=,tag:8WvFpacL7sHUhD7FcH5X0g==,type:str]
@@ -89,7 +90,7 @@ collabora:
         extra_params: ENC[AES256_GCM,data:zt7yjO/nj6JNUTBsJ3/i43MAA5nMEHvdpowS3Y4YUcGn55HqUPlgY6mjhIRI,iv:DshSSQ8w0+YrZIVN5ZLI12/XbCfX8nYvtFxbA1epZRc=,tag:4o9lyIh5zDjtQaHoWu4Trw==,type:str]
     ingress:
         enabled: ENC[AES256_GCM,data:KHLq8A==,iv:HpEU0PVkfh8qLBtHI7xiqp9g9ulH0V/HiVA/ude+i2k=,tag:gummYzqXHPIQ+H9k7D5gMw==,type:bool]
-        className: ENC[AES256_GCM,data:jNGWJmk=,iv:dLgf5TfHt9DDQmtAmvIqcjhunX54FaEtap5YN8M/n4k=,tag:ihxkSH8ASsypD1nv5xGy8Q==,type:str]
+        className: ENC[AES256_GCM,data:zPSkV2FbfI9ktkVNTqE=,iv:sgGAODhNYedScldEaS9m6NoOSa8uQwb3ppO3JDtbbDk=,tag:IO07GNHgBHu4eqHTtEXM5w==,type:str]
         annotations:
             cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:zXuA2d5fCMGni+nK,iv:krEG1UO9poNsSUMBqeNixiPoThYQFvdwqWbA3FXIxkA=,tag:2pFbrjIb7a1d6CV7SXYTWQ==,type:str]
             external-dns.alpha.kubernetes.io/target: ENC[AES256_GCM,data:9Sx+hsuGuWZRiIdHOjZCp0ScGw==,iv:Tlx0Q5E3oU54tKuVRjAvvJOF/GWdLAyJtu9mngz90SY=,tag:ay9/ND9JHPBSd61Qyrxoow==,type:str]
@@ -126,8 +127,8 @@ nginx:
         headers:
             Strict-Transport-Security: ENC[AES256_GCM,data:AFfZ5M1YEBYWvRtLT9IN9ZRH8i1GmpAbb6IYAE0bQc5CLKkl,iv:2CmIYHQSUO8ueSb4FlvdwNl5WloLwGZWlrkxeDBjj5I=,tag:otR52Jl5jr0sJzhX1ds6nA==,type:str]
 sops:
-    lastmodified: "2026-01-27T02:42:56Z"
-    mac: ENC[AES256_GCM,data:sBuzYWGuD4eYOkBEzxneZafuvDGd/R5hmYzKV7i67XaDWl5JC9pJGmn8MnTb32tnAZzH1lqTYfmfAyW+Nw7qBpen66d4uIQIfQI5Cc+y1HPtvZdKA1gewzsqNJDtnsSbSgMFUgb8x3uvb/bjwcm9ZANlx8mRohEsyjjkXYwR03g=,iv:i8LxXznzSkNG5K5x7HGhFyx4QxvbHvE84188TpUefqQ=,tag:aV2X5JP8E7csOHBsEJ+cCQ==,type:str]
+    lastmodified: "2026-08-03T20:31:05Z"
+    mac: ENC[AES256_GCM,data:5cNgyeky/s+yg1W1asiPdhMb8dXpDkepzbZ4HqxxgghsLxjljZzmBfoxICFeXXGLZEHRar2pGoGlFTJdOSdK1ggrPEIPH8X9RglJbVnj0jL9jb1ArqSEGsp2T3hzels6kAq4hQyLbZSqsJnFNQ+n6n5KYLFBUbT/8mIsDszasNk=,iv:gz93K2bETM4T7rurJArShiVyg03ITO9I8LkRApFeVxw=,tag:VDPbaT/OycZzdWsUCQ3stw==,type:str]
     pgp:
         - created_at: "2024-12-25T14:19:57Z"
           enc: |-

@@ -21,6 +21,7 @@ metadata:
         return 418 "<script>document.cookie = 'verified=1; Path=/; Secure; SameSite=Lax; Max-Age=86400';window.location.reload();</script>";
       }
 spec:
+  ingressClassName: external-nginx
   rules:
   - host: rimgo.brennoflavio.com.br
     http:

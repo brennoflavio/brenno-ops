@@ -39,6 +39,7 @@ server:
     ingress:
         main:
             enabled: ENC[AES256_GCM,data:ix0aFA==,iv:5UrQ1p85xqYLg2wTPljFjGtOEv/jlLYJYYGjvloOEIA=,tag:/5F2I+rY4LbCOdxMw6aDaw==,type:bool]
+            className: ENC[AES256_GCM,data:qpUJWE1k+Ii6LHdur94=,iv:j6WAOcyVAGehPIDxZLOFfI6QiLhkJ6rzbr9rEYHIU+g=,tag:jm8YGR99KjlQz+I+/Jlg4g==,type:str]
             annotations:
                 cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:Ske2hfnt17c5gE0F,iv:JTyLJgKN9dET81yWeGQWVfO/EzYvXQczQ4p541/zrY0=,tag:w7/YxO2VlijV/xvID+1BCQ==,type:str]
                 nginx.ingress.kubernetes.io/proxy-body-size: ENC[AES256_GCM,data:zg==,iv:8wzWdYM2xNonePoKQsAU4gSlOvqJW2X8KQqm6gl1LCk=,tag:iI8sAL3pJY2rnMoYmS0fvw==,type:str]
@@ -71,8 +72,8 @@ machine-learning:
             enabled: ENC[AES256_GCM,data:w+GgXA==,iv:aRIMbVLzk2UcJsO4Uotjm6/Jb5355JtBd8WCdkeJGIE=,tag:gf8UPqKhm9oWm1C+8T4Yxg==,type:bool]
             type: ENC[AES256_GCM,data:YaBRoFV/2OY=,iv:/OQAsFQgeNC/r8r1PAoSNBjzlzNtfj4SpdTAy0skInI=,tag:8eXaCceLN2FwWqhgR/gZsQ==,type:str]
 sops:
-    lastmodified: "2026-07-20T17:42:41Z"
-    mac: ENC[AES256_GCM,data:KwA1pRW5G85EN2hujR8mOV6AWpfD9VYgpr8YPu1EHK3QmdbewsOQSYatFNpP/0RQ3A6Es2EAoT0W12cv1tyE3DzsuaOA4w2BFdd2+Zowo2AmfPGrEPQ2xFPgPaW2wmBYFZ8/rl802F9gpHdK4BcMixlcyBoSoMcAjzxEuEwTTXE=,iv:YHFXrzj5+W136WS1tXisRpIDB0k6TELF561O4F3KCAM=,tag:+YWk1jDAzjkvk7ZJCJcXSA==,type:str]
+    lastmodified: "2026-08-03T20:24:02Z"
+    mac: ENC[AES256_GCM,data:2XhYJbBoJIfbtTKLWLueit7wBq60EV46x/kjw6KlMGkLzyOsMbP1MymeLqah1BO6e6/aRjfFG0eES9GzDOcFcjvo1hbcb7ValJ1YzGMTAkdtPRMtiAe6td2YWXIXMyay7APTsAFyT+DghDN3jwWQc7yRduGZGjktwQOiG4gjmFs=,iv:vCAjj+mYNuFM4C/7jOga9f2jL9tb3XQvbI8Dxucsb50=,tag:O2iU41D82km1Vl91aofZXQ==,type:str]
     pgp:
         - created_at: "2025-07-07T04:01:07Z"
           enc: |-

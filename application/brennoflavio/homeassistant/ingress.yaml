@@ -8,6 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: lets-encrypt
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
 spec:
+  ingressClassName: external-nginx
   rules:
   - host: homeassistant.brennoflavio.com.br
     http:

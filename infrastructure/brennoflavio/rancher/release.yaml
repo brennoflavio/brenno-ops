@@ -21,6 +21,7 @@ spec:
     hostname: "kubernetes.brennoflavio.com.br"
     bootstrapPassword: "admin-password"
     ingress:
+      ingressClassName: external-nginx
       tls:
         source: secret
       extraAnnotations:

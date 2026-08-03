@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
     name: ingress-nginx
-    namespace: ingress-nginx
+    namespace: external-ingress-nginx
 spec:
     releaseName: ingress-nginx
     chart:
@@ -13,7 +13,7 @@ spec:
             sourceRef:
                 kind: HelmRepository
                 name: ingress-nginx
-                namespace: ingress-nginx
+                namespace: external-ingress-nginx
     interval: 30m
     install:
         remediation:
@@ -29,6 +29,11 @@ spec:
                 log-format-upstream: >-
                     $remote_addr - $remote_user [$time_local] "$request" $status
                     $body_bytes_sent "$http_referer" "$http_user_agent"
+            ingressClass: external-nginx
+            electionID: external-nginx-leader
             ingressClassResource:
-                default: true
+                name: external-nginx
+                enabled: true
+                default: false
+                controllerValue: k8s.io/external-nginx
             allowSnippetAnnotations: true

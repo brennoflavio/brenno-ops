@@ -146,7 +146,7 @@ spec:
       enabled: true
       useTLS: true
       host: roundcube.brennoflavio.com.br
-      ingressClassName: nginx
+      ingressClassName: external-nginx
       tls:
         secretName: roundcube-tls
       additionalAnnotations:

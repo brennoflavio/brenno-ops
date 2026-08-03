@@ -18,6 +18,7 @@ metadata:
         return 418 "<script>document.cookie = 'verified=1; Path=/;';window.location.reload();</script>";
       }
 spec:
+  ingressClassName: external-nginx
   rules:
   - host: libreddit.brennoflavio.com.br
     http:

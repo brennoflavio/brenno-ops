@@ -9,6 +9,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
+  ingressClassName: external-nginx
   rules:
   - host: git.brennoflavio.com.br
     http:

@@ -31,9 +31,10 @@ crd:
     create: ENC[AES256_GCM,data:HSkJ/Q==,iv:UIoq5hZwAn7FEKj07F4v2FzZq9mdqXIs72gSXRltCBs=,tag:4V4p+APKcKwYKUKqscWRIQ==,type:bool]
 extraArgs:
     managed-record-types: ENC[AES256_GCM,data:GF0mH4U=,iv:oh94f5LLx7r/d4q07dR7E5mknrtypnYrW5+mQOQ/XY8=,tag:5ki3MhjEqHiUBXY8DsU1/w==,type:str]
+    ingress-class: ENC[AES256_GCM,data:5vKXdpiOBviRcdzoXSE=,iv:5ziGx3hogUXx8EBB0WfaNeQfllnfuoNCy1wlA5us6H8=,tag:jO/9gFHEUpf/Sx/xaIRg6g==,type:str]
 sops:
-    lastmodified: "2025-07-12T04:37:09Z"
-    mac: ENC[AES256_GCM,data:XD4vduTq3CHWUW8o587h6XA9bbhup4k/MRO+HReQEcccvMybAaHb+Sht7ZHr7S43NHu2B00UMZbaCcnBlP46Q6vAj6N0suVA26he+R+mAhxcoZ5rIwXL7Vz5OzJ24BTICzbjOPlcrVR8yscpcyw7Hk0OZAIPNIgO3cSkTrxQuiw=,iv:7hlp6SPbyvlJ9Dm7uBzOBqllO60W15vOA2T3iYVAJsE=,tag:QCSwOLJ/5D8Kdnx1nkxOrw==,type:str]
+    lastmodified: "2026-08-03T20:37:53Z"
+    mac: ENC[AES256_GCM,data:B5hxyaODiIibyih2OIt1Ool9BNUYQ2s8jvuhH0bBQInplp55TRYceiCvN8mImCc7LZ5S6HwM9uNOPu/Z9irVTiorBQ81yfVNvQCgyjq6X6768Kg3DKOLy1BsrDcSXxSTCKcG5uZNOmcLQsi7to+wNrMVW+Zs87JSSNpXvMmSeMo=,iv:Xp26PuSfY+B+YF2ensDDKJH/v2eNJ575TF8AM3J/vOg=,tag:Oa5XAc2Z7t1hF2Bj3p2b4g==,type:str]
     pgp:
         - created_at: "2025-07-12T02:26:03Z"
           enc: |-
@@ -57,4 +58,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 6357449C423960593235FB6BE056C483022CCA1B
     unencrypted_suffix: _unencrypted
-    version: 3.10.2
+    version: 3.11.0

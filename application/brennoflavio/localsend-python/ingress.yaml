@@ -9,6 +9,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  ingressClassName: external-nginx
   rules:
   - host: localsend-python.brennoflavio.com.br
     http:
