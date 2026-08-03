@@ -1,0 +1,42 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: internal-external-dns
+  namespace: internal-external-dns
+spec:
+  releaseName: internal-external-dns
+  chart:
+    spec:
+      chart: external-dns
+      version: 8.9.2
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+        namespace: internal-external-dns
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  values:
+    provider: pihole
+    pihole:
+      server: http://192.168.0.201:8080
+      secretName: internal-external-dns-pihole
+    sources:
+      - ingress
+    domainFilters:
+      - home.brennoflavio.com.br
+    registry: noop
+    policy: upsert-only
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+    crd:
+      create: false
+    extraArgs:
+      ingress-class: internal-nginx
+      pihole-api-version: 6
