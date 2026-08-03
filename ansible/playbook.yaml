@@ -21,7 +21,7 @@
         tunnel_ssh_user: root
         tunnel_remote_host: brennoflavio.com.br
         tunnel_remote_ssh_port: 8822
-        tunnel_private_ip: 192.168.0.202
+        tunnel_private_ip: 192.168.20.2
       loop:
         - service_name: port_25_forward
           service_description: Forward port 25 to remote host

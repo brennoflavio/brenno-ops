@@ -12,6 +12,6 @@ ports:
     protocol: TCP
 endpoints:
   - addresses:
-      - 192.168.0.202
+      - 192.168.20.2
     conditions:
       ready: true
