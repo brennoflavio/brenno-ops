@@ -7,7 +7,7 @@ metadata:
   name: atuin
   namespace: atuin
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 80
