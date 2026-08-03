@@ -15,7 +15,6 @@ resources:
   - release.yaml
   - storage-template-secret.yaml
   - storage-template-cron.yaml
-  - service.yaml
 secretGenerator:
   - name: immich-values
     files:
