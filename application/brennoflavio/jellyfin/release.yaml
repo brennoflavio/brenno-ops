@@ -26,19 +26,18 @@ spec:
       type: ClusterIP
     ingress:
       enabled: true
-      className: external-nginx
+      className: internal-nginx
       annotations:
-        cert-manager.io/cluster-issuer: lets-encrypt
-        external-dns.alpha.kubernetes.io/target: brennoflavio.com.br
+        cert-manager.io/cluster-issuer: lets-encrypt-dns01
       hosts:
-        - host: jellyfin.brennoflavio.com.br
+        - host: jellyfin.home.brennoflavio.com.br
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: jellyfin-tls
           hosts:
-            - jellyfin.brennoflavio.com.br
+            - jellyfin.home.brennoflavio.com.br
     persistence:
       config:
         size: 5Gi

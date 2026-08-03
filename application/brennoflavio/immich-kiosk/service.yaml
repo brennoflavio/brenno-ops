@@ -3,11 +3,8 @@ kind: Service
 metadata:
   name: immich-kiosk
   namespace: immich-kiosk
-  annotations:
-    metallb.io/loadBalancerIPs: 192.168.20.14
 spec:
-  type: LoadBalancer
-  allocateLoadBalancerNodePorts: false
+  type: ClusterIP
   selector:
     app: immich-kiosk
   ports:

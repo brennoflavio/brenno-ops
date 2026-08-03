@@ -5,12 +5,11 @@ metadata:
   name: backrest
   namespace: backrest
   annotations:
-    cert-manager.io/cluster-issuer: lets-encrypt
-    external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
 spec:
-  ingressClassName: external-nginx
+  ingressClassName: internal-nginx
   rules:
-  - host: backrest.brennoflavio.com.br
+  - host: backrest.home.brennoflavio.com.br
     http:
       paths:
       - path: /
@@ -22,5 +21,5 @@ spec:
               number: 9898
   tls:
   - hosts:
-    - backrest.brennoflavio.com.br
+    - backrest.home.brennoflavio.com.br
     secretName: backrest-tls

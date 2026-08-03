@@ -15,6 +15,33 @@ spec:
   install:
     remediation:
       retries: 3
-  valuesFrom:
-    - kind: Secret
-      name: silverbullet-values
+  values:
+    ingress:
+      enabled: true
+      className: internal-nginx
+      hosts:
+        - host: notes.home.brennoflavio.com.br
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - hosts:
+            - notes.home.brennoflavio.com.br
+          secretName: silverbullet-ingress-tls
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        cert-manager.io/cluster-issuer: lets-encrypt-dns01
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 250m
+      limits:
+        memory: 512Mi
+        cpu: 500m
+    volumes:
+      - name: space
+        persistentVolumeClaim:
+          claimName: space
+    volumeMounts:
+      - name: space
+        mountPath: /space

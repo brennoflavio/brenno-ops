@@ -6,9 +6,3 @@ resources:
   - claim.yaml
   - repository.yaml
   - release.yaml
-secretGenerator:
-  - name: silverbullet-values
-    files:
-      - values.yaml=values.yaml
-configurations:
-  - kustomizeconfig.yaml
