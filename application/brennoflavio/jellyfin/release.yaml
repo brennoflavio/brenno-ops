@@ -23,8 +23,7 @@ spec:
         - name: DOTNET_USE_POLLING_FILE_WATCHER
           value: "1"
     service:
-      type: NodePort
-      nodePort: 30096
+      type: ClusterIP
     ingress:
       enabled: true
       className: nginx
