@@ -18,13 +18,15 @@ kind: Service
 metadata:
   name: forgejo-ssh
   namespace: forgejo
+  annotations:
+    metallb.io/loadBalancerIPs: 192.168.20.13
 spec:
+  type: LoadBalancer
+  allocateLoadBalancerNodePorts: false
   selector:
     app: forgejo
   ports:
     - protocol: TCP
       port: 2222
       targetPort: 2222
-      nodePort: 32222
       name: ssh
-  type: NodePort
