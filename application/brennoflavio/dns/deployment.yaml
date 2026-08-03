@@ -19,7 +19,6 @@ spec:
                   image: nginx:stable-alpine3.20-perl
                   ports:
                       - containerPort: 853
-                        hostPort: 853
                         protocol: TCP
                   volumeMounts:
                       - name: nginx-config-volume
