@@ -1,0 +1,6 @@
+---
+- name: restart Uptime Kuma WireGuard
+  ansible.builtin.systemd:
+    name: "wg-quick@{{ wireguard_kuma_interface }}"
+    state: restarted
+  become: true

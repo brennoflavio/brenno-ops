@@ -1,0 +1,13 @@
+---
+wireguard_kuma_interface: kuma-home
+wireguard_kuma_directory: /etc/wireguard
+wireguard_kuma_address: 10.77.77.3/32
+wireguard_kuma_endpoint: 177.140.202.83
+wireguard_kuma_endpoint_port: 51820
+wireguard_kuma_peer_public_key: QNS12jXu2AQH5g+Ns30/wfhBCF45ZsAZagV5GMVWWXc=
+wireguard_kuma_allowed_ips:
+  - 192.168.20.0/24
+  - 192.168.0.201/32
+wireguard_kuma_persistent_keepalive: 25
+wireguard_kuma_private_key_path: "{{ wireguard_kuma_directory }}/{{ wireguard_kuma_interface }}.key"
+wireguard_kuma_config_path: "{{ wireguard_kuma_directory }}/{{ wireguard_kuma_interface }}.conf"

@@ -6,6 +6,7 @@
 
 - hosts: monitoring
   roles:
+    - wireguard-kuma
     - uptime-kuma
 
 - hosts: hostinger

@@ -1,0 +1,110 @@
+---
+- name: Install WireGuard
+  ansible.builtin.apt:
+    name: wireguard
+    state: present
+    update_cache: true
+  become: true
+
+- name: Create WireGuard configuration directory
+  ansible.builtin.file:
+    path: "{{ wireguard_kuma_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+  become: true
+
+- name: Generate and validate Uptime Kuma WireGuard private key
+  ansible.builtin.shell: |
+    set -euo pipefail
+    key_path={{ wireguard_kuma_private_key_path | quote }}
+
+    if [ -e "$key_path" ]; then
+      wg pubkey < "$key_path" > /dev/null
+      permissions=$(stat -c '%u:%g:%a' "$key_path")
+      chown root:root "$key_path"
+      chmod 0600 "$key_path"
+      if [ "$permissions" != '0:0:600' ]; then
+        echo changed
+      fi
+      exit 0
+    fi
+
+    temporary_key=$(mktemp "${key_path}.XXXXXX")
+    trap 'rm -f "$temporary_key"' EXIT
+    umask 077
+    wg genkey > "$temporary_key"
+    wg pubkey < "$temporary_key" > /dev/null
+    install -o root -g root -m 0600 "$temporary_key" "$key_path"
+    echo changed
+  args:
+    executable: /bin/bash
+  register: wireguard_kuma_private_key
+  changed_when: "'changed' in wireguard_kuma_private_key.stdout"
+  no_log: true
+  become: true
+
+- name: Derive Uptime Kuma WireGuard public key
+  ansible.builtin.shell: >-
+    wg pubkey < {{ wireguard_kuma_private_key_path | quote }}
+  args:
+    executable: /bin/bash
+  register: wireguard_kuma_public_key
+  changed_when: false
+  become: true
+
+- name: Render Uptime Kuma WireGuard peer configuration
+  ansible.builtin.template:
+    src: kuma-home.conf.j2
+    dest: "{{ wireguard_kuma_config_path }}.peer"
+    owner: root
+    group: root
+    mode: "0600"
+  become: true
+
+- name: Configure Uptime Kuma WireGuard client
+  ansible.builtin.shell: |
+    set -euo pipefail
+    key_path={{ wireguard_kuma_private_key_path | quote }}
+    peer_config_path={{ (wireguard_kuma_config_path + '.peer') | quote }}
+    config_path={{ wireguard_kuma_config_path | quote }}
+    temporary_config=$(mktemp "${config_path}.XXXXXX")
+    trap 'rm -f "$temporary_config"' EXIT
+
+    {
+      printf '[Interface]\n'
+      printf 'Address = %s\n' {{ wireguard_kuma_address | quote }}
+      printf 'PrivateKey = %s\n\n' "$(cat "$key_path")"
+      cat "$peer_config_path"
+    } > "$temporary_config"
+    chown root:root "$temporary_config"
+    chmod 0600 "$temporary_config"
+
+    if [ -f "$config_path" ] && cmp -s "$temporary_config" "$config_path"; then
+      exit 0
+    fi
+
+    mv "$temporary_config" "$config_path"
+    echo changed
+  args:
+    executable: /bin/bash
+  register: wireguard_kuma_config
+  changed_when: "'changed' in wireguard_kuma_config.stdout"
+  no_log: true
+  notify: restart Uptime Kuma WireGuard
+  become: true
+
+- name: Ensure Uptime Kuma WireGuard client is enabled and started
+  ansible.builtin.systemd:
+    name: "wg-quick@{{ wireguard_kuma_interface }}"
+    enabled: true
+    state: started
+  become: true
+
+- name: Display Uptime Kuma WireGuard public key
+  ansible.builtin.debug:
+    msg: >-
+      Add this public key to the pfSense Uptime Kuma VPS peer with allowed IP
+      {{ wireguard_kuma_address }}: {{ wireguard_kuma_public_key.stdout }}
+  changed_when: false

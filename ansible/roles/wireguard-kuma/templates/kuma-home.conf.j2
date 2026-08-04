@@ -1,0 +1,5 @@
+[Peer]
+PublicKey = {{ wireguard_kuma_peer_public_key }}
+Endpoint = {{ wireguard_kuma_endpoint }}:{{ wireguard_kuma_endpoint_port }}
+AllowedIPs = {{ wireguard_kuma_allowed_ips | join(', ') }}
+PersistentKeepalive = {{ wireguard_kuma_persistent_keepalive }}

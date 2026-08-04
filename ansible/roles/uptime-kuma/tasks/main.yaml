@@ -33,6 +33,7 @@
     restart_policy: always
     ports:
       - "{{ uptime_kuma_bind_ip }}:{{ uptime_kuma_port }}:3001"
+    dns_servers: "{{ uptime_kuma_dns_servers }}"
     volumes:
       - "{{ uptime_kuma_volume_name }}:/app/data"
     detach: yes
