@@ -1,6 +1,7 @@
 ---
 node-ip: 192.168.20.2
 advertise-address: 192.168.20.2
+resolv-conf: /run/systemd/resolve/resolv.conf
 tls-san:
     - 192.168.20.2
 # disable-network-policy: true # Enabled when rotating internal node ip

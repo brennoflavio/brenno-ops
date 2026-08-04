@@ -58,6 +58,58 @@
     enabled: true
   become: true
 
+- name: Wait for k3s API after configuration changes
+  ansible.builtin.wait_for:
+    port: 6443
+    host: "{{ ansible_default_ipv4.address }}"
+    delay: 10
+    timeout: 300
+  when: k3s_config.changed
+
+- name: Wait for CoreDNS deployment
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s kubectl -n kube-system get deployment/coredns
+  register: coredns_deployment
+  retries: 30
+  delay: 10
+  until: coredns_deployment.rc == 0
+  changed_when: false
+  become: true
+
+- name: Check CoreDNS resolver uses the k3s upstream
+  ansible.builtin.shell: |
+    set -euo pipefail
+    container_id=$(/usr/local/bin/k3s crictl ps --name coredns -q | head -n1)
+    resolver_path=$(
+      /usr/local/bin/k3s crictl inspect "$container_id" |
+        awk -F '"' '
+          /"destination": "\/etc\/resolv.conf"/ { found = 1 }
+          found && /"source":/ { print $4; exit }
+        '
+    )
+    expected=$(awk '/^nameserver / { print $2; exit }' /run/systemd/resolve/resolv.conf)
+    actual=$(awk '/^nameserver / { print $2; exit }' "$resolver_path")
+    test "$actual" = "$expected"
+  args:
+    executable: /bin/bash
+  register: coredns_resolver
+  changed_when: false
+  failed_when: false
+  become: true
+
+- name: Recreate CoreDNS pods after resolver configuration changes
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s kubectl -n kube-system delete pod -l k8s-app=kube-dns --wait=true
+  when: k3s_config.changed or coredns_resolver.rc != 0
+  become: true
+
+- name: Wait for CoreDNS pods after resolver configuration changes
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s kubectl -n kube-system wait --for=condition=Ready pod -l k8s-app=kube-dns --timeout=300s
+  when: k3s_config.changed or coredns_resolver.rc != 0
+  changed_when: false
+  become: true
+
 - name: Wait for k3s to be ready
   ansible.builtin.wait_for:
     port: 6443
