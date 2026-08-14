@@ -4,6 +4,21 @@
     path: /usr/local/bin/k3s
   register: k3s_installed
 
+- name: Install arm64 emulation
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - binfmt-support
+      - qemu-user-static
+    state: present
+  become: true
+
+- name: Enable arm64 binfmt
+  ansible.builtin.command:
+    cmd: update-binfmts --enable qemu-aarch64
+  changed_when: false
+  become: true
+
 - name: Configure inotify instance limit
   ansible.builtin.copy:
     content: |
