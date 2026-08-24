@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nitter
+  namespace: nitter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nitter
+  template:
+    metadata:
+      labels:
+        app: nitter
+    spec:
+      containers:
+        - name: nitter
+          image: zedeus/nitter:latest@sha256:8ca440fa51d8ce4618d51a6341dabbce784407025e2531343c36e540e0e3c4ba
+          ports:
+            - containerPort: 8080
+          command:
+            - /src/nitter
+          workingDir: /config
+          env:
+            - name: NITTER_SESSIONS_FILE
+              value: /config/sessions.jsonl
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          volumeMounts:
+            - name: nitter-secrets
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: nitter-secrets
+          secret:
+            secretName: nitter-secrets

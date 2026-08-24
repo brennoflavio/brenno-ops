@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nitter-valkey
+  namespace: nitter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nitter-valkey
+  template:
+    metadata:
+      labels:
+        app: nitter-valkey
+    spec:
+      containers:
+        - name: valkey
+          image: valkey/valkey:8.1.8
+          args:
+            - --maxmemory
+            - 96mb
+            - --maxmemory-policy
+            - allkeys-lru
+          ports:
+            - containerPort: 6379
+          readinessProbe:
+            exec:
+              command:
+                - valkey-cli
+                - ping
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 25m
+              memory: 64Mi
