@@ -20,7 +20,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: coding-agent
-          image: git.brennoflavio.com.br/brennoflavio/coding-agent:af0c66d
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent:46ef682
           imagePullPolicy: IfNotPresent
           workingDir: /home/pi
           env:
