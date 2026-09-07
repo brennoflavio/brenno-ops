@@ -33,10 +33,6 @@ spec:
               mountPath: /data/matrix.brennoflavio.com.br.signing.key
               subPath: matrix.brennoflavio.com.br.signing.key
               readOnly: true
-            - name: slack-config
-              mountPath: /data/slack-registration.yaml
-              subPath: registration.yaml
-              readOnly: true
           resources:
             limits:
               cpu: 1000m
@@ -51,6 +47,3 @@ spec:
         - name: synapse-config
           secret:
             secretName: synapse-config
-        - name: slack-config
-          secret:
-            secretName: slack-config

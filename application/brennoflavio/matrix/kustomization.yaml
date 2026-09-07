@@ -11,6 +11,3 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
-  - slack-secret.yaml
-  - slack-statefulset.yaml
-  - slack-service.yaml
