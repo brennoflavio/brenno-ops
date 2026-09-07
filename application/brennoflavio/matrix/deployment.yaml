@@ -35,11 +35,11 @@ spec:
               readOnly: true
           resources:
             limits:
-              cpu: 1000m
-              memory: 2048Mi
+              cpu: 2
+              memory: 4Gi
             requests:
-              cpu: 1000m
-              memory: 2048Mi
+              cpu: 2
+              memory: 4Gi
       volumes:
         - name: synapse
           persistentVolumeClaim:
