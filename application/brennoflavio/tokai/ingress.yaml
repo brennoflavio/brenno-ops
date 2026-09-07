@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tokai
+  namespace: tokai
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+spec:
+  ingressClassName: internal-nginx
+  rules:
+  - host: tokai.home.brennoflavio.com.br
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tokai
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - tokai.home.brennoflavio.com.br
+    secretName: tokai-tls

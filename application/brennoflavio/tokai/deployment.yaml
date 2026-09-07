@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tokai
+  namespace: tokai
+  labels:
+    app: tokai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tokai
+  template:
+    metadata:
+      labels:
+        app: tokai
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: tokai
+        image: git.brennoflavio.com.br/brennoflavio/tokai:fd079a5
+        ports:
+        - containerPort: 8000
+        startupProbe:
+          tcpSocket:
+            port: 8000
+          failureThreshold: 30
+          periodSeconds: 2
+        readinessProbe:
+          tcpSocket:
+            port: 8000
+        livenessProbe:
+          tcpSocket:
+            port: 8000
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi

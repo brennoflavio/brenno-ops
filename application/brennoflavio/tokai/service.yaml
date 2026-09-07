@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tokai
+  namespace: tokai
+spec:
+  type: ClusterIP
+  selector:
+    app: tokai
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
