@@ -16,6 +16,8 @@ spec:
         app: tokai
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        fsGroup: 1000
       containers:
       - name: tokai
         image: git.brennoflavio.com.br/brennoflavio/tokai:fd079a5
@@ -42,6 +44,9 @@ spec:
               - ALL
           seccompProfile:
             type: RuntimeDefault
+        volumeMounts:
+          - name: uv-cache
+            mountPath: /.cache
         resources:
           limits:
             cpu: 200m
@@ -49,3 +54,6 @@ spec:
           requests:
             cpu: 50m
             memory: 128Mi
+      volumes:
+        - name: uv-cache
+          emptyDir: {}
