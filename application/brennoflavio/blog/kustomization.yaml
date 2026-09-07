@@ -7,3 +7,10 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+  - matrix-well-known-deployment.yaml
+  - matrix-well-known-service.yaml
+  - matrix-well-known-ingress.yaml
+configMapGenerator:
+  - name: matrix-well-known
+    files:
+      - default.conf=matrix-well-known.conf
