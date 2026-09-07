@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: forgejo-mcp
+  namespace: forgejo-mcp
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: forgejo-mcp.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: forgejo-mcp
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - forgejo-mcp.home.brennoflavio.com.br
+      secretName: forgejo-mcp-tls
