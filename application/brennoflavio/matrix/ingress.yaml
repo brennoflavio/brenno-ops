@@ -6,6 +6,7 @@ metadata:
   namespace: matrix
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: 25m
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
 spec:
   ingressClassName: external-nginx
@@ -13,7 +14,14 @@ spec:
   - host: matrix.brennoflavio.com.br
     http:
       paths:
-      - path: /
+      - path: /_matrix
+        pathType: Prefix
+        backend:
+          service:
+            name: synapse
+            port:
+              number: 8008
+      - path: /_synapse/client
         pathType: Prefix
         backend:
           service:

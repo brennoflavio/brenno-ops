@@ -4,7 +4,7 @@ metadata:
   name: synapse
   namespace: matrix
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: synapse
@@ -26,12 +26,12 @@ spec:
               subPath: homeserver.yaml
               readOnly: true
             - name: synapse-config
-              mountPath: /data/matrix.brennoflavio.com.br.log.config
-              subPath: matrix.brennoflavio.com.br.log.config
+              mountPath: /data/brennoflavio.com.br.log.config
+              subPath: brennoflavio.com.br.log.config
               readOnly: true
             - name: synapse-config
-              mountPath: /data/matrix.brennoflavio.com.br.signing.key
-              subPath: matrix.brennoflavio.com.br.signing.key
+              mountPath: /data/brennoflavio.com.br.signing.key
+              subPath: brennoflavio.com.br.signing.key
               readOnly: true
           resources:
             limits:
