@@ -3,6 +3,10 @@ kind: Kustomization
 namespace: blog
 resources:
   - namespace.yaml
+  - deployer-service-account.yaml
+  - deployer-role.yaml
+  - deployer-role-binding.yaml
+  - deployer-token.yaml
   - pvc.yaml
   - deployment.yaml
   - service.yaml

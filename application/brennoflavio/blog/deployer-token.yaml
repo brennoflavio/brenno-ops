@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: blog-deployer-token
+  namespace: blog
+  annotations:
+    kubernetes.io/service-account.name: blog-deployer
+type: kubernetes.io/service-account-token
