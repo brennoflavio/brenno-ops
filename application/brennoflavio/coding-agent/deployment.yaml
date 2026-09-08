@@ -27,10 +27,17 @@ spec:
             - -c
             - |
               set -eu
-              mkdir -p /git-ssh /mcp
+              mkdir -p /git-ssh /mcp /git-http
               cp /source/id_ed25519 /git-ssh/id_ed25519
               cp /source/known_hosts /git-ssh/known_hosts
               cp /mcp-source/mcp.json /mcp/mcp.json
+              cp /git-http-source/credentials /git-http/credentials
+              cat > /git-http/credential-helper <<'EOF'
+              #!/bin/sh
+              if [ "$1" = get ]; then
+                exec git credential-store --file=/run/git-http/credentials get
+              fi
+              EOF
               cat > /git-ssh/config <<'EOF'
               Host git.brennoflavio.com.br
                 HostName git.brennoflavio.com.br
@@ -41,9 +48,10 @@ spec:
                 UserKnownHostsFile /run/git-ssh/known_hosts
                 StrictHostKeyChecking yes
               EOF
-              chown -R 1000:1000 /git-ssh /mcp
-              chmod 0700 /git-ssh /mcp
-              chmod 0600 /git-ssh/id_ed25519 /git-ssh/config /mcp/mcp.json
+              chown -R 1000:1000 /git-ssh /mcp /git-http
+              chmod 0700 /git-ssh /mcp /git-http
+              chmod 0600 /git-ssh/id_ed25519 /git-ssh/config /mcp/mcp.json /git-http/credentials
+              chmod 0700 /git-http/credential-helper
               chmod 0644 /git-ssh/known_hosts
           volumeMounts:
             - name: forgejo-git-source
@@ -56,6 +64,11 @@ spec:
               readOnly: true
             - name: forgejo-mcp
               mountPath: /mcp
+            - name: forgejo-git-http-source
+              mountPath: /git-http-source
+              readOnly: true
+            - name: forgejo-git-http
+              mountPath: /git-http
       containers:
         - name: coding-agent
           image: git.brennoflavio.com.br/brennoflavio/coding-agent:ee4b6cc
@@ -82,6 +95,16 @@ spec:
               value: America/Sao_Paulo
             - name: GIT_SSH_COMMAND
               value: ssh -F /run/git-ssh/config
+            - name: GIT_CONFIG_COUNT
+              value: "2"
+            - name: GIT_CONFIG_KEY_0
+              value: credential.helper
+            - name: GIT_CONFIG_VALUE_0
+              value: ""
+            - name: GIT_CONFIG_KEY_1
+              value: credential.helper
+            - name: GIT_CONFIG_VALUE_1
+              value: '!/run/git-http/credential-helper'
             - name: PI_SECRETS
               valueFrom:
                 secretKeyRef:
@@ -108,6 +131,9 @@ spec:
               readOnly: true
             - name: forgejo-mcp
               mountPath: /run/mcp
+              readOnly: true
+            - name: forgejo-git-http
+              mountPath: /run/git-http
               readOnly: true
       volumes:
         - name: home
@@ -143,5 +169,15 @@ spec:
               - key: mcp.json
                 path: mcp.json
         - name: forgejo-mcp
+          emptyDir:
+            medium: Memory
+        - name: forgejo-git-http-source
+          secret:
+            secretName: coding-agent-secrets
+            defaultMode: 256
+            items:
+              - key: git-credentials
+                path: credentials
+        - name: forgejo-git-http
           emptyDir:
             medium: Memory
