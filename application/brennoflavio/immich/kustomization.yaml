@@ -15,9 +15,13 @@ resources:
   - release.yaml
   - storage-template-secret.yaml
   - storage-template-cron.yaml
+configMapGenerator:
+  - name: immich-public-values
+    files:
+      - values.yaml=values.yaml
 secretGenerator:
   - name: immich-values
     files:
-      - values.yaml=values.yaml
+      - values.yaml=values-encrypted.yaml
 configurations:
   - kustomizeconfig.yaml

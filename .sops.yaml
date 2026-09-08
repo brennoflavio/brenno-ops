@@ -1,5 +1,5 @@
 creation_rules:
-  - path_regex: .*values.yaml$
+  - path_regex: (^|/)values(-encrypted)?\.yaml$
     pgp: 6357449C423960593235FB6BE056C483022CCA1B
   - path_regex: ".*\\.yaml"
     encrypted_regex: ^(data|stringData)$

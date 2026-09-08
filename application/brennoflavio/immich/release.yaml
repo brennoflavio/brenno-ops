@@ -18,5 +18,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
+    - kind: ConfigMap
+      name: immich-public-values
     - kind: Secret
       name: immich-values
