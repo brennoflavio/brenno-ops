@@ -20,7 +20,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: tokai
-        image: git.brennoflavio.com.br/brennoflavio/tokai:8b23b54
+        image: git.brennoflavio.com.br/brennoflavio/tokai:3192bdd
         ports:
         - containerPort: 8000
         startupProbe:
