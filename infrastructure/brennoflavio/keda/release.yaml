@@ -17,3 +17,26 @@ spec:
   install:
     remediation:
       retries: 3
+  values:
+    resources:
+      operator:
+        limits:
+          cpu: 1
+          memory: 1000Mi
+        requests:
+          cpu: 100m
+          memory: 100Mi
+      metricServer:
+        limits:
+          cpu: 1
+          memory: 1000Mi
+        requests:
+          cpu: 100m
+          memory: 100Mi
+      webhooks:
+        limits:
+          cpu: 1
+          memory: 1000Mi
+        requests:
+          cpu: 100m
+          memory: 100Mi

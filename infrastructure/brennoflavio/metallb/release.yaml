@@ -21,3 +21,7 @@ spec:
     values:
         frrk8s:
             enabled: false
+        controller:
+            resources: null
+        speaker:
+            resources: null

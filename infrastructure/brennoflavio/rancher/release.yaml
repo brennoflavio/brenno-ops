@@ -29,3 +29,4 @@ spec:
         cert-manager.io/cluster-issuer: lets-encrypt-dns01
     privateCA: false
     replicas: 1
+    resources: null

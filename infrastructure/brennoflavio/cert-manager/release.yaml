@@ -20,3 +20,10 @@ spec:
   values:
     crds:
       enabled: true
+    resources: null
+    webhook:
+      resources: null
+    cainjector:
+      resources: null
+    startupapicheck:
+      resources: null
