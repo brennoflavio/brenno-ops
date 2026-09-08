@@ -5,9 +5,13 @@ resources:
   - namespace.yaml
   - repository.yaml
   - release.yaml
+configMapGenerator:
+  - name: external-dns-public-values
+    files:
+      - values.yaml=values.yaml
 secretGenerator:
   - name: external-dns-values
     files:
-      - values.yaml=values.yaml
+      - values.yaml=values-encrypted.yaml
 configurations:
   - kustomizeconfig.yaml

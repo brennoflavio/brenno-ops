@@ -1,155 +1,200 @@
 ingress:
-    enabled: ENC[AES256_GCM,data:4DyBJA==,iv:KBxoG6PuXrNMFF2Xrx+QOah1jPXxSqLS7cIeiRYGpEY=,tag:3WDed79OVX6xvumsBmRoJA==,type:bool]
-    className: ENC[AES256_GCM,data:6WHfwc/uXRYqJ34/qY8=,iv:H9pQoNh045Hyj/154i8YrUFl+rS9KJnOrv9QesPjXUE=,tag:VOHjhSmq7OKt7ZzUzaE+lg==,type:str]
+    enabled: true
+    className: external-nginx
     annotations:
-        cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:gudSFOYNARr+WPVg,iv:uHE4j5yLnSnVs2/4jFu2hTq6Qj47ioQv72VYSsB+TsU=,tag:+E3rWFCPQEFJoV3zjC2LDA==,type:str]
-        external-dns.alpha.kubernetes.io/target: ENC[AES256_GCM,data:tja2BtFNWsq5WbzNdi3ABT/ozg==,iv:mXAJpF8CtbUWJq48ZKrFm+6+ZOUWyjdV9W5LNFtmhW0=,tag:8WvFpacL7sHUhD7FcH5X0g==,type:str]
-        nginx.ingress.kubernetes.io/affinity: ENC[AES256_GCM,data:I7H5oRg8,iv:QhXRO9TFsFXEAQ4XaHEaJz2hiWv/WwFEdltPXuTFFmI=,tag:Hw2Nt7bQ87M9lQDDSgvsSg==,type:str]
-        nginx.ingress.kubernetes.io/server-snippet: ENC[AES256_GCM,data:Yx7vICydNcCZT4SlPUQ1njbhCEWUNji+rQ7enp/JMX/s2PUuYGIrTGEPtIUQ0N3Vrp8NGf652IjxJQU9ajT2Bk1dEiwVAOc7WZvJJ2jfeOXSbIsPzhjCZCpCeE3P3s5DaWqhoakkyaY7p1Y2I6P4FGmdMgeBrRW3emmwXgscqnyzos9EAs0H5H9/gLM8hYuX4PDbWrpBZq5313oGGYtqQMO6r6CdJoiZm2gOyXFpRNQ7YFeRJT5lrfcqscUEM3vJxzok6ttQFuv5XAQq374iXGV36S4iggrrX9ENeV4mxhtCUIKCn2+NmDEhprdoXEM5wuXSaNXnF/De2bTD2URvyzs4x6ezv5ISTjs7VsC1Kc3+kEp7gKwkUoSMaHtn6s4PtSr4t+2txPrt4iEeP9Pwb+ZwO2C+GMqvsZxiZNxodF/7YgI0YnRHsDemL3MRr2t2vjd+dL+pveEA0Mc85W8X88YqtcZiTb/MpD1QhDXQ8JH89qLN/es1MX8IZSqVVVnG0c5VkZiayRhXLhfu9kb0yGKxM45lYm1nCRC0os2jiTxVK8zEnZT+OIwLnTHegNi0bGccY2Xl29xIg9JYWCC2mT8Ei5tk1+Y49hjpQztQFMRzGICuSv9rQy0cmjGC3QZeLAomWn4EqVIrfh9yy3egeyVKTMT2IQTT7D9WymAwuymSaXt5AWQulRdM5WOYNa9/mpM7bmmRKiOBciq2so/9CAg8Emy3NExyUY2sY70puw8EkmNrA6Zv4qie3wHPpUIkqq0xBpYh2iKEPg64n3vB2JOd7ccCUWNbL0LnJnPu+EOk0BSs6tFqSkPvrknqYDJgP6HhiLKwaw19K7f+rKJckaCefpGlAZjOempf4AIhQkMtG2/OH9OLGHKWgg5zWIxeEaPyTsl8rKOZqtIr7g62YLOfGAV6RFcJjgIeGkaJWAB4zX8lPRM4HgYz0uh6gcUv7Vw=,iv:8EsxSVU4GIXR0qoJ1KFk21m+aiA+uphJyXa1bdAYHDA=,tag:5hoJ7QC0xvqVHXEac5BJlg==,type:str]
-        nginx.ingress.kubernetes.io/proxy-body-size: ENC[AES256_GCM,data:MQ==,iv:2h2mY0TkJScAYNrrx/j2lMNyEwoBchFXD2TTwqSdchs=,tag:DQWJ3Ep+VY9az6dcO3Vx3g==,type:str]
+        cert-manager.io/cluster-issuer: lets-encrypt
+        external-dns.alpha.kubernetes.io/target: brennoflavio.com.br
+        nginx.ingress.kubernetes.io/affinity: cookie
+        nginx.ingress.kubernetes.io/server-snippet: |-
+            server_tokens off;
+            proxy_hide_header X-Powered-By;
+            rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+            rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+            rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+            rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+            location = /.well-known/carddav {
+              return 301 $scheme://$host/remote.php/dav;
+            }
+            location = /.well-known/caldav {
+              return 301 $scheme://$host/remote.php/dav;
+            }
+            location = /robots.txt {
+              allow all;
+              log_not_found off;
+              access_log off;
+            }
+            location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+              deny all;
+            }
+            location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+              deny all;
+            }
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
     tls:
         - hosts:
-            - ENC[AES256_GCM,data:ndcK7fbeKFd2lLvvK4py586A+qk3kQZOxkaaX2o=,iv:T+G+isndmfV4PnEZurMlfSvscZz+S9sQOi8oGgR2uIM=,tag:60oUmdavltVAFBbp+qL5Og==,type:str]
-          secretName: ENC[AES256_GCM,data:rXv5zDbNYD1JzXydWIVDKDmEcmQ7,iv:7m/uZAxnIHb4Jk1qX8QXDt7DzmygAQoFCQeMoQrydZY=,tag:J76SBsVxapZSav4exhoOGg==,type:str]
-replicaCount: ENC[AES256_GCM,data:Sw==,iv:gXB486pCnKBza/tfWvxbvOmDGx9exzOWD13dNghN3i0=,tag:7ik0JBPwrB3QMJL2GXuc1g==,type:int]
+            - nextcloud.brennoflavio.com.br
+          secretName: nextcloud-ingress-tls
+replicaCount: 1
 nextcloud:
-    host: ENC[AES256_GCM,data:UM+LLMKCQdUhj+wpbzdP3Jxnq/AmsJzBEp+cDvg=,iv:qZTUtpL28q9koiEgiDHux9fQ1lpc2bwBSg7ClQVZJDY=,tag:HCLPgWrLKCRmG1RgMuFxbw==,type:str]
-    username: ENC[AES256_GCM,data:8+WNc4N1,iv:385zsuZRzOL/lv1TlFbduqEUQb8Eje33/eOlwBHt9Ag=,tag:yTBGiriqzbx5ihLDuzb06Q==,type:str]
-    password: ENC[AES256_GCM,data:BnEVyTCADU9CD3RWylLgWg==,iv:1yZsXg/TJtQpkENkqQLQikkomhTsSuIRtZ1H+1fHTgM=,tag:uDsMXS35MDuF5cEDKCSAxw==,type:str]
+    host: nextcloud.brennoflavio.com.br
+    username: brenno
     mail:
-        enabled: ENC[AES256_GCM,data:BrJ/rQ==,iv:0n3VYROQ3/SF32AMoUq5tLYHG0tkhhFibhhqB3vsDmw=,tag:pDfqCH9xGMX84loaCQW0vQ==,type:bool]
-        fromAddress: ENC[AES256_GCM,data:wB4Myoc=,iv:v6QEvPWaJymfeu5BGmIDr/EYhOna6c7JC7NYuENMFnE=,tag:DbW3dGOKUdrhjeQhgfoOoA==,type:str]
-        domain: ENC[AES256_GCM,data:J11zgkFLyU4zfkPpoELHOCNdimptbP1v4lRcL4g=,iv:2Nji8d+OqIyDR5Uk/cuEsLqQENjBqfZfBewQ3ypH34c=,tag:89S8KXDjc4o86ScWhfbBfQ==,type:str]
+        enabled: true
+        fromAddress: hello
+        domain: nextcloud.brennoflavio.com.br
         smtp:
-            host: ENC[AES256_GCM,data:MPv/+KHrSGWqexhlQJ/qVEyszFBaSGENRVYmHebLVXNrwA==,iv:2zQyM9gyppBa1CqSt7OtTyKza2YkpkeefM80suTo8Z4=,tag:1c44kpGrgUGitDdFyL+0fg==,type:str]
-            secure: ENC[AES256_GCM,data:1cL9cto66JQ=,iv:+aZ7H8jNPdUYdhmzQNKrlP4L4gv8n81w+7aDS4zCmfc=,tag:Q3D2AdkFqJ061mZibtTylQ==,type:str]
-            port: ENC[AES256_GCM,data:Z98V,iv:azMn2FeTR7IfZ8oXMOsUbnUEPhWy0OtdU3Yw2T5rAMY=,tag:2ZFLSwjjWqdZBhoBuxrwIA==,type:int]
-            authtype: ENC[AES256_GCM,data:WqfJHbc=,iv:CKQkPMeDj8/pherMagceIoS//4LPB/yvWtCjiNDWRfs=,tag:R020tix9dZe49cJTUrWRWA==,type:str]
-            name: ENC[AES256_GCM,data:YQ458u6IBAfgBQXmILFlQI9+yEc=,iv:bR3hi0zxK6D1kA2YJAa0KKhxrFSMn2VJnBS4RTUP+Zg=,tag:SbWivzQXlEyTvIb7IzjfUg==,type:str]
-            password: ENC[AES256_GCM,data:LkbJxR1mB+WzH0MCpAvSSuU0ghU55Dog+04r+AzP1Ow5yFejcU9aPSjTlW0=,iv:+Tr9g/D9qJCsHjO+Fr+11ft9udApKNataLN4vyxXTrs=,tag:yU2OiAcdG6q/Oe++yuHzxg==,type:str]
+            host: email-smtp.sa-east-1.amazonaws.com
+            secure: starttls
+            port: 587
+            authtype: LOGIN
     defaultConfigs:
-        imaginary.config.php: ENC[AES256_GCM,data:IkV4xQ==,iv:ZaVYtikwViMzR611nmvFsauMVMXyYG1RY4a/OgKEiJg=,tag:PuWprWvhsjJ5KNQHlZxE9g==,type:bool]
-        redis.config.php: ENC[AES256_GCM,data:c8BPw5Q=,iv:2JHu0/MuOnH7tKYWwzPp2yZ24nK5y0SfiHq/AFJMsFw=,tag:fOIXcxFuHfMp6uuosuCN2w==,type:bool]
+        imaginary.config.php: true
+        redis.config.php: false
     configs:
-        previews.config.php: ENC[AES256_GCM,data:W11m2BPPI5He/fF9VVb2tJDZIuXE+hZquW1dHIlxZDCH28Ya36op4RH9kIdGaBsRWEqxNeXq4lzK8eSEcRSoB+vmsZ5ZXmI3Vn57a8ocgXThF+UXBkx7FixK86t16drCUdQBIOHYp3VbdvTMSR7M3tny6Jnci0UgRfuo0PO5j5oSZpgHtRX4QecvJPX7by8eVRBA7YF6InrzuVdy/dev4icR3vC++DxyKruesRZ1UFeNFq/22Gx4iBIchGi09l6jXQhZWY2xj434v0g50Xdf/eRzD9PTYdkQtFpGiWw13JTWrIBXFeodsZ7IOVpDnCblphIxJppkgTIq0TlkghCtLRtLce/vEM0pOt4MYJ90yEghOFn+l7nz+M0LzM2+w+O1yjgJsJmhEOKNbarKpHLxnabufNTYuuPBOC6b2vGbLOzWglU62KwdttbFZ4N3clGPtvu7SwWm9RvYusrvgREo58MK0GNow8w2CzxH0krghBCIVR9kMj3uvG0dFmFK3NH+0zS/7pQ9FNjNQ8DQjHqtAIjtFjzWOXko3H94dfQpf1sGAZCt,iv:qddgChs9SIsariRUGqxTWiw4Ig3+vZa6izoUKyqadhQ=,tag:PCW74jLHP03y4YgKVT9t/Q==,type:str]
-        redis.config.php: ENC[AES256_GCM,data:AJ7VMNC+Wdczu414v/FiXKy83mjCk060ebCkJUzCcFFbYLunpfQkMjy8lCivNkbCxJ9O/Hb5bd4c48+IH/yU/drx28zQCc9ydufcWPD55VtasfpUeUeTVYObsiDuqia3NVH9Od2B7c1hRkaDp3uxu7a/UMZABUKeXbnSD1cfKMMf8yqfSR1ET6O24rXruE+3FmLOLr063savbgU2j7+hyLSrllQ7tbDubxOnZW2toQoIZ5FaqGWm5EFBYlPyPhC4qdtKPtPVKvf/hlXvpFx6cYtr0kI4hZtk9IyLsDC1q9gASTm4UOR8jXY=,iv:NZrYtGRr1lQgUgfjcIEGqdV7IIKxYkdOIpy/0+ZB4Xg=,tag:WDxR8SkVzDpWyoWfrU4M2g==,type:str]
-        maintenance.config.php: ENC[AES256_GCM,data:MQDacROjlQbMhvava1AgR4rTSfyIOig20+55++hS5/QL0i9SsUXJb2afbIl0F1QUvQ2RMcpvqrQwJ6vN,iv:guStOHYvEmsnQdesevu1QJo1+tR83oBdnBNuHH46vz4=,tag:iTuGmPHsi/d2T7/e4ukzHw==,type:str]
-        proxy.config.php: ENC[AES256_GCM,data:7hLo70ryj43RZ3s5zUZTXzU0N8ddshiUj9d1WRpfy3WieRshJXSuzx0b6O+cz89c+FeaMOGjD8HOepAvVOv4JnH9M33C8AunL5FdJeiN/i+r+O9a8svxdEpmJQOW4W/6U+UD1b/3wjhWaA7xlabOS4lhmuanMx7FKbNI2iWX0dxd/qbwSYjd9Lc4KM/v2PCiF+sYKUNojue7EbEUDP5JzD7J2/F5MNi8qVnr,iv:K4HgRr1gxIVpEH9jZth8hqjdTYskCtlWHUNtV8jtPXQ=,tag:ZhTBEWoMuMY+/9QtlgIc4g==,type:str]
-        logging.config.php: ENC[AES256_GCM,data:QTZmWDoIBWCIlq6yhJXgoEIWOBXtH3xgc5svD7+hK/2nkJuG0djxu+c/Hl6/LT1HZZmssRb5+e9Kk04hS+1DaAHgJTCOdo9zt5Slp880V5dxvlN3BuVA9phnBufhLAhWwPyjJ/4xlg==,iv:pYVXRgBv6EKozJgQiKpdfOoaS6vq4CEfJP1MJtxeNxU=,tag:2gyYcaeTvjG+9rI7VtMq8Q==,type:str]
-        phone.config.php: ENC[AES256_GCM,data:yboIygE5PU712WeH3bztjQCSQVnJ0+q6Z2i23zFH5W2sV5AubwcRzI0kQ4r4BCEImQkhaxtw0/+Y8vaSew==,iv:eW6+ZOBVGARVJNYX2s9U34lEy1w96NSC34tlfLdDnD4=,tag:TONzFC1dcFqhpCKppCDUlg==,type:str]
-        bruteforce.config.php: ENC[AES256_GCM,data:0+sX92fvIDjSpbO44axzZB36X0RGmnc3BHvGadAJaETbpM2wFveT4nYqFtyh7aJYoPChfJWv/p8NewutoDhRarCh5f86tKXbIQjebA==,iv:x/7nb0WACglGhWLYzFywwFe8E0CUgPzvhCR7eh3oo2k=,tag:2QZpIfewKlyfkXiEbgvr9g==,type:str]
+        previews.config.php: |-
+            <?php
+            $CONFIG = array (
+              'enable_previews' => true,
+              'enabledPreviewProviders' => array (
+                'OC\Preview\Movie',
+                'OC\Preview\PNG',
+                'OC\Preview\JPEG',
+                'OC\Preview\GIF',
+                'OC\Preview\BMP',
+                'OC\Preview\XBitmap',
+                'OC\Preview\MP3',
+                'OC\Preview\MP4',
+                'OC\Preview\TXT',
+                'OC\Preview\MarkDown',
+                'OC\Preview\PDF',
+                'OC\Preview\EMF',
+                'OC\Preview\WEBP',
+                'OC\Preview\RIFF'
+              ),
+            );
+        redis.config.php: |-
+            <?php
+            $CONFIG = array(
+                'memcache.distributed' => '\OC\Memcache\Redis',
+                'memcache.locking' => '\OC\Memcache\Redis',
+                'redis' => array(
+                    'host' => 'redis.nextcloud.svc.cluster.local',
+                    'port' => 6379,
+                ),
+            );
+        maintenance.config.php: |-
+            <?php
+            $CONFIG = array (
+              'maintenance_window_start' => 1
+            );
+        proxy.config.php: |-
+            <?php
+            $CONFIG = array (
+                'trusted_proxies' => array(
+                0 => '127.0.0.1',
+                1 => '10.0.0.0/8',
+                ),
+                'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR')
+            );
+        logging.config.php: |-
+            <?php
+            $CONFIG = array (
+                'syslog' => 'file',
+                'syslog_tag' => 'Nextcloud',
+                'loglevel' => 3
+            );
+        phone.config.php: |-
+            <?php
+            $CONFIG = array (
+                'default_phone_region' => 'BR'
+            );
+        bruteforce.config.php: |-
+            <?php
+            $CONFIG = array (
+                'auth.bruteforce.protection.enabled' => false
+            );
 persistence:
-    enabled: ENC[AES256_GCM,data:NMvAog==,iv:MjZBOQY0YYLXsFAE6LfFepax5zcqhoOVvN2u7B1Wj2o=,tag:cJBvex7BDJ4uhhL1I8l+0Q==,type:bool]
-    existingClaim: ENC[AES256_GCM,data:/NgyKnlCkQeO,iv:3rAeeTfbaUcZW9Tvmfk7F5x3GZXccPoi0JF31l/Ma6M=,tag:mSjoyw+eoF3fH504rdD7Lg==,type:str]
+    enabled: true
+    existingClaim: nextcloud
 redis:
-    enabled: ENC[AES256_GCM,data:NBe2J7o=,iv:RdB2IbicPkrMqdrgqg5W599D3HfbXXinC2zDlebkALc=,tag:NKg2Ff4R+2FuQ201ZTp8GA==,type:bool]
+    enabled: false
 cronjob:
-    enabled: ENC[AES256_GCM,data:Po0P1A==,iv:fkp8weyt3GRP6pSvZyNemy3M8WkByy5RWaGC9yGotlI=,tag:drAZatEp/txjJTBhNYzUVw==,type:bool]
+    enabled: true
     resources:
         requests:
-            memory: ENC[AES256_GCM,data:fWiROVU=,iv:zED+9NM3kiIXvUzmao31C7+yjCVw70e3qt+s4cf22mQ=,tag:Hx+n3F6rfIai2ivbuZiHyw==,type:str]
-            cpu: ENC[AES256_GCM,data:YlzJ+w==,iv:KQW4sau4sSlz7wHs0Pqgn2f5Ly7EvcJFCo6LNgAN0Y0=,tag:A1AdXRVgvznAU5BSSMH5IQ==,type:str]
+            memory: 512Mi
+            cpu: 500m
         limits:
-            memory: ENC[AES256_GCM,data:s2tu,iv:5pgigZq/hOTKVe32t4Pr9Yg4lihN6JYP1FLkVBGTSaA=,tag:XGeHR1pCbNLANyoYHGHpMA==,type:str]
-            cpu: ENC[AES256_GCM,data:08TH8Bg=,iv:Al+hF6QbeARwszdvnj0ux5MGvmX4ASx25zounD4N85M=,tag:GJKEP9IdfrWd3gcjXTNHSQ==,type:str]
+            memory: 1Gi
+            cpu: 2000m
 resources:
     requests:
-        memory: ENC[AES256_GCM,data:7Mn6,iv:MkbkUAYDZCTQAZ2c2j7BWB8sR3BtPKMJgp9xUPDYQFM=,tag:G3EoUzqkZniwD15ZFtt9UQ==,type:str]
-        cpu: ENC[AES256_GCM,data:YsJem4s=,iv:K1d/QpOa5QfV1/VkO68DpeZwbsTs+vUqpJm5rtH5fow=,tag:n3WHTv8mASmw+UA6SmWX+w==,type:str]
+        memory: 2Gi
+        cpu: 1000m
     limits:
-        memory: ENC[AES256_GCM,data:gsOg,iv:96kcLssUvux5Cx9L8qs8cBpPUoBDGPAnImyZSqaxWEs=,tag:UWgoUta5Y5YWf4D0PXkKcg==,type:str]
-        cpu: ENC[AES256_GCM,data:xYxHNn8=,iv:so41l/bwBeYdnqEyHf+o56jZglpBO8rDJtaO/nr3AIU=,tag:j6yptrfYncHcTJCmIJd7NA==,type:str]
+        memory: 4Gi
+        cpu: 4000m
 internalDatabase:
-    enabled: ENC[AES256_GCM,data:rqoLMaI=,iv:Y7WHK3+dDAkgwxQtORZdsknLRks0T4nGCR52IcboqS4=,tag:Ef48Hmw4dMFRekaWiwnGXg==,type:bool]
+    enabled: false
 mariadb:
-    enabled: ENC[AES256_GCM,data:khKVeA==,iv:vVWWKGu1k/ZTbxHXCFlsRQp3WGQTPhDTpJalvxsLZ7c=,tag:J3hy1nClZFjoh+JiImVLFg==,type:bool]
+    enabled: true
     image:
-        registry: ENC[AES256_GCM,data:rsvrE85Z94NT,iv:2ESF+Udivufq8n+U0W8K6+GTNDZoyNO0ugzA+UT4nlc=,tag:1AM4oSS2s1btdrYFmuka4A==,type:str]
-        repository: ENC[AES256_GCM,data:sVYJ4q4x6T36pjJjsNsprseQvzOS,iv:n7/TSB03iVVwSASgIG4prUGbS8scnJauqT9BLC+ZWOo=,tag:zu16X5aVET47OufHiSjZww==,type:str]
+        registry: docker.io
+        repository: bitnamilegacy/mariadb
     global:
         security:
-            allowInsecureImages: ENC[AES256_GCM,data:b4RQLg==,iv:ye+IXLCjEnS1x+Kulsmf5+kaTczuu8p47xbO1Ar3zZk=,tag:0OlzLU4+LmFTjg2CaR63gw==,type:bool]
-    auth:
-        password: ENC[AES256_GCM,data:xpeX5ZMjiwbhvqnC9Sap7qQIQ0GawEkIHne/5qeARXc=,iv:0VahAdxuHHOUmi1qORBA07VnswLvRyfSPTRerOPjTJI=,tag:MgYmH60piB4q/VScPggUZQ==,type:str]
-        rootPassword: ENC[AES256_GCM,data:odMowvAfmju6vszY9+tclKUbgizN++2iQuvuZACqmTU=,iv:KAYoocyPmHwTJFZvtJB8Saqg2E5YPQW/JEdDJdwnOjo=,tag:X6H5z4k55MppdO+SnHAZSQ==,type:str]
+            allowInsecureImages: true
     primary:
         persistence:
-            enabled: ENC[AES256_GCM,data:YkQFOA==,iv:YnCLxu1Up87KtyOLKDzO+xELdO6y7rx637UlYLYJs6s=,tag:j68L4edUqLOtMNXp8XEF+w==,type:bool]
-            existingClaim: ENC[AES256_GCM,data:HyocK6+J4g==,iv:rWkofAEMjnBK2ez2h1MB7Gvi/Zfck702xr/Nf6M9ZyQ=,tag:b2owwizgtGhwBe69FYOpTg==,type:str]
+            enabled: true
+            existingClaim: mariadb
         resources:
             requests:
-                memory: ENC[AES256_GCM,data:R0oy7bc=,iv:ndaZb1Gkq7jaY4zY1+krO1kBMCuD0uvZIwQd/w0r764=,tag:n9s508KjJIuhhi9Xihrh3Q==,type:str]
-                cpu: ENC[AES256_GCM,data:ezbKwQ==,iv:KH4pjvjSGuARhPjI/ire6N7tBhaIkKZy7YVweidkasU=,tag:mpkhvOdzJTPMj0j1Mr/vIw==,type:str]
+                memory: 512Mi
+                cpu: 200m
             limits:
-                memory: ENC[AES256_GCM,data:iJ5J,iv:5DNP0m4iG6/8K76cHO2VxQeFA1LXSc1mh3dhUibKYkU=,tag:VcAfTCrL+o2+hSwyW0wgvg==,type:str]
-                cpu: ENC[AES256_GCM,data:uj2y9A==,iv:MK6l6wKo1FzG6VaTlXxDnPccGsKD0locXWcWrSNId9Q=,tag:AMyqLmSu8dvYwUoCCkMSzA==,type:str]
+                memory: 2Gi
+                cpu: 800m
 collabora:
-    enabled: ENC[AES256_GCM,data:JabwCg==,iv:49uYF0lt29IbOvlVaHT0CwNcX9olCwNbd5q0RlfVdtA=,tag:/pTL3LaoTQdDWz4TZi1zoQ==,type:bool]
-    replicaCount: ENC[AES256_GCM,data:Vg==,iv:j4BNd6LGAM6KwCnfWNya0QqbdE7rh9bXFM/vcTxHgQk=,tag:EMYzvMZe3Q2IHCEv+pZl5Q==,type:int]
+    enabled: true
+    replicaCount: 1
     collabora:
-        extra_params: ENC[AES256_GCM,data:zt7yjO/nj6JNUTBsJ3/i43MAA5nMEHvdpowS3Y4YUcGn55HqUPlgY6mjhIRI,iv:DshSSQ8w0+YrZIVN5ZLI12/XbCfX8nYvtFxbA1epZRc=,tag:4o9lyIh5zDjtQaHoWu4Trw==,type:str]
+        extra_params: --o:ssl.enable=false --o:ssl.termination=true
     ingress:
-        enabled: ENC[AES256_GCM,data:KHLq8A==,iv:HpEU0PVkfh8qLBtHI7xiqp9g9ulH0V/HiVA/ude+i2k=,tag:gummYzqXHPIQ+H9k7D5gMw==,type:bool]
-        className: ENC[AES256_GCM,data:zPSkV2FbfI9ktkVNTqE=,iv:sgGAODhNYedScldEaS9m6NoOSa8uQwb3ppO3JDtbbDk=,tag:IO07GNHgBHu4eqHTtEXM5w==,type:str]
+        enabled: true
+        className: external-nginx
         annotations:
-            cert-manager.io/cluster-issuer: ENC[AES256_GCM,data:zXuA2d5fCMGni+nK,iv:krEG1UO9poNsSUMBqeNixiPoThYQFvdwqWbA3FXIxkA=,tag:2pFbrjIb7a1d6CV7SXYTWQ==,type:str]
-            external-dns.alpha.kubernetes.io/target: ENC[AES256_GCM,data:9Sx+hsuGuWZRiIdHOjZCp0ScGw==,iv:Tlx0Q5E3oU54tKuVRjAvvJOF/GWdLAyJtu9mngz90SY=,tag:ay9/ND9JHPBSd61Qyrxoow==,type:str]
+            cert-manager.io/cluster-issuer: lets-encrypt
+            external-dns.alpha.kubernetes.io/target: brennoflavio.com.br
         hosts:
-            - host: ENC[AES256_GCM,data:nzdNA92pWCq+VzMIl6admSvpARAgEiyMizwdp7nUtQ==,iv:jnz1mLacNOAScRBryVafGBFIOy0UV5aHfNmnjtKq9pA=,tag:K7qB1872CEAKwFom+R5msw==,type:str]
+            - host: libreoffice.brennoflavio.com.br
               paths:
-                - path: ENC[AES256_GCM,data:Vw==,iv:rp505rnGZAK1YIutSMhqvqKZ7tdiI0F1ZuPTDT4NpP8=,tag:qKlk57bX295b9EF3dri5Xg==,type:str]
-                  pathType: ENC[AES256_GCM,data:NZdCulTx2iqks4+uDcAvHFUqZxn3MA==,iv:N3AgaDyV0zc5+9ofs/KAr1RO44/MRaOTJOuF6/XZBrA=,tag:sRNnfb+wPxR+mp36g1o+RA==,type:str]
+                - path: /
+                  pathType: ImplementationSpecific
         tls:
-            - secretName: ENC[AES256_GCM,data:dZJrgAEvggYVtD5cYf+ZYg==,iv:8avqEE829fXZFsvG5w3mw+nQyg8KAHYdnnvYC4tvDho=,tag:7iRARO1CIoMWxRraJ3+MPg==,type:str]
+            - secretName: libreoffice-cert
               hosts:
-                - ENC[AES256_GCM,data:45U6HOzRv2QT4SnVGRPKzW1NKaQeqT8LlWqiGwJNQA==,iv:w9e/QXcKbw0KtpwzTJGcTHXBYelrT9NziUKxKSnpqOw=,tag:wjQrTWkW2TukqA1cTdyBmw==,type:str]
+                - libreoffice.brennoflavio.com.br
     resources:
         requests:
-            memory: ENC[AES256_GCM,data:w3Mfmnk=,iv:AiXBy0vrfHK2UUxii7xgCO/B24PH2X/VzEr1QU9z+WY=,tag:8CVCMAWeeDTsp6COxZP/dA==,type:str]
-            cpu: ENC[AES256_GCM,data:xIGufg==,iv:r1JRgsHxCoGPD8xH0hrutkPgb4yhXTEPSJAVDgmMhkM=,tag:5G/Hcp4XWWUCnGoO0JtHug==,type:str]
+            memory: 512Mi
+            cpu: 300m
         limits:
-            memory: ENC[AES256_GCM,data:f4zP,iv:HWVPq9N0/x66CFQsFUZRws1fha1/lkfCVDFuw1O3ljQ=,tag:7spcajgMiMAOiv2hsZSRSQ==,type:str]
-            cpu: ENC[AES256_GCM,data:dyfKwSg=,iv:fi18mq5dSUMvs47g/NGASfHNpe0L/PU02WWrteEQ4BY=,tag:cIlM3uS2hUs1EfcV2hDMxA==,type:str]
+            memory: 2Gi
+            cpu: 1000m
 imaginary:
-    enabled: ENC[AES256_GCM,data:AiMaGA==,iv:HOO5xon1GldW+fY5DuiwqEvZp5cMaNNPKkrveG0KSDY=,tag:VTxPcp0SMu4y+TcbUVuKvg==,type:bool]
+    enabled: true
     resources:
         requests:
-            memory: ENC[AES256_GCM,data:X/CY3M8=,iv:05DywMMyqGdPf70a4+wqMgrNIHGiJpqhiKRiHSVFfcY=,tag:w85Z7RrbJByB1+LNSipLsA==,type:str]
-            cpu: ENC[AES256_GCM,data:Ih1YSA==,iv:XyOAR8dGk28rfw4LrKT7tU2bVKbpmyodIt1C+utJFmg=,tag:RUnviX4ML4Ll5wTbm/j3/Q==,type:str]
+            memory: 128Mi
+            cpu: 100m
         limits:
-            memory: ENC[AES256_GCM,data:XY2PFJs=,iv:w/Bb7+FBEXun6duHj2hls0Gvs5H/3PnLO7X+ThSiPqE=,tag:9Kqggsq/CSsbpBxc2hW9hQ==,type:str]
-            cpu: ENC[AES256_GCM,data:xXqa0Q==,iv:nPc6a/Er2hdR3HmULVDpm/ZrQT1FwY0HsIxAd0gdZFI=,tag:66Hg/efY/YK7/FumdA+ihg==,type:str]
+            memory: 512Mi
+            cpu: 400m
 phpClientHttpsFix:
-    enabled: ENC[AES256_GCM,data:cUVsRw==,iv:H0jeB6ddA+16ARK3DRSHqWK768lxnVp+AImgCtcTC/M=,tag:JxfE9QxFnAYFhYS9ndOYHA==,type:bool]
-    protocol: ENC[AES256_GCM,data:VA5azHI=,iv:v/xhb7cGPQfpg1OB8V48HSiJXO7liw6sxAKaY0uijuo=,tag:/uojTg0mBnhZeLEhPbVp2Q==,type:str]
+    enabled: true
+    protocol: https
 nginx:
     config:
         headers:
-            Strict-Transport-Security: ENC[AES256_GCM,data:AFfZ5M1YEBYWvRtLT9IN9ZRH8i1GmpAbb6IYAE0bQc5CLKkl,iv:2CmIYHQSUO8ueSb4FlvdwNl5WloLwGZWlrkxeDBjj5I=,tag:otR52Jl5jr0sJzhX1ds6nA==,type:str]
-sops:
-    lastmodified: "2026-08-03T20:31:05Z"
-    mac: ENC[AES256_GCM,data:5cNgyeky/s+yg1W1asiPdhMb8dXpDkepzbZ4HqxxgghsLxjljZzmBfoxICFeXXGLZEHRar2pGoGlFTJdOSdK1ggrPEIPH8X9RglJbVnj0jL9jb1ArqSEGsp2T3hzels6kAq4hQyLbZSqsJnFNQ+n6n5KYLFBUbT/8mIsDszasNk=,iv:gz93K2bETM4T7rurJArShiVyg03ITO9I8LkRApFeVxw=,tag:VDPbaT/OycZzdWsUCQ3stw==,type:str]
-    pgp:
-        - created_at: "2024-12-25T14:19:57Z"
-          enc: |-
-            -----BEGIN PGP MESSAGE-----
-
-            hQIMA4o7DJvx8F4XARAAoP16Hg/G6BI+Uk1XUzvuT+l7hwJdIeBmdQHFhsN8fEJV
-            bJeC1w3aEn6czGxNsroTy+7G2katMF7flaXrAlyidUclriMfEd+SFU77RhCyid0G
-            u1BACaRONZudvNR+SA3BgAjtVGoiL+yjXdj+6jh6Xtr0vnuC7t51Qk7r5iUMCbuK
-            Zpz7IY1opadN5DMfufMpEbpLYOZrDfnyXOm4wFRLAr7ylTVCmFl0Qv5MnOx61zbx
-            d1gC3MHWWfTSy7Gbc3xqYIpqXkB3GJ6kPFxMW1VxXMAQ2z/0SoH6LothjTXe/sS1
-            zi6szlfD2me05MIV15UPzlxbHPxYirsVubAi1mBLG+GFc1UGESbfjYcGkqJKBfd3
-            19/fW0oESfo+ZgsqFCNcP7rRuNo38dTykJlrrnq1lYAJqtvvgWoxvVdHshLU0hQR
-            h7PsBfqRvT6cGSlpHcjio5rE2b+uDvnIoejOfoaFyvax1DlNK/w4EwrzwPCUPM59
-            bGqCQmUtjwOVA3hOSz6Wppwdgbn7bpC8ChJ2qyNc64OleLevOLF0C8wD5xmULgEt
-            oKtycPZbtU3M0PxV8XtElBISJeuE28esRfxwwHixAcZF3iwWFXrEEls45+lBkBli
-            TA117CK4C+AfbC52lVvADalnQt8IkEqgBXjlSrPijE1Qvjc7q1r1FUGgZ+vvtOvU
-            aAEJAhDJCjlIeFLP/x3tHKHS59rqLIE2kK6t+/gvtUZFzWpj5tFVZvNOCQNihVgR
-            g4jwPJwUlkr7hh5G5IjS5Vw8t6ZvKiUwD15BRiL2iw1qw54ePD2S7NPHDcgmljIf
-            mdZJLWykcyyI
-            =QpuZ
-            -----END PGP MESSAGE-----
-          fp: 6357449C423960593235FB6BE056C483022CCA1B
-    unencrypted_suffix: _unencrypted
-    version: 3.11.0
+            Strict-Transport-Security: max-age=15768000; includeSubDomains;

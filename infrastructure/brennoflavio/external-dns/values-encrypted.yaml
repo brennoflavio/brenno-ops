@@ -1,0 +1,33 @@
+aws:
+    credentials:
+        accessKey: ENC[AES256_GCM,data:KOxt404pd9Iv+9+b8uoOwHCaLG0=,iv:oZ4JOFEZd3pTW0yysRjPoGKcUEMcQMdB2GWsDooTBbY=,tag:3fy0CTyHWmZYRbcMn0zwfA==,type:str]
+        secretKey: ENC[AES256_GCM,data:TFVv0ZYnlaBnfCKjUcEGDebRgC7650szVKb8W/NrxpBFma25TbdDEw==,iv:JDR4NU2XqtlYPsW+5k7xKnUpegoWdgcaFOE+V424VbQ=,tag:h2tLCrxQHxJ1tcRMTCpr5Q==,type:str]
+txtEncrypt:
+    aesKey: ENC[AES256_GCM,data:Mie/RQ5NVbY89e2DECT5wG3gdy+hF5KnJRGY42TRt/s=,iv:0rOr7AQQIYuuIwfIhiQZDxp8g2ThE0TJR852boJowfg=,tag:knUCVtpbiYI4rvncpiU/QQ==,type:str]
+sops:
+    lastmodified: "2026-09-08T22:56:15Z"
+    mac: ENC[AES256_GCM,data:30EhZAEhPnEkLn3Hz+boi4msd3D/DiAUiY9kb9fCs2C9g5lStEoBZ7AmuxoHyhHo8Ih6w9AtI97CcHdOez855aFPPFvDMjstgufj3sroI8BpQQIeDKq2vV5PsWam4h7PiVNL/d+onRY8v5FhWp+gQcYe7qlYE11vJNLKA0JxGTs=,iv:zNBApyzre3d4HsomsmcQGODv8dy6PqNWiw4axYelxbA=,tag:KIf7Ueho0/cGwPxyp2lp7w==,type:str]
+    pgp:
+        - created_at: "2025-07-12T02:26:03Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA4o7DJvx8F4XAQ/+LcMdT51TerrxKLTGyM4w7ip311Acebly5OlTIjD4vQSB
+            Uz3lMRfGx/F3TesRXekL0nE48ROCLmiK7ftR+434g2H7Vay3UvOeF8kkmC42OPsc
+            d51K8eLCffMTPF74FPbzbkNoYhsPVf9tSG8dYQdbBSiCPKK5o7j16dfxHMJ2cfOx
+            aw2k0Ef7NtS8i3wGPZ2IhhJS2f1NDPUmrxpGV9sXbxbaqfHa1sXVuFnPIe12kTLn
+            jDSA8YBcs/xJeIKpYz5oR87p1+L16aPArirgd00qwleP/tKiCutZImMpaqwLpLQW
+            hgMObKqas9nchDBX+dX78IxVqkp8x1wdKOEDhDbB0bILV3lwdBP+fNLjgZUUSN8Q
+            XfXcjB+ZeoUB/sEqnOEAGSuT8B5nm3ZrSdnRygzfztBedGKi5w0kH92tXIyTYQKG
+            chztZPDaygvRNz8R3EgvpDh8RfWDvJgxNgoLzyY4DQbc9bSblOX/82pJtqcYZ5sJ
+            cypwL/p6nOQSlZfhuJWgCoVJAcNSsuZDTcUNRkOs+2ByGg5ILW1i+LLVWTmIBq92
+            jtXw5vMthNsrzTD7rPXlDoYHKLT0oB80RCTjDgnyf1gL/m1QvFJjdnCvy4WkOIAF
+            lxexSdKuOy2h0NOFcI+FGY4UGhC4jUFBgd1EOCycTgWFgg56o/DYh1zr40sTiTPU
+            aAEJAhDevrJVIR4uwqS//GZ4msnzCIG/GQx9cHpTb30iPc3gt2aJIkoAoISIP0iB
+            PW/JIDyfVZGzYBFKlktIiIRUTYwnk2ASTyzubd96AAg5u54rZ9Cbv085LZks+EH8
+            UxfKnjWDZ8As
+            =ODTz
+            -----END PGP MESSAGE-----
+          fp: 6357449C423960593235FB6BE056C483022CCA1B
+    unencrypted_suffix: _unencrypted
+    version: 3.11.0

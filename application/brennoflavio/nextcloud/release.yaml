@@ -18,5 +18,7 @@ spec:
     remediation:
       retries: 3
   valuesFrom:
+    - kind: ConfigMap
+      name: nextcloud-public-values
     - kind: Secret
       name: nextcloud-values

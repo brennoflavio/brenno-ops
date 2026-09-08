@@ -14,9 +14,13 @@ resources:
   - preview-role.yaml
   - preview-role-binding.yaml
   - preview-cron.yaml
+configMapGenerator:
+  - name: nextcloud-public-values
+    files:
+      - values.yaml=values.yaml
 secretGenerator:
   - name: nextcloud-values
     files:
-      - values.yaml=values.yaml
+      - values.yaml=values-encrypted.yaml
 configurations:
   - kustomizeconfig.yaml
