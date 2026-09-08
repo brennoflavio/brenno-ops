@@ -38,7 +38,12 @@ spec:
         - secretName: jellyfin-tls
           hosts:
             - jellyfin.home.brennoflavio.com.br
-    resources: null
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        memory: 4Gi
     persistence:
       config:
         size: 5Gi

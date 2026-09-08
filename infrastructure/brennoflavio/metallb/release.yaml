@@ -22,6 +22,18 @@ spec:
         frrk8s:
             enabled: false
         controller:
-            resources: null
+            resources:
+                requests:
+                    cpu: 50m
+                    memory: 64Mi
+                limits:
+                    cpu: 250m
+                    memory: 128Mi
         speaker:
-            resources: null
+            resources:
+                requests:
+                    cpu: 50m
+                    memory: 64Mi
+                limits:
+                    cpu: 250m
+                    memory: 128Mi

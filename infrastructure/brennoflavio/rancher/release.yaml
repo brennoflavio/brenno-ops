@@ -29,4 +29,10 @@ spec:
         cert-manager.io/cluster-issuer: lets-encrypt-dns01
     privateCA: false
     replicas: 1
-    resources: null
+    resources:
+      requests:
+        cpu: 250m
+        memory: 1Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
