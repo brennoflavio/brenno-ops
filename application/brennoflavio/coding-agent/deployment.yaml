@@ -18,6 +18,44 @@ spec:
     spec:
       automountServiceAccountToken: false
       terminationGracePeriodSeconds: 30
+      initContainers:
+        - name: prepare-forgejo-git
+          image: busybox:1.37.0
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              set -eu
+              mkdir -p /git-ssh /mcp
+              cp /source/id_ed25519 /git-ssh/id_ed25519
+              cp /source/known_hosts /git-ssh/known_hosts
+              cp /mcp-source/mcp.json /mcp/mcp.json
+              cat > /git-ssh/config <<'EOF'
+              Host git.brennoflavio.com.br
+                HostName git.brennoflavio.com.br
+                Port 2222
+                User git
+                IdentityFile /run/git-ssh/id_ed25519
+                IdentitiesOnly yes
+                UserKnownHostsFile /run/git-ssh/known_hosts
+                StrictHostKeyChecking yes
+              EOF
+              chown -R 1000:1000 /git-ssh /mcp
+              chmod 0700 /git-ssh /mcp
+              chmod 0600 /git-ssh/id_ed25519 /git-ssh/config /mcp/mcp.json
+              chmod 0644 /git-ssh/known_hosts
+          volumeMounts:
+            - name: forgejo-git-source
+              mountPath: /source
+              readOnly: true
+            - name: forgejo-git
+              mountPath: /git-ssh
+            - name: forgejo-mcp-source
+              mountPath: /mcp-source
+              readOnly: true
+            - name: forgejo-mcp
+              mountPath: /mcp
       containers:
         - name: coding-agent
           image: git.brennoflavio.com.br/brennoflavio/coding-agent:ee4b6cc
@@ -32,6 +70,8 @@ spec:
               value: /data
             - name: PI_CODING_AGENT_DIR
               value: /home/pi/.pi/agent
+            - name: PI_MCP_CONFIG_PATH
+              value: /run/mcp/mcp.json
             - name: WEB_BROWSE_BROWSER_BIN
               value: /usr/bin/chromium
             - name: XDG_CACHE_HOME
@@ -40,9 +80,13 @@ spec:
               value: /data/playwright-cli/config.json
             - name: TZ
               value: America/Sao_Paulo
-          envFrom:
-            - secretRef:
-                name: coding-agent-secrets
+            - name: GIT_SSH_COMMAND
+              value: ssh -F /run/git-ssh/config
+            - name: PI_SECRETS
+              valueFrom:
+                secretKeyRef:
+                  name: coding-agent-secrets
+                  key: PI_SECRETS
           resources:
             requests:
               cpu: 4000m
@@ -59,6 +103,12 @@ spec:
               mountPath: /home/pi/.pi/agent
             - name: dshm
               mountPath: /dev/shm
+            - name: forgejo-git
+              mountPath: /run/git-ssh
+              readOnly: true
+            - name: forgejo-mcp
+              mountPath: /run/mcp
+              readOnly: true
       volumes:
         - name: home
           persistentVolumeClaim:
@@ -73,3 +123,25 @@ spec:
           emptyDir:
             medium: Memory
             sizeLimit: 1Gi
+        - name: forgejo-git-source
+          secret:
+            secretName: coding-agent-secrets
+            defaultMode: 256
+            items:
+              - key: id_ed25519
+                path: id_ed25519
+              - key: known_hosts
+                path: known_hosts
+        - name: forgejo-git
+          emptyDir:
+            medium: Memory
+        - name: forgejo-mcp-source
+          secret:
+            secretName: coding-agent-secrets
+            defaultMode: 256
+            items:
+              - key: mcp.json
+                path: mcp.json
+        - name: forgejo-mcp
+          emptyDir:
+            medium: Memory
