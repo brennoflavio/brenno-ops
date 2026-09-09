@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telegraf-config
+  namespace: telegraf
+data:
+  telegraf.conf: |
+    [agent]
+      interval = "10s"
+      round_interval = true
+      metric_batch_size = 1000
+      metric_buffer_limit = 100000
+      flush_interval = "10s"
+      omit_hostname = true
+
+    [[outputs.influxdb_v2]]
+      urls = ["http://influxdb.influx.svc.cluster.local:8086"]
+      token = "${INFLUX_TOKEN}"
+      organization = "brennoflavio"
+      bucket = "metrics"
+      timeout = "5s"
+
+    [[inputs.kubernetes]]
+      interval = "1m"
+      url = "https://${HOST_IP}:10250"
+      bearer_token = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      insecure_skip_verify = true
+      namepass = ["kubernetes_pod_container", "kubernetes_node"]
+      taginclude = ["container_name", "namespace", "node_name", "pod_name"]
+
+    [[inputs.kube_inventory]]
+      interval = "1m"
+      bearer_token = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      insecure_skip_verify = true
+      namespace = ""
+      resource_include = ["pods", "deployments"]
+      namepass = ["kubernetes_pod_container", "kubernetes_deployment"]
+      taginclude = ["container_name", "namespace", "node_name", "pod_name", "deployment_name"]
+
+    [[aggregators.merge]]
+      namepass = ["kubernetes_pod_container"]
+      period = "1m"
+      drop_original = true
+      round_timestamp_to = "1m"
+
+    [[processors.starlark]]
+      namepass = ["kubernetes_pod_container"]
+      source = '''
+    def apply(metric):
+        cpu_usage = metric.fields.get("cpu_usage_nanocores")
+        cpu_request = metric.fields.get("resource_requests_millicpu_units")
+        cpu_limit = metric.fields.get("resource_limits_millicpu_units")
+
+        if cpu_usage != None and cpu_request != None and cpu_request > 0:
+            metric.fields["cpu_request_usage_percentage"] = float(cpu_usage) / (float(cpu_request) * 1000000.0)
+
+        if cpu_usage != None and cpu_limit != None and cpu_limit > 0:
+            metric.fields["cpu_limit_usage_percentage"] = float(cpu_usage) / (float(cpu_limit) * 1000000.0)
+
+        memory_usage = metric.fields.get("memory_rss_bytes")
+        memory_request = metric.fields.get("resource_requests_memory_bytes")
+        memory_limit = metric.fields.get("resource_limits_memory_bytes")
+
+        if memory_usage != None and memory_request != None and memory_request > 0:
+            metric.fields["memory_request_usage_percentage"] = float(memory_usage) / float(memory_request)
+
+        if memory_usage != None and memory_limit != None and memory_limit > 0:
+            metric.fields["memory_limit_usage_percentage"] = float(memory_usage) / float(memory_limit)
+
+        return metric
+    '''
