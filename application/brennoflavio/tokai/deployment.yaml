@@ -21,6 +21,9 @@ spec:
       containers:
       - name: tokai
         image: git.brennoflavio.com.br/brennoflavio/tokai:3192bdd
+        env:
+        - name: TOKAI_LOG_LEVEL
+          value: debug
         ports:
         - containerPort: 8000
         startupProbe:
