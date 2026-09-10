@@ -22,6 +22,8 @@ spec:
       - name: tokai
         image: git.brennoflavio.com.br/brennoflavio/tokai:10aa64b
         env:
+        - name: TOKAI_PORT
+          value: "8000"
         - name: TOKAI_LOG_LEVEL
           value: debug
         ports:
