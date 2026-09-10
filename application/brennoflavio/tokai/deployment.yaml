@@ -20,7 +20,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: tokai
-        image: git.brennoflavio.com.br/brennoflavio/tokai:3192bdd
+        image: git.brennoflavio.com.br/brennoflavio/tokai:10aa64b
         env:
         - name: TOKAI_LOG_LEVEL
           value: debug
