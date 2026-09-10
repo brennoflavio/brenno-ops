@@ -39,7 +39,7 @@ spec:
             - name: ENABLE_RSS
               value: "on"
             - name: FULL_URL
-              value: "libreddit.brennoflavio.com.br"
+              value: "libreddit.home.brennoflavio.com.br"
             - name: REDLIB_DEFAULT_THEME
               value: "system"
             - name: REDLIB_DEFAULT_FRONT_PAGE

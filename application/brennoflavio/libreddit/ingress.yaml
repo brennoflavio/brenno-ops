@@ -5,22 +5,11 @@ metadata:
   name: libreddit
   namespace: libreddit
   annotations:
-    cert-manager.io/cluster-issuer: lets-encrypt
-    external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      set $verified 0;
-      if ($cookie_verified = "1") {
-        set $verified 1;
-      }
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      if ($verified = 0) {
-        add_header Content-Type text/html;
-        return 418 "<script>document.cookie = 'verified=1; Path=/;';window.location.reload();</script>";
-      }
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
 spec:
-  ingressClassName: external-nginx
+  ingressClassName: internal-nginx
   rules:
-  - host: libreddit.brennoflavio.com.br
+  - host: libreddit.home.brennoflavio.com.br
     http:
       paths:
       - path: /
@@ -32,5 +21,5 @@ spec:
               number: 8080
   tls:
   - hosts:
-    - libreddit.brennoflavio.com.br
+    - libreddit.home.brennoflavio.com.br
     secretName: libreddit-tls
