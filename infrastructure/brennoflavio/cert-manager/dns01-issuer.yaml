@@ -11,7 +11,7 @@ spec:
     solvers:
       - selector:
           dnsZones:
-            - home.brennoflavio.com.br
+            - brennoflavio.com.br
         dns01:
           route53:
             region: sa-east-1

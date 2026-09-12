@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: mail-tls
   issuerRef:
-    name: lets-encrypt
+    name: lets-encrypt-dns01
     kind: ClusterIssuer
   commonName: mail.brennoflavio.com.br
   dnsNames:
