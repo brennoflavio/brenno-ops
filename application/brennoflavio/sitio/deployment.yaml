@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sitio
+  namespace: sitio
+  labels:
+    app: sitio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sitio
+  template:
+    metadata:
+      labels:
+        app: sitio
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        fsGroup: 10001
+      containers:
+        - name: sitio
+          image: git.brennoflavio.com.br/brennoflavio/confirmacoes-sitio:70a7464
+          envFrom:
+            - secretRef:
+                name: sitio-secrets
+          ports:
+            - containerPort: 8000
+          startupProbe:
+            tcpSocket:
+              port: 8000
+            failureThreshold: 30
+            periodSeconds: 2
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: sitio-data
+              mountPath: /data
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+      volumes:
+        - name: sitio-data
+          persistentVolumeClaim:
+            claimName: sitio-data
