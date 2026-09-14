@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kittygram
+  namespace: kittygram
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kittygram
+  template:
+    metadata:
+      labels:
+        app: kittygram
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: kittygram
+          image: codeberg.org/irelephant/kittygram@sha256:ce7fef137821f5fe4955c585c6d2f940f2b3a300d9c456ca79ccbf2d5cd74c68
+          ports:
+            - containerPort: 80
+          env:
+            - name: REDIS_HOST
+              value: kittygram-valkey
+            - name: RESOLVER
+              value: 10.43.0.10
+            - name: BASE_ATOM_PATH
+              value: https://kittygram.home.brennoflavio.com.br/
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: kittygram-secrets
+                  key: secret
+          startupProbe:
+            tcpSocket:
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 2
+          readinessProbe:
+            tcpSocket:
+              port: 80
+          livenessProbe:
+            tcpSocket:
+              port: 80
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi

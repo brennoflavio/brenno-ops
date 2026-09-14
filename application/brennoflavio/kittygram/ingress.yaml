@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kittygram
+  namespace: kittygram
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: kittygram.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kittygram
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - kittygram.home.brennoflavio.com.br
+      secretName: kittygram-tls
