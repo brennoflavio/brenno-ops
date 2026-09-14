@@ -20,7 +20,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: tokai
-        image: git.brennoflavio.com.br/brennoflavio/tokai:274abff
+        image: git.brennoflavio.com.br/brennoflavio/tokai:5cc3994
         env:
         - name: TOKAI_PORT
           value: "8000"
