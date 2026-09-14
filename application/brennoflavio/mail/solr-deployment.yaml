@@ -29,6 +29,8 @@ spec:
           env:
             - name: SOLR_JAVA_MEM
               value: "-Xms3g -Xmx3g"
+            - name: SOLR_MODULES
+              value: analysis-extras
           ports:
             - containerPort: 8983
           volumeMounts:
