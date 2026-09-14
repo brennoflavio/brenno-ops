@@ -102,11 +102,24 @@ data:
       #  comment = All my important messages
       #}
     }
-  10-plugin.conf: |
-    mail_plugins = $mail_plugins fts fts_solr
+  90-fts-solr.conf: |
+    language pt {
+      default = yes
+    }
 
-    plugin {
-      fts = solr
-      fts_autoindex = yes
-      fts_solr = url=http://solr.mail.svc.cluster.local:8983/solr/dovecot/
+    mail_plugins {
+      fts = yes
+      fts_solr = yes
+    }
+
+    fts solr {
+    }
+
+    fts_solr_url = http://solr.mail.svc.cluster.local:8983/solr/dovecot/
+    fts_autoindex = yes
+    fts_search_add_missing = yes
+    fts_search_read_fallback = no
+
+    mailbox Trash {
+      fts_autoindex = no
     }

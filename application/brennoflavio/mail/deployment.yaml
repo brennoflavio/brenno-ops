@@ -29,7 +29,7 @@ spec:
       hostname: mail
       containers:
         - name: mail
-          image: ghcr.io/docker-mailserver/docker-mailserver:15.1.0
+          image: ghcr.io/docker-mailserver/docker-mailserver:16.0.1
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: true
@@ -82,8 +82,8 @@ spec:
               subPath: 15-mailboxes.conf
               readOnly: true
             - name: dovecot-configs
-              mountPath: /etc/dovecot/conf.d/10-plugin.conf
-              subPath: 10-plugin.conf
+              mountPath: /etc/dovecot/conf.d/90-fts-solr.conf
+              subPath: 90-fts-solr.conf
               readOnly: true
           ports:
             - containerPort: 25
