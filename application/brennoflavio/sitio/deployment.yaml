@@ -20,7 +20,7 @@ spec:
         fsGroup: 10001
       containers:
         - name: sitio
-          image: git.brennoflavio.com.br/brennoflavio/confirmacoes-sitio:222d5e4
+          image: git.brennoflavio.com.br/brennoflavio/confirmacoes-sitio:f081542
           envFrom:
             - secretRef:
                 name: sitio-secrets
