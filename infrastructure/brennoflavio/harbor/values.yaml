@@ -1,0 +1,50 @@
+expose:
+  type: ingress
+  tls:
+    enabled: true
+    certSource: secret
+    secret:
+      secretName: harbor-tls
+  ingress:
+    hosts:
+      core: registry.home.brennoflavio.com.br
+    className: internal-nginx
+    annotations:
+      cert-manager.io/cluster-issuer: lets-encrypt-dns01
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+externalURL: https://registry.home.brennoflavio.com.br
+
+existingSecretAdminPassword: harbor-bootstrap
+existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
+existingSecretSecretKey: harbor-bootstrap
+
+persistence:
+  enabled: true
+  resourcePolicy: keep
+  persistentVolumeClaim:
+    registry:
+      storageClass: local-path
+      size: 100Gi
+      annotations:
+        volume.kubernetes.io/selected-node: brenno-server
+    jobservice:
+      jobLog:
+        storageClass: local-path
+        annotations:
+          volume.kubernetes.io/selected-node: brenno-server
+    database:
+      storageClass: local-path
+      annotations:
+        volume.kubernetes.io/selected-node: brenno-server
+    redis:
+      storageClass: local-path
+      annotations:
+        volume.kubernetes.io/selected-node: brenno-server
+
+updateStrategy:
+  type: Recreate
+
+trivy:
+  enabled: false

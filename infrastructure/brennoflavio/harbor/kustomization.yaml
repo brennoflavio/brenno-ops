@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: harbor
+resources:
+  - namespace.yaml
+  - secret.yaml
+  - repository.yaml
+  - release.yaml
+configMapGenerator:
+  - name: harbor-public-values
+    files:
+      - values.yaml=values.yaml
+secretGenerator:
+  - name: harbor-values
+    files:
+      - values.yaml=values-encrypted.yaml
+configurations:
+  - kustomizeconfig.yaml
