@@ -71,7 +71,7 @@ spec:
               mountPath: /git-http
       containers:
         - name: coding-agent
-          image: git.brennoflavio.com.br/brennoflavio/coding-agent:eea55f3
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-bd143f5-1789748064
           imagePullPolicy: IfNotPresent
           workingDir: /home/pi
           env:
