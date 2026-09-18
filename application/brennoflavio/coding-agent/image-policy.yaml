@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: coding-agent
+  namespace: coding-agent
+spec:
+  imageRepositoryRef:
+    name: coding-agent
+  filterTags:
+    pattern: '^main-[a-f0-9]+-(?P<ts>[1-9][0-9]*)$'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc

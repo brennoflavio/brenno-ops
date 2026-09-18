@@ -4,5 +4,8 @@ namespace: tokai
 resources:
   - namespace.yaml
   - deployment.yaml
+  - image-repository.yaml
+  - image-policy.yaml
+  - image-update-automation.yaml
   - service.yaml
   - ingress.yaml

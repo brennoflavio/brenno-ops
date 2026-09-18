@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: tokai
+  namespace: tokai
+spec:
+  image: git.brennoflavio.com.br/brennoflavio/tokai
+  interval: 5m
