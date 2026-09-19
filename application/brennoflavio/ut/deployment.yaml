@@ -26,10 +26,10 @@ spec:
               mountPath: /var/ut
           resources:
             limits:
-              memory: 144Mi
+              memory: 512Mi
             requests:
               cpu: 10m
-              memory: 144Mi
+              memory: 512Mi
       volumes:
         - name: ut-storage
           persistentVolumeClaim:
