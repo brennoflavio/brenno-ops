@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: grafana
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+spec:
+  ingressClassName: internal-nginx
+  tls:
+    - hosts:
+        - grafana.home.brennoflavio.com.br
+      secretName: grafana-tls
+  rules:
+    - host: grafana.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 3000
