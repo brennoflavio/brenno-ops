@@ -50,9 +50,9 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 880Mi
+              memory: 2Gi
             limits:
-              memory: 880Mi
+              memory: 2Gi
           volumeMounts:
             - name: storage
               mountPath: /var/lib/influxdb2
