@@ -37,10 +37,9 @@ spec:
                     name: renovate-token
               resources:
                 requests:
-                  cpu: 100m
+                  cpu: 650m
                   memory: 512Mi
                 limits:
-                  cpu: 1
                   memory: 1Gi
               securityContext:
                 allowPrivilegeEscalation: false

@@ -36,10 +36,9 @@ spec:
                       periodSeconds: 5
                   resources:
                       requests:
-                          cpu: 100m
+                          cpu: 10m
                           memory: 256Mi
                       limits:
-                          cpu: 500m
                           memory: 1Gi
                   volumeMounts:
                       - name: postgres

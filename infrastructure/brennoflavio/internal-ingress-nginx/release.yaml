@@ -23,7 +23,7 @@ spec:
       resources:
         limits: null
         requests:
-          cpu: 100m
+          cpu: 10m
           memory: 90Mi
       service:
         type: LoadBalancer

@@ -57,10 +57,9 @@ spec:
           resources:
             limits:
               memory: 12Gi
-              cpu: 6000m
             requests:
               memory: 8Gi
-              cpu: 4000m
+              cpu: 50m
           volumeMounts:
             - name: mail
               subPath: docker-mailserver

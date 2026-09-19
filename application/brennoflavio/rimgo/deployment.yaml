@@ -32,8 +32,7 @@ spec:
           value: 546c25a59c58ad7
         resources:
           limits:
-            cpu: 200m
             memory: 512Mi
           requests:
-            cpu: 50m
+            cpu: 10m
             memory: 128Mi

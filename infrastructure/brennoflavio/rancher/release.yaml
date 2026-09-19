@@ -31,8 +31,7 @@ spec:
     replicas: 1
     resources:
       requests:
-        cpu: 250m
+        cpu: 200m
         memory: 1Gi
       limits:
-        cpu: 1
         memory: 2Gi

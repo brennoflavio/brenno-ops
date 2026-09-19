@@ -14,10 +14,9 @@ controllers:
                 resources:
                     requests:
                         memory: 2Gi
-                        cpu: 1000m
+                        cpu: 10m
                     limits:
                         memory: 8Gi
-                        cpu: 8000m
 immich:
     metrics:
         enabled: false
@@ -35,6 +34,12 @@ server:
                     image:
                         repository: ghcr.io/immich-app/immich-server
                         pullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: 2Gi
+                            cpu: 400m
+                        limits:
+                            memory: 8Gi
     ingress:
         main:
             enabled: true

@@ -25,7 +25,6 @@ spec:
         cpu: 100m
         memory: 128Mi
       limits:
-        cpu: 500m
         memory: 256Mi
     webhook:
       resources:
@@ -33,15 +32,13 @@ spec:
           cpu: 50m
           memory: 64Mi
         limits:
-          cpu: 250m
           memory: 128Mi
     cainjector:
       resources:
         requests:
-          cpu: 50m
+          cpu: 10m
           memory: 64Mi
         limits:
-          cpu: 250m
           memory: 128Mi
     startupapicheck:
       resources:
@@ -49,5 +46,4 @@ spec:
           cpu: 50m
           memory: 64Mi
         limits:
-          cpu: 100m
           memory: 128Mi

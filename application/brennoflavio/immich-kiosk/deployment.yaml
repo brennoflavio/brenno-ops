@@ -20,10 +20,9 @@ spec:
             - containerPort: 3000
           resources:
             limits:
-              cpu: 200m
               memory: 512Mi
             requests:
-              cpu: 50m
+              cpu: 10m
               memory: 128Mi
           volumeMounts:
             - name: immich-kiosk

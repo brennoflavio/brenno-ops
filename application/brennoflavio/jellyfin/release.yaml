@@ -40,7 +40,7 @@ spec:
             - jellyfin.home.brennoflavio.com.br
     resources:
       requests:
-        cpu: 250m
+        cpu: 10m
         memory: 256Mi
       limits:
         memory: 4Gi

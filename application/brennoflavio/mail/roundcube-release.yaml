@@ -59,6 +59,9 @@ spec:
                     periodSeconds: 10
                     timeoutSeconds: 5
                     failureThreshold: 6
+                  resources:
+                    requests:
+                      cpu: 10m
       - target:
           version: v1
           kind: ConfigMap
@@ -131,10 +134,9 @@ spec:
       resources:
         requests:
           memory: "512Mi"
-          cpu: "100m"
+          cpu: 10m
         limits:
           memory: "512Mi"
-          cpu: "100m"
       additionalVolumeMounts:
       - name: roundcube-db
         mountPath: /var/roundcube/db

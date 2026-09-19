@@ -120,20 +120,19 @@ redis:
     enabled: false
 cronjob:
     enabled: true
-    resources:
-        requests:
-            memory: 512Mi
-            cpu: 500m
-        limits:
-            memory: 1Gi
-            cpu: 2000m
+    sidecar:
+        resources:
+            requests:
+                memory: 512Mi
+                cpu: 50m
+            limits:
+                memory: 1Gi
 resources:
     requests:
         memory: 2Gi
-        cpu: 1000m
+        cpu: 1400m
     limits:
         memory: 4Gi
-        cpu: 4000m
 internalDatabase:
     enabled: false
 mariadb:
@@ -151,10 +150,9 @@ mariadb:
         resources:
             requests:
                 memory: 512Mi
-                cpu: 200m
+                cpu: 150m
             limits:
                 memory: 2Gi
-                cpu: 800m
 collabora:
     enabled: true
     replicaCount: 1
@@ -178,19 +176,17 @@ collabora:
     resources:
         requests:
             memory: 512Mi
-            cpu: 300m
+            cpu: 10m
         limits:
             memory: 2Gi
-            cpu: 1000m
 imaginary:
     enabled: true
     resources:
         requests:
             memory: 128Mi
-            cpu: 100m
+            cpu: 10m
         limits:
             memory: 512Mi
-            cpu: 400m
 phpClientHttpsFix:
     enabled: true
     protocol: https

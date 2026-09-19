@@ -46,5 +46,37 @@ persistence:
 updateStrategy:
   type: Recreate
 
+portal:
+  resources:
+    requests:
+      cpu: 10m
+core:
+  resources:
+    requests:
+      cpu: 100m
+jobservice:
+  resources:
+    requests:
+      cpu: 10m
+registry:
+  registry:
+    resources:
+      requests:
+        cpu: 200m
+  controller:
+    resources:
+      requests:
+        cpu: 10m
+database:
+  internal:
+    resources:
+      requests:
+        cpu: 50m
+redis:
+  internal:
+    resources:
+      requests:
+        cpu: 10m
+
 trivy:
   enabled: false

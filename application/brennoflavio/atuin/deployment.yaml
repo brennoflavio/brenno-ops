@@ -37,10 +37,9 @@ spec:
             - containerPort: 8888
           resources:
             limits:
-              cpu: 100m
               memory: 256Mi
             requests:
-              cpu: 25m
+              cpu: 10m
               memory: 64Mi
           volumeMounts:
             - mountPath: /config

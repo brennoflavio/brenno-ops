@@ -52,10 +52,9 @@ spec:
               mountPath: /data
           resources:
             limits:
-              cpu: 100m
               memory: 128Mi
             requests:
-              cpu: 20m
+              cpu: 10m
               memory: 64Mi
       volumes:
         - name: sitio-data

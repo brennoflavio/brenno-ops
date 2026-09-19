@@ -20,7 +20,6 @@ spec:
             image: ghcr.io/brennoflavio/immich-meme-detector:e6a46b74741d3e0fdcac63b675a0ec67c11417a4
             resources:
               limits:
-                cpu: 100m
                 memory: 128Mi
               requests:
                 cpu: 100m

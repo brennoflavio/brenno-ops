@@ -23,10 +23,9 @@ spec:
       value: "pt_BR"
     resources:
       limits:
-        cpu: "2"
         memory: 2Gi
       requests:
-        cpu: 500m
+        cpu: 50m
         memory: 1Gi
     ingress:
       enabled: true

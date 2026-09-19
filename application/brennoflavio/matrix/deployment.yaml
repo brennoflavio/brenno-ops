@@ -35,10 +35,9 @@ spec:
               readOnly: true
           resources:
             limits:
-              cpu: 2
               memory: 4Gi
             requests:
-              cpu: 2
+              cpu: 250m
               memory: 4Gi
       volumes:
         - name: synapse

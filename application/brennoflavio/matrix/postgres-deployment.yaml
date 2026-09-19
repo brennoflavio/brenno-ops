@@ -44,10 +44,9 @@ spec:
                 command: ["/usr/local/bin/pg_ctl", "stop", "-D", "/var/lib/postgresql/data", "-w", "-t", "60", "-m", "fast"]
           resources:
             limits:
-              cpu: 1
               memory: 2Gi
             requests:
-              cpu: 1
+              cpu: 50m
               memory: 2Gi
           volumeMounts:
             - mountPath: /var/lib/postgresql/data/

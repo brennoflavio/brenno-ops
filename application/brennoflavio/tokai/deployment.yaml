@@ -54,10 +54,9 @@ spec:
             mountPath: /.cache
         resources:
           limits:
-            cpu: 200m
             memory: 256Mi
           requests:
-            cpu: 50m
+            cpu: 10m
             memory: 128Mi
       volumes:
         - name: uv-cache
