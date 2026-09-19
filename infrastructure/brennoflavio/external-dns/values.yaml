@@ -18,10 +18,10 @@ txtEncrypt:
 policy: sync
 resources:
     limits:
-        memory: 128Mi
+        memory: 144Mi
     requests:
         cpu: 10m
-        memory: 64Mi
+        memory: 144Mi
 crd:
     create: true
 extraArgs:

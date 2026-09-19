@@ -21,10 +21,10 @@ spec:
             command: ["python", "/app/main.py"]
             resources:
               limits:
-                memory: 128Mi
+                memory: 64Mi
               requests:
                 cpu: 100m
-                memory: 128Mi
+                memory: 64Mi
             envFrom:
             - secretRef:
                 name: nextcloud-heic-webp-converter

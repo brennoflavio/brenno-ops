@@ -21,10 +21,10 @@ spec:
             command: ["python", "/app/main.py"]
             resources:
               limits:
-                memory: 1024Mi
+                memory: 80Mi
               requests:
                 cpu: 450m
-                memory: 512Mi
+                memory: 80Mi
             envFrom:
             - secretRef:
                 name: nextcloud-video-frame-extractor

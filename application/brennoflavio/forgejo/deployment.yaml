@@ -64,10 +64,10 @@ spec:
             periodSeconds: 20
           resources:
             limits:
-              memory: 2Gi
+              memory: 1152Mi
             requests:
               cpu: 100m
-              memory: 2Gi
+              memory: 1152Mi
           volumeMounts:
             - name: forgejo-data
               mountPath: /data

@@ -20,10 +20,10 @@ spec:
             - containerPort: 3000
           resources:
             limits:
-              memory: 512Mi
+              memory: 112Mi
             requests:
               cpu: 10m
-              memory: 128Mi
+              memory: 112Mi
           volumeMounts:
             - name: immich-kiosk
               mountPath: /config/config.yaml

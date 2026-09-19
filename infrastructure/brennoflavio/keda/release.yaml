@@ -78,19 +78,19 @@ spec:
     resources:
       operator:
         limits:
-          memory: 1000Mi
+          memory: 192Mi
         requests:
           cpu: 10m
-          memory: 100Mi
+          memory: 192Mi
       metricServer:
         limits:
-          memory: 1000Mi
+          memory: 128Mi
         requests:
           cpu: 10m
-          memory: 100Mi
+          memory: 128Mi
       webhooks:
         limits:
-          memory: 1000Mi
+          memory: 64Mi
         requests:
           cpu: 10m
-          memory: 100Mi
+          memory: 64Mi

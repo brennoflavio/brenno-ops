@@ -68,6 +68,11 @@ spec:
               readOnly: true
             - name: forgejo-git-http
               mountPath: /git-http
+          resources:
+            requests:
+              memory: 16Mi
+            limits:
+              memory: 16Mi
       containers:
         - name: coding-agent
           image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-e51ea22-1789780795 # {"$imagepolicy": "coding-agent:coding-agent"}
@@ -112,9 +117,9 @@ spec:
           resources:
             requests:
               cpu: 2000m
-              memory: 8Gi
+              memory: 4736Mi
             limits:
-              memory: 8Gi
+              memory: 4736Mi
           volumeMounts:
             - name: home
               mountPath: /home/pi

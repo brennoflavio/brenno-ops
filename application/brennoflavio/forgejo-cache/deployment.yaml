@@ -29,10 +29,10 @@ spec:
               name: cache
           resources:
             limits:
-              memory: 512Mi
+              memory: 48Mi
             requests:
               cpu: 10m
-              memory: 128Mi
+              memory: 48Mi
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000

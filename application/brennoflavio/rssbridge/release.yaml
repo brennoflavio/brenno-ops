@@ -39,7 +39,7 @@ spec:
               - rssbridge.brennoflavio.com.br
     resources:
       limits:
-        memory: 512Mi
+        memory: 272Mi
       requests:
         cpu: 10m
-        memory: 128Mi
+        memory: 272Mi

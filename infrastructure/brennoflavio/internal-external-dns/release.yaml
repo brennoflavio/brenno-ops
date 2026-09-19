@@ -30,10 +30,10 @@ spec:
     policy: upsert-only
     resources:
       limits:
-        memory: 128Mi
+        memory: 32Mi
       requests:
         cpu: 10m
-        memory: 64Mi
+        memory: 32Mi
     crd:
       create: false
     extraArgs:

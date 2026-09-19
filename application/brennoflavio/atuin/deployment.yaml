@@ -37,10 +37,10 @@ spec:
             - containerPort: 8888
           resources:
             limits:
-              memory: 256Mi
+              memory: 16Mi
             requests:
               cpu: 10m
-              memory: 64Mi
+              memory: 16Mi
           volumeMounts:
             - mountPath: /config
               name: atuin-claim0

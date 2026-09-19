@@ -34,6 +34,11 @@ spec:
                 mountPath: /storage
               - name: lifecycle
                 mountPath: /lifecycle
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 16Mi
         containers:
           - name: forgejo-runner
             image: data.forgejo.org/forgejo/runner:12.13.2
@@ -55,10 +60,10 @@ spec:
                 forgejo-runner -c /config/runner-config.yaml one-job --wait
             resources:
               limits:
-                memory: 2Gi
+                memory: 288Mi
               requests:
                 cpu: 2000m
-                memory: 512Mi
+                memory: 288Mi
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
@@ -102,10 +107,10 @@ spec:
               privileged: true
             resources:
               limits:
-                memory: 4Gi
+                memory: 448Mi
               requests:
                 cpu: 1400m
-                memory: 1Gi
+                memory: 448Mi
             volumeMounts:
               - name: docker-storage
                 mountPath: /var/lib/docker

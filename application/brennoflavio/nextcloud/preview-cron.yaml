@@ -27,7 +27,7 @@ spec:
               kubectl exec $(kubectl get pods -l "app.kubernetes.io/name=nextcloud" -n nextcloud -o jsonpath='{.items[0].metadata.name}') -n nextcloud -- su -s /bin/sh www-data -c "php occ preview:pre-generate"
             resources:
                 requests:
-                    memory: 256Mi
+                    memory: 64Mi
                     cpu: 10m
                 limits:
-                    memory: 1Gi
+                    memory: 64Mi

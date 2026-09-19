@@ -21,10 +21,10 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: 4096Mi
+              memory: 4352Mi
             requests:
               cpu: 10m
-              memory: 4096Mi
+              memory: 4352Mi
           env:
             - name: SOLR_JAVA_MEM
               value: "-Xms3g -Xmx3g"

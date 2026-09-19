@@ -23,10 +23,10 @@ spec:
       value: "pt_BR"
     resources:
       limits:
-        memory: 2Gi
+        memory: 976Mi
       requests:
         cpu: 50m
-        memory: 1Gi
+        memory: 976Mi
     ingress:
       enabled: true
       ingressClassName: external-nginx

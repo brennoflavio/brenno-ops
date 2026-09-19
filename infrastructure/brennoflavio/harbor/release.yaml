@@ -17,6 +17,29 @@ spec:
   install:
     remediation:
       retries: 3
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: apps
+              version: v1
+              kind: StatefulSet
+              name: harbor-database
+            patch: |
+              apiVersion: apps/v1
+              kind: StatefulSet
+              metadata:
+                name: harbor-database
+              spec:
+                template:
+                  spec:
+                    initContainers:
+                      - name: data-permissions-ensurer
+                        resources:
+                          requests:
+                            memory: 16Mi
+                          limits:
+                            memory: 16Mi
   valuesFrom:
     - kind: ConfigMap
       name: harbor-public-values

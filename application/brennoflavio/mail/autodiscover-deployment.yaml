@@ -21,10 +21,10 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: 256Mi
+              memory: 80Mi
             requests:
               cpu: 10m
-              memory: 64Mi
+              memory: 80Mi
           env:
             - name: COMPANY_NAME
               value: Brenno Almeida

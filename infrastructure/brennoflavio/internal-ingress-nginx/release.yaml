@@ -21,10 +21,11 @@ spec:
   values:
     controller:
       resources:
-        limits: null
+        limits:
+          memory: 544Mi
         requests:
           cpu: 10m
-          memory: 90Mi
+          memory: 544Mi
       service:
         type: LoadBalancer
         annotations:

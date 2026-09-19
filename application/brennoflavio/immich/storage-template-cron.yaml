@@ -32,6 +32,11 @@ spec:
                 secretKeyRef:
                   name: storage-template-secret
                   key: API_KEY
+            resources:
+              requests:
+                memory: 16Mi
+              limits:
+                memory: 16Mi
           restartPolicy: Never
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 1

@@ -17,6 +17,56 @@ spec:
   install:
     remediation:
       retries: 3
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+              name: nextcloud
+            patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: nextcloud
+              spec:
+                template:
+                  spec:
+                    containers:
+                      - name: nextcloud-cron
+                        resources:
+                          requests:
+                            memory: 176Mi
+                          limits:
+                            memory: 176Mi
+                    initContainers:
+                      - name: mariadb-isalive
+                        resources:
+                          requests:
+                            memory: 16Mi
+                          limits:
+                            memory: 16Mi
+          - target:
+              group: apps
+              version: v1
+              kind: StatefulSet
+              name: nextcloud-mariadb
+            patch: |
+              apiVersion: apps/v1
+              kind: StatefulSet
+              metadata:
+                name: nextcloud-mariadb
+              spec:
+                template:
+                  spec:
+                    initContainers:
+                      - name: preserve-logs-symlinks
+                        resources:
+                          requests:
+                            memory: 2Gi
+                          limits:
+                            memory: 2Gi
   valuesFrom:
     - kind: ConfigMap
       name: nextcloud-public-values

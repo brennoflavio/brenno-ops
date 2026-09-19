@@ -23,10 +23,10 @@ spec:
         - containerPort: 80
         resources:
           limits:
-            memory: 128Mi
+            memory: 80Mi
           requests:
             cpu: 10m
-            memory: 64Mi
+            memory: 80Mi
         volumeMounts:
         - name: blog-storage
           mountPath: /usr/share/nginx/html

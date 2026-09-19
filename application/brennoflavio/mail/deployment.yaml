@@ -56,9 +56,9 @@ spec:
               type: RuntimeDefault
           resources:
             limits:
-              memory: 12Gi
+              memory: 2048Mi
             requests:
-              memory: 8Gi
+              memory: 2048Mi
               cpu: 50m
           volumeMounts:
             - name: mail

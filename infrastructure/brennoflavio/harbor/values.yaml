@@ -50,33 +50,54 @@ portal:
   resources:
     requests:
       cpu: 10m
+      memory: 32Mi
+    limits:
+      memory: 32Mi
 core:
   resources:
     requests:
       cpu: 100m
+      memory: 80Mi
+    limits:
+      memory: 80Mi
 jobservice:
   resources:
     requests:
       cpu: 10m
+      memory: 32Mi
+    limits:
+      memory: 32Mi
 registry:
   registry:
     resources:
       requests:
         cpu: 200m
+        memory: 464Mi
+      limits:
+        memory: 464Mi
   controller:
     resources:
       requests:
         cpu: 10m
+        memory: 16Mi
+      limits:
+        memory: 16Mi
 database:
   internal:
     resources:
       requests:
         cpu: 50m
+        memory: 112Mi
+      limits:
+        memory: 112Mi
 redis:
   internal:
     resources:
       requests:
         cpu: 10m
 
+        memory: 16Mi
+      limits:
+        memory: 16Mi
 trivy:
   enabled: false

@@ -123,16 +123,16 @@ cronjob:
     sidecar:
         resources:
             requests:
-                memory: 512Mi
+                memory: 176Mi
                 cpu: 50m
             limits:
-                memory: 1Gi
+                memory: 176Mi
 resources:
     requests:
-        memory: 2Gi
+        memory: 2304Mi
         cpu: 1400m
     limits:
-        memory: 4Gi
+        memory: 2304Mi
 internalDatabase:
     enabled: false
 mariadb:
@@ -149,10 +149,10 @@ mariadb:
             existingClaim: mariadb
         resources:
             requests:
-                memory: 512Mi
+                memory: 480Mi
                 cpu: 150m
             limits:
-                memory: 2Gi
+                memory: 480Mi
 collabora:
     enabled: true
     replicaCount: 1
@@ -175,18 +175,18 @@ collabora:
                 - libreoffice.brennoflavio.com.br
     resources:
         requests:
-            memory: 512Mi
+            memory: 816Mi
             cpu: 10m
         limits:
-            memory: 2Gi
+            memory: 816Mi
 imaginary:
     enabled: true
     resources:
         requests:
-            memory: 128Mi
+            memory: 64Mi
             cpu: 10m
         limits:
-            memory: 512Mi
+            memory: 64Mi
 phpClientHttpsFix:
     enabled: true
     protocol: https

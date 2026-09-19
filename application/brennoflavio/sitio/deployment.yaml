@@ -52,10 +52,10 @@ spec:
               mountPath: /data
           resources:
             limits:
-              memory: 128Mi
+              memory: 80Mi
             requests:
               cpu: 10m
-              memory: 64Mi
+              memory: 80Mi
       volumes:
         - name: sitio-data
           persistentVolumeClaim:
