@@ -60,10 +60,10 @@ spec:
                 forgejo-runner -c /config/runner-config.yaml one-job --wait
             resources:
               limits:
-                memory: 288Mi
+                memory: 2Gi
               requests:
                 cpu: 2000m
-                memory: 288Mi
+                memory: 2Gi
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
@@ -107,10 +107,10 @@ spec:
               privileged: true
             resources:
               limits:
-                memory: 448Mi
+                memory: 1Gi
               requests:
                 cpu: 1400m
-                memory: 448Mi
+                memory: 1Gi
             volumeMounts:
               - name: docker-storage
                 mountPath: /var/lib/docker
