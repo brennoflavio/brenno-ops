@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: home-whisper
+  namespace: home-whisper
+spec:
+  image: git.brennoflavio.com.br/brennoflavio/home-whisper
+  interval: 5m

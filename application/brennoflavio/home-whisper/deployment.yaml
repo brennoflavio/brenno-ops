@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-whisper
+  namespace: home-whisper
+  labels:
+    app: home-whisper
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: home-whisper
+  template:
+    metadata:
+      labels:
+        app: home-whisper
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        fsGroup: 10001
+      initContainers:
+        - name: download-model
+          image: curlimages/curl:8.12.1
+          env:
+            - name: MODEL_REVISION
+              value: 536b0662742c02347bc0e980a01041f333bce120
+            - name: MODEL_PATH
+              value: /models/small-536b0662742c02347bc0e980a01041f333bce120
+          command:
+            - sh
+            - -c
+            - |
+              set -eu
+              mkdir -p "$MODEL_PATH"
+              for file in config.json model.bin tokenizer.json vocabulary.txt; do
+                if [ -s "$MODEL_PATH/$file" ]; then
+                  continue
+                fi
+                curl --fail --location --silent --show-error \
+                  --retry 5 --connect-timeout 15 --max-time 1800 \
+                  --output "$MODEL_PATH/$file.partial" \
+                  "https://huggingface.co/Systran/faster-whisper-small/resolve/${MODEL_REVISION}/${file}"
+                mv "$MODEL_PATH/$file.partial" "$MODEL_PATH/$file"
+              done
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: models
+              mountPath: /models
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 128Mi
+      containers:
+        - name: home-whisper
+          # Flux replaces this placeholder after the first timestamp-tagged build.
+          image: git.brennoflavio.com.br/brennoflavio/home-whisper:20260920050844 # {"$imagepolicy": "home-whisper:home-whisper"}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MODEL_PATH
+              value: /models/small-536b0662742c02347bc0e980a01041f333bce120
+            - name: MAX_CPU_THREADS
+              value: "4"
+          ports:
+            - name: http
+              containerPort: 8000
+          startupProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            failureThreshold: 60
+            periodSeconds: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            timeoutSeconds: 2
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: models
+              mountPath: /models
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+          resources:
+            requests:
+              cpu: 500m
+              memory: 4Gi
+            limits:
+              memory: 4Gi
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: home-whisper-models
+        - name: tmp
+          emptyDir:
+            sizeLimit: 512Mi

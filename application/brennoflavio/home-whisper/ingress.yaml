@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: home-whisper
+  namespace: home-whisper
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+    nginx.ingress.kubernetes.io/proxy-body-size: "26m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: home-whisper.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-whisper
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - home-whisper.home.brennoflavio.com.br
+      secretName: home-whisper-tls

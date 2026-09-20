@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: home-whisper
+  namespace: home-whisper
+spec:
+  imageRepositoryRef:
+    name: home-whisper
+  filterTags:
+    pattern: '^(?P<ts>[0-9]{14})$'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc
