@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: home-vad
+  namespace: home-vad
+spec:
+  image: git.brennoflavio.com.br/brennoflavio/home-vad
+  interval: 5m

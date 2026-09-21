@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: home-vad
+  namespace: home-vad
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+    nginx.ingress.kubernetes.io/proxy-body-size: "26m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: home-vad.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-vad
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - home-vad.home.brennoflavio.com.br
+      secretName: home-vad-tls

@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-vad
+  namespace: home-vad
+  labels:
+    app: home-vad
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: home-vad
+  template:
+    metadata:
+      labels:
+        app: home-vad
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        fsGroup: 10001
+      initContainers:
+        - name: download-model
+          image: curlimages/curl:8.12.1
+          env:
+            - name: MODEL_REVISION
+              value: 60b7ffa243625ebdc1070275a29f18c87843786a
+            - name: MODEL_PATH
+              value: /models/silero-vad-60b7ffa243625ebdc1070275a29f18c87843786a/silero_vad.onnx
+            - name: MODEL_SHA256
+              value: 1a153a22f4509e292a94e67d6f9b85e8deb25b4988682b7e174c65279d8788e3
+          command:
+            - sh
+            - -c
+            - |
+              set -eu
+              mkdir -p "$(dirname "$MODEL_PATH")"
+              if [ -f "$MODEL_PATH" ] && \
+                printf '%s  %s\n' "$MODEL_SHA256" "$MODEL_PATH" | sha256sum -c -s; then
+                exit 0
+              fi
+              curl --fail --location --silent --show-error \
+                --retry 5 --connect-timeout 15 --max-time 300 \
+                --output "$MODEL_PATH.partial" \
+                "https://raw.githubusercontent.com/snakers4/silero-vad/${MODEL_REVISION}/src/silero_vad/data/silero_vad.onnx"
+              printf '%s  %s\n' "$MODEL_SHA256" "$MODEL_PATH.partial" | sha256sum -c
+              mv "$MODEL_PATH.partial" "$MODEL_PATH"
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: models
+              mountPath: /models
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 128Mi
+      containers:
+        - name: home-vad
+          image: git.brennoflavio.com.br/brennoflavio/home-vad:20260921160913 # {"$imagepolicy": "home-vad:home-vad"}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MODEL_PATH
+              value: /models/silero-vad-60b7ffa243625ebdc1070275a29f18c87843786a/silero_vad.onnx
+          ports:
+            - name: http
+              containerPort: 8000
+          startupProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            failureThreshold: 60
+            periodSeconds: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            timeoutSeconds: 2
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: models
+              mountPath: /models
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+          resources:
+            requests:
+              cpu: 100m
+              memory: 1Gi
+            limits:
+              memory: 1Gi
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: home-vad-models
+        - name: tmp
+          emptyDir:
+            sizeLimit: 512Mi
