@@ -1,0 +1,135 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-classifier
+  namespace: home-classifier
+  labels:
+    app: home-classifier
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: home-classifier
+  template:
+    metadata:
+      labels:
+        app: home-classifier
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        fsGroup: 10001
+      initContainers:
+        - name: download-model
+          image: curlimages/curl:8.12.1
+          env:
+            - name: MODEL_REVISION
+              value: df03993a2ed98e5e4a0d2dd7efbbd105abe874cf
+            - name: MODEL_PATH
+              value: /models/gliclass-edge-v3.0-df03993a2ed98e5e4a0d2dd7efbbd105abe874cf
+          command:
+            - sh
+            - -c
+            - |
+              set -eu
+              mkdir -p "$MODEL_PATH"
+              for file in config.json model.safetensors special_tokens_map.json tokenizer.json tokenizer_config.json; do
+                if [ -s "$MODEL_PATH/$file" ]; then
+                  continue
+                fi
+                curl --fail --location --silent --show-error \
+                  --retry 5 --connect-timeout 15 --max-time 1800 \
+                  --output "$MODEL_PATH/$file.partial" \
+                  "https://huggingface.co/knowledgator/gliclass-edge-v3.0/resolve/${MODEL_REVISION}/${file}"
+                mv "$MODEL_PATH/$file.partial" "$MODEL_PATH/$file"
+              done
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: models
+              mountPath: /models
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 128Mi
+      containers:
+        - name: home-classifier
+          image: git.brennoflavio.com.br/brennoflavio/home-classifier:20260921035103 # {"$imagepolicy": "home-classifier:home-classifier"}
+          imagePullPolicy: IfNotPresent
+          args:
+            - --model
+            - /models/gliclass-edge-v3.0-df03993a2ed98e5e4a0d2dd7efbbd105abe874cf
+          ports:
+            - name: http
+              containerPort: 8000
+          startupProbe:
+            httpGet:
+              path: /gliclass/adapter-cache
+              port: http
+            failureThreshold: 60
+            periodSeconds: 5
+            timeoutSeconds: 10
+          # Replica probes may wait behind CPU inference and queued batches.
+          readinessProbe:
+            httpGet:
+              path: /gliclass/adapter-cache
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 30
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /-/healthz
+              port: http
+            timeoutSeconds: 5
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: models
+              mountPath: /models
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+            - name: shm
+              mountPath: /dev/shm
+          resources:
+            requests:
+              cpu: "2"
+              memory: 2Gi
+            limits:
+              cpu: "4"
+              memory: 4Gi
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: home-classifier-models
+        - name: tmp
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 2Gi

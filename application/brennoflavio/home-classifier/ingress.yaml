@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: home-classifier
+  namespace: home-classifier
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+    nginx.ingress.kubernetes.io/proxy-body-size: "64k"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: home-classifier.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-classifier
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - home-classifier.home.brennoflavio.com.br
+      secretName: home-classifier-tls

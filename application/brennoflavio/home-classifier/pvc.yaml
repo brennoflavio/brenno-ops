@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-classifier-models
+  namespace: home-classifier
+  annotations:
+    volume.kubernetes.io/selected-node: brenno-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

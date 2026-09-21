@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: home-classifier
+  namespace: home-classifier
+spec:
+  imageRepositoryRef:
+    name: home-classifier
+  filterTags:
+    pattern: '^(?P<ts>[0-9]{14})$'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc
