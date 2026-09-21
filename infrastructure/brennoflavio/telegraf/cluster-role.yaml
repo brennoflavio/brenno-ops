@@ -8,6 +8,7 @@ rules:
       - nodes
       - nodes/proxy
       - nodes/stats
+      - nodes/metrics
       - pods
     verbs: ["get", "list", "watch"]
   - apiGroups: ["apps"]
