@@ -24,6 +24,17 @@ spec:
           envFrom:
             - secretRef:
                 name: influxdb-init
+          env:
+            - name: INFLUXD_QUERY_CONCURRENCY
+              value: "2"
+            - name: INFLUXD_QUERY_QUEUE_SIZE
+              value: "10"
+            - name: INFLUXD_QUERY_INITIAL_MEMORY_BYTES
+              value: "33554432"
+            - name: INFLUXD_QUERY_MEMORY_BYTES
+              value: "268435456"
+            - name: INFLUXD_QUERY_MAX_MEMORY_BYTES
+              value: "536870912"
           startupProbe:
             httpGet:
               path: /health
