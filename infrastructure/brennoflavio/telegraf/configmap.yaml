@@ -28,6 +28,27 @@ data:
       namepass = ["kubernetes_pod_container", "kubernetes_node"]
       taginclude = ["container_name", "namespace", "node_name", "pod_name"]
 
+    [[inputs.prometheus]]
+      interval = "10s"
+      urls = ["https://${HOST_IP}:10250/metrics/cadvisor"]
+      bearer_token = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      insecure_skip_verify = true
+      namepass = [
+        "container_fs_reads_bytes_total",
+        "container_fs_writes_bytes_total",
+        "container_fs_read_seconds_total",
+        "container_fs_write_seconds_total",
+        "container_fs_io_time_seconds_total",
+        "container_fs_io_current",
+      ]
+      taginclude = ["namespace", "pod", "container", "device"]
+
+      [inputs.prometheus.tagpass]
+        device = ["/dev/dm-0"]
+
+      [inputs.prometheus.tagdrop]
+        container = [""]
+
     [[inputs.kube_inventory]]
       interval = "1m"
       bearer_token = "/var/run/secrets/kubernetes.io/serviceaccount/token"
