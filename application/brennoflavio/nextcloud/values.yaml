@@ -103,6 +103,11 @@ nextcloud:
                 'syslog_tag' => 'Nextcloud',
                 'loglevel' => 3
             );
+        local-remote-servers.config.php: |-
+            <?php
+            $CONFIG = array (
+                'allow_local_remote_servers' => true
+            );
         phone.config.php: |-
             <?php
             $CONFIG = array (
