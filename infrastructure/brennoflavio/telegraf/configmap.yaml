@@ -13,6 +13,9 @@ data:
       flush_interval = "10s"
       omit_hostname = true
 
+    [global_tags]
+      node_name = "${NODE_NAME}"
+
     [[outputs.influxdb_v2]]
       urls = ["http://influxdb.influx.svc.cluster.local:8086"]
       token = "${INFLUX_TOKEN}"
@@ -36,18 +39,30 @@ data:
       namepass = [
         "container_fs_reads_bytes_total",
         "container_fs_writes_bytes_total",
+        "container_fs_reads_total",
+        "container_fs_writes_total",
         "container_fs_read_seconds_total",
         "container_fs_write_seconds_total",
         "container_fs_io_time_seconds_total",
         "container_fs_io_current",
       ]
-      taginclude = ["namespace", "pod", "container", "device"]
+      taginclude = ["namespace", "pod", "container", "device", "node_name"]
 
       [inputs.prometheus.tagpass]
         device = ["/dev/dm-0"]
 
       [inputs.prometheus.tagdrop]
         container = [""]
+
+    [[inputs.kernel]]
+      interval = "10s"
+      collect = ["psi"]
+      namepass = ["pressure"]
+
+    [[inputs.diskio]]
+      interval = "10s"
+      devices = ["dm-0", "sda", "sdb", "sdc", "sdd"]
+      skip_serial_number = true
 
     [[inputs.kube_inventory]]
       interval = "1m"
