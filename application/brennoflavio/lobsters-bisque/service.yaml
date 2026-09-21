@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lobsters-bisque
+  namespace: lobsters-bisque
+spec:
+  type: ClusterIP
+  selector:
+    app: lobsters-bisque
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http

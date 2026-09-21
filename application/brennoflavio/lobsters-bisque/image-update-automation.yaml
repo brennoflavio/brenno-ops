@@ -1,0 +1,25 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: lobsters-bisque
+  namespace: lobsters-bisque
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: master
+    commit:
+      author:
+        name: fluxcdbot
+        email: fluxcdbot@users.noreply.github.com
+      messageTemplate: 'chore(lobsters-bisque): update image'
+    push:
+      branch: master
+  update:
+    path: ./application/brennoflavio/lobsters-bisque
+    strategy: Setters

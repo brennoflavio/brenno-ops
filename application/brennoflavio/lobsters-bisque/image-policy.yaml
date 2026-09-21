@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: lobsters-bisque
+  namespace: lobsters-bisque
+spec:
+  imageRepositoryRef:
+    name: lobsters-bisque
+  filterTags:
+    pattern: '^(?P<ts>[0-9]{14})$'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc

@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lobsters-bisque
+  namespace: lobsters-bisque
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: lobsters-bisque.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lobsters-bisque
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - lobsters-bisque.home.brennoflavio.com.br
+      secretName: lobsters-bisque-tls
