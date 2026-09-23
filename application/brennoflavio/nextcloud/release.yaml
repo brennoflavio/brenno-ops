@@ -37,9 +37,9 @@ spec:
                       - name: nextcloud-cron
                         resources:
                           requests:
-                            memory: 176Mi
+                            memory: 256Mi
                           limits:
-                            memory: 176Mi
+                            memory: 256Mi
                     initContainers:
                       - name: mariadb-isalive
                         resources:

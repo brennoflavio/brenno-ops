@@ -128,10 +128,10 @@ cronjob:
     sidecar:
         resources:
             requests:
-                memory: 176Mi
+                memory: 256Mi
                 cpu: 50m
             limits:
-                memory: 176Mi
+                memory: 256Mi
 resources:
     requests:
         memory: 2304Mi

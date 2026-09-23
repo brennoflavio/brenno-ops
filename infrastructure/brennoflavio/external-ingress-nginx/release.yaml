@@ -22,10 +22,10 @@ spec:
         controller:
             resources:
                 limits:
-                    memory: 800Mi
+                    memory: 1Gi
                 requests:
                     cpu: 150m
-                    memory: 800Mi
+                    memory: 1Gi
             service:
                 annotations:
                     metallb.io/loadBalancerIPs: 192.168.20.10
