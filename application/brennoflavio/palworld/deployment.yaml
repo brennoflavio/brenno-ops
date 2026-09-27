@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: palworld
+  namespace: palworld
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: palworld
+  template:
+    metadata:
+      labels:
+        app: palworld
+    spec:
+      terminationGracePeriodSeconds: 120
+      initContainers:
+        - name: configure
+          image: busybox:1.36
+          command:
+            - /bin/sh
+            - -c
+            - mkdir -p /saved/Config/LinuxServer && cp /settings/PalWorldSettings.ini /saved/Config/LinuxServer/PalWorldSettings.ini
+          volumeMounts:
+            - name: saved
+              mountPath: /saved
+            - name: settings
+              mountPath: /settings
+              readOnly: true
+      containers:
+        - name: palworld
+          image: ghcr.io/pocketpairjp/palserver:v1.0.5.102999
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - sudo chown -R user:usergroup /pal/Package/Pal/Saved && exec /bin/sh /pal/Package/PalServer.sh -port=8211
+          ports:
+            - name: game
+              containerPort: 8211
+              protocol: UDP
+          resources:
+            requests:
+              cpu: "2"
+              memory: 8Gi
+            limits:
+              memory: 8Gi
+          volumeMounts:
+            - name: saved
+              mountPath: /pal/Package/Pal/Saved
+      volumes:
+        - name: saved
+          persistentVolumeClaim:
+            claimName: palworld
+        - name: settings
+          secret:
+            secretName: palworld-settings
