@@ -36,10 +36,10 @@ server:
                         pullPolicy: IfNotPresent
                     resources:
                         requests:
-                            memory: 7040Mi
+                            memory: 4096Mi
                             cpu: 400m
                         limits:
-                            memory: 7040Mi
+                            memory: 4096Mi
     ingress:
         main:
             enabled: true

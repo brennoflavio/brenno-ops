@@ -115,9 +115,9 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 4Gi
+              memory: 2Gi
             limits:
-              memory: 4Gi
+              memory: 2Gi
       volumes:
         - name: models
           persistentVolumeClaim:
