@@ -154,10 +154,10 @@ mariadb:
             existingClaim: mariadb
         resources:
             requests:
-                memory: 480Mi
+                memory: 640Mi
                 cpu: 150m
             limits:
-                memory: 480Mi
+                memory: 640Mi
 collabora:
     enabled: true
     replicaCount: 1
