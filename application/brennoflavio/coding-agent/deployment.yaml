@@ -87,6 +87,24 @@ spec:
               value: /data
             - name: PI_CODING_AGENT_DIR
               value: /home/pi/.pi/agent
+            - name: PI_SETTINGS_DEFAULT_PROVIDER
+              valueFrom:
+                secretKeyRef:
+                  name: coding-agent-secrets
+                  key: PI_SETTINGS_DEFAULT_PROVIDER
+                  optional: true
+            - name: PI_SETTINGS_DEFAULT_MODEL
+              valueFrom:
+                secretKeyRef:
+                  name: coding-agent-secrets
+                  key: PI_SETTINGS_DEFAULT_MODEL
+                  optional: true
+            - name: PI_SETTINGS_DEFAULT_THINKING_LEVEL
+              valueFrom:
+                secretKeyRef:
+                  name: coding-agent-secrets
+                  key: PI_SETTINGS_DEFAULT_THINKING_LEVEL
+                  optional: true
             - name: PI_MCP_CONFIG_PATH
               value: /run/mcp/mcp.json
             - name: WEB_BROWSE_BROWSER_BIN
