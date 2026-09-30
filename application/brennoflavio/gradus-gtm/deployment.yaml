@@ -1,0 +1,173 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gradus-gtm-agent
+  namespace: gradus-gtm
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: gradus-gtm-agent
+  template:
+    metadata:
+      labels:
+        app: gradus-gtm-agent
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      initContainers:
+        - name: prepare-gradus-gtm
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-7738a3c-1790726087 # {"$imagepolicy": "gradus-gtm:gradus-gtm-coding-agent"}
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              if [ ! -e /workspace/gradus-gtm ]; then
+                checkout=$(mktemp -d /workspace/.gradus-gtm.XXXXXX)
+                git -c 'credential.helper=store --file=/run/source/git-credentials' \
+                  clone --depth 1 --branch main \
+                  https://git.brennoflavio.com.br/gradus/gradus-gtm.git \
+                  "$checkout"
+                mv "$checkout" /workspace/gradus-gtm
+              fi
+              test -d /workspace/gradus-gtm/.git
+              test -s /workspace/gradus-gtm/agent/cron-jobs.json
+              test -s /workspace/gradus-gtm/agent/AGENTS.md
+              test -s /workspace/gradus-gtm/INSTAGRAM.md
+              test -d /workspace/gradus-gtm/.pi/extensions
+              if [ -f /workspace/gradus-gtm/.pi/extensions/package.json ]; then
+                test -f /workspace/gradus-gtm/.pi/extensions/package-lock.json
+                npm ci --prefix /workspace/gradus-gtm/.pi/extensions --omit=dev --ignore-scripts
+              fi
+              cp /run/source/mcp.json /run/mcp/mcp.json
+              if [ ! -e /data/telegram/config.json ]; then
+                node -e 'const c=require(process.argv[1]); const id=c.auth?.adminUserId; if (!/^telegram:[1-9][0-9]*$/.test(id) || !c.auth.trustedUsers?.includes(id)) process.exit(1)' /run/source/telegram-config.json
+                mkdir -p /data/telegram
+                cp /run/source/telegram-config.json /data/telegram/config.json
+              fi
+              mkdir -p /data/gradus-gtm-assets
+              chown -R 1000:1000 /workspace/gradus-gtm /run/mcp /data/telegram /data/gradus-gtm-assets
+              chmod 0700 /run/mcp /data/telegram /data/gradus-gtm-assets
+              chmod 0600 /run/mcp/mcp.json /data/telegram/config.json
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              memory: 512Mi
+          volumeMounts:
+            - name: source
+              mountPath: /run/source
+              readOnly: true
+            - name: workspace
+              mountPath: /workspace
+            - name: data
+              mountPath: /data
+            - name: mcp
+              mountPath: /run/mcp
+      containers:
+        - name: coding-agent
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-7738a3c-1790726087 # {"$imagepolicy": "gradus-gtm:gradus-gtm-coding-agent"}
+          imagePullPolicy: IfNotPresent
+          workingDir: /workspace/gradus-gtm
+          env:
+            - name: HOME
+              value: /home/pi
+            - name: PI_ENVIRONMENT
+              value: docker
+            - name: PI_DATA_DIR
+              value: /data
+            - name: PI_CODING_AGENT_DIR
+              value: /home/pi/.pi/agent
+            - name: PI_CRONJOB_FILE
+              value: /workspace/gradus-gtm/agent/cron-jobs.json
+            - name: PI_AGENTS_FILE
+              value: /workspace/gradus-gtm/agent/AGENTS.md
+            - name: PI_EXTRA_EXTENSIONS_DIR
+              value: /workspace/gradus-gtm/.pi/extensions
+            - name: PI_MCP_CONFIG_PATH
+              value: /run/mcp/mcp.json
+            - name: XDG_CACHE_HOME
+              value: /data/cache
+            - name: PLAYWRIGHT_CLI_CONFIG
+              value: /data/playwright-cli/config.json
+            - name: TZ
+              value: America/Sao_Paulo
+            - name: PI_SECRETS
+              valueFrom:
+                secretKeyRef:
+                  name: gradus-gtm-agent-secrets
+                  key: PI_SECRETS
+            - name: PI_TELEGRAM_CONFIG
+              valueFrom:
+                secretKeyRef:
+                  name: gradus-gtm-agent-secrets
+                  key: PI_TELEGRAM_CONFIG
+            - name: PI_SETTINGS_DEFAULT_PROVIDER
+              valueFrom:
+                secretKeyRef:
+                  name: coding-agent-secrets
+                  key: PI_SETTINGS_DEFAULT_PROVIDER
+                  optional: true
+            - name: PI_SETTINGS_DEFAULT_MODEL
+              valueFrom:
+                secretKeyRef:
+                  name: coding-agent-secrets
+                  key: PI_SETTINGS_DEFAULT_MODEL
+                  optional: true
+            - name: PI_SETTINGS_DEFAULT_THINKING_LEVEL
+              valueFrom:
+                secretKeyRef:
+                  name: coding-agent-secrets
+                  key: PI_SETTINGS_DEFAULT_THINKING_LEVEL
+                  optional: true
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              memory: 1Gi
+          volumeMounts:
+            - name: home
+              mountPath: /home/pi
+            - name: data
+              mountPath: /data
+            - name: state
+              mountPath: /home/pi/.pi/agent
+            - name: workspace
+              mountPath: /workspace
+            - name: data
+              mountPath: /workspace/gradus-gtm/assets
+              subPath: gradus-gtm-assets
+            - name: mcp
+              mountPath: /run/mcp
+              readOnly: true
+      volumes:
+        - name: home
+          persistentVolumeClaim:
+            claimName: gradus-gtm-home
+        - name: data
+          persistentVolumeClaim:
+            claimName: gradus-gtm-data
+        - name: state
+          persistentVolumeClaim:
+            claimName: gradus-gtm-state
+        - name: workspace
+          emptyDir: {}
+        - name: mcp
+          emptyDir:
+            medium: Memory
+        - name: source
+          secret:
+            secretName: gradus-gtm-agent-secrets
+            defaultMode: 256
+            items:
+              - key: git-credentials
+                path: git-credentials
+              - key: mcp.json
+                path: mcp.json
+              - key: telegram-config.json
+                path: telegram-config.json

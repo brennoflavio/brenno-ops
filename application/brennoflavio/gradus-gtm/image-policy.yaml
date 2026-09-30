@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: gradus-gtm-coding-agent
+  namespace: gradus-gtm
+spec:
+  imageRepositoryRef:
+    name: gradus-gtm-coding-agent
+  filterTags:
+    pattern: '^main-[a-f0-9]+-(?P<ts>[1-9][0-9]*)$'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc
