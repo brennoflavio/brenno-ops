@@ -1,0 +1,25 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: coding-agent-browser
+  namespace: coding-agent-browser
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: master
+    commit:
+      author:
+        name: fluxcdbot
+        email: fluxcdbot@users.noreply.github.com
+      messageTemplate: 'chore(coding-agent-browser): update image'
+    push:
+      branch: master
+  update:
+    path: ./application/brennoflavio/coding-agent-browser
+    strategy: Setters

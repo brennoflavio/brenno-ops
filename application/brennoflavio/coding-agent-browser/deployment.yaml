@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coding-agent-browser
+  namespace: coding-agent-browser
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: coding-agent-browser
+  template:
+    metadata:
+      labels:
+        app: coding-agent-browser
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: coding-agent-browser
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent-browser:main-efcf466-1790740859 # {"$imagepolicy": "coding-agent-browser:coding-agent-browser"}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CDP_PUBLIC_URL
+              value: https://coding-agent-browser.home.brennoflavio.com.br
+          ports:
+            - name: cdp
+              containerPort: 9222
+          startupProbe:
+            httpGet:
+              path: /json/version
+              port: cdp
+            failureThreshold: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /json/version
+              port: cdp
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /json/version
+              port: cdp
+            periodSeconds: 15
+          securityContext:
+            runAsUser: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            requests:
+              cpu: 250m
+              memory: 3Gi
+            limits:
+              memory: 3Gi
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi

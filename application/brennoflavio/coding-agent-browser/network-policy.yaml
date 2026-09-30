@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: coding-agent-browser
+  namespace: coding-agent-browser
+spec:
+  podSelector:
+    matchLabels:
+      app: coding-agent-browser
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: internal-ingress-nginx
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: ingress-nginx
+              app.kubernetes.io/instance: internal-nginx
+              app.kubernetes.io/component: controller
+      ports:
+        - protocol: TCP
+          port: 9222

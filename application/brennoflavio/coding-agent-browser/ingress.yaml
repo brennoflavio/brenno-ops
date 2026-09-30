@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: coding-agent-browser
+  namespace: coding-agent-browser
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: coding-agent-browser.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: coding-agent-browser
+                port:
+                  number: 9222
+  tls:
+    - hosts:
+        - coding-agent-browser.home.brennoflavio.com.br
+      secretName: coding-agent-browser-tls
