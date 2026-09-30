@@ -107,8 +107,6 @@ spec:
                   optional: true
             - name: PI_MCP_CONFIG_PATH
               value: /run/mcp/mcp.json
-            - name: WEB_BROWSE_BROWSER_BIN
-              value: /usr/bin/chromium
             - name: XDG_CACHE_HOME
               value: /data/cache
             - name: PLAYWRIGHT_CLI_CONFIG
@@ -135,9 +133,9 @@ spec:
           resources:
             requests:
               cpu: 2000m
-              memory: 4736Mi
+              memory: 1Gi
             limits:
-              memory: 4736Mi
+              memory: 2Gi
           volumeMounts:
             - name: home
               mountPath: /home/pi
@@ -145,8 +143,6 @@ spec:
               mountPath: /data
             - name: state
               mountPath: /home/pi/.pi/agent
-            - name: dshm
-              mountPath: /dev/shm
             - name: forgejo-git
               mountPath: /run/git-ssh
               readOnly: true
@@ -166,10 +162,6 @@ spec:
         - name: state
           persistentVolumeClaim:
             claimName: coding-agent-state
-        - name: dshm
-          emptyDir:
-            medium: Memory
-            sizeLimit: 1Gi
         - name: forgejo-git-source
           secret:
             secretName: coding-agent-secrets
