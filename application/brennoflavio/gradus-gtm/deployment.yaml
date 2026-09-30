@@ -43,15 +43,10 @@ spec:
                 npm ci --prefix /workspace/gradus-gtm/.pi/extensions --omit=dev --ignore-scripts
               fi
               cp /run/source/mcp.json /run/mcp/mcp.json
-              if [ ! -e /data/telegram/config.json ]; then
-                node -e 'const c=require(process.argv[1]); const id=c.auth?.adminUserId; if (!/^telegram:[1-9][0-9]*$/.test(id) || !c.auth.trustedUsers?.includes(id)) process.exit(1)' /run/source/telegram-config.json
-                mkdir -p /data/telegram
-                cp /run/source/telegram-config.json /data/telegram/config.json
-              fi
               mkdir -p /data/gradus-gtm-assets
-              chown -R 1000:1000 /workspace/gradus-gtm /run/mcp /data/telegram /data/gradus-gtm-assets
-              chmod 0700 /run/mcp /data/telegram /data/gradus-gtm-assets
-              chmod 0600 /run/mcp/mcp.json /data/telegram/config.json
+              chown -R 1000:1000 /workspace/gradus-gtm /run/mcp /data/gradus-gtm-assets
+              chmod 0700 /run/mcp /data/gradus-gtm-assets
+              chmod 0600 /run/mcp/mcp.json
           resources:
             requests:
               cpu: 100m
@@ -169,5 +164,3 @@ spec:
                 path: git-credentials
               - key: mcp.json
                 path: mcp.json
-              - key: telegram-config.json
-                path: telegram-config.json
