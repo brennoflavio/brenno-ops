@@ -105,6 +105,11 @@ spec:
                   name: coding-agent-secrets
                   key: PI_SETTINGS_DEFAULT_THINKING_LEVEL
                   optional: true
+            - name: PI_TELEGRAM_CONFIG
+              valueFrom:
+                secretKeyRef:
+                  name: coding-agent-secrets
+                  key: PI_TELEGRAM_CONFIG
             - name: PI_MCP_CONFIG_PATH
               value: /run/mcp/mcp.json
             - name: XDG_CACHE_HOME
