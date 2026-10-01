@@ -42,11 +42,11 @@ spec:
                 test -f /workspace/gradus-gtm/.pi/extensions/package-lock.json
                 npm ci --prefix /workspace/gradus-gtm/.pi/extensions --omit=dev --ignore-scripts
               fi
-              cp /run/source/mcp.json /run/mcp/mcp.json
+              cp /run/source/coding-agent-config.json /run/agent-config/coding-agent-config.json
               mkdir -p /data/gradus-gtm-assets
-              chown -R 1000:1000 /workspace/gradus-gtm /run/mcp /data/gradus-gtm-assets
-              chmod 0700 /run/mcp /data/gradus-gtm-assets
-              chmod 0600 /run/mcp/mcp.json
+              chown -R 1000:1000 /workspace/gradus-gtm /run/agent-config /data/gradus-gtm-assets
+              chmod 0700 /run/agent-config /data/gradus-gtm-assets
+              chmod 0600 /run/agent-config/coding-agent-config.json
           resources:
             requests:
               cpu: 100m
@@ -61,8 +61,8 @@ spec:
               mountPath: /workspace
             - name: data
               mountPath: /data
-            - name: mcp
-              mountPath: /run/mcp
+            - name: agent-config
+              mountPath: /run/agent-config
       containers:
         - name: coding-agent
           image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-747bbed-1790748770 # {"$imagepolicy": "gradus-gtm:gradus-gtm-coding-agent"}
@@ -83,8 +83,6 @@ spec:
               value: /workspace/gradus-gtm/agent/AGENTS.md
             - name: PI_EXTRA_EXTENSIONS_DIR
               value: /workspace/gradus-gtm/.pi/extensions
-            - name: PI_MCP_CONFIG_PATH
-              value: /run/mcp/mcp.json
             - name: XDG_CACHE_HOME
               value: /data/cache
             - name: PLAYWRIGHT_CLI_CONFIG
@@ -137,9 +135,9 @@ spec:
             - name: data
               mountPath: /workspace/gradus-gtm/assets
               subPath: gradus-gtm-assets
-            - name: mcp
-              mountPath: /run/mcp
-              readOnly: true
+            - name: agent-config
+              mountPath: /home/pi/.pi/agent/coding-agent-config.json
+              subPath: coding-agent-config.json
       volumes:
         - name: home
           persistentVolumeClaim:
@@ -152,7 +150,7 @@ spec:
             claimName: gradus-gtm-state
         - name: workspace
           emptyDir: {}
-        - name: mcp
+        - name: agent-config
           emptyDir:
             medium: Memory
         - name: source
@@ -162,5 +160,5 @@ spec:
             items:
               - key: git-credentials
                 path: git-credentials
-              - key: mcp.json
-                path: mcp.json
+              - key: coding-agent-config.json
+                path: coding-agent-config.json
