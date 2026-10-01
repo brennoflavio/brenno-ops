@@ -18,7 +18,7 @@ spec:
       automountServiceAccountToken: false
       terminationGracePeriodSeconds: 30
       initContainers:
-        - name: prepare-forgejo-git
+        - name: prepare-agent-runtime
           image: busybox:1.37.0
           imagePullPolicy: IfNotPresent
           command:
@@ -26,11 +26,11 @@ spec:
             - -c
             - |
               set -eu
-              mkdir -p /git-ssh /mcp /git-http
+              mkdir -p /git-ssh /git-http /agent-config
               cp /source/id_ed25519 /git-ssh/id_ed25519
               cp /source/known_hosts /git-ssh/known_hosts
-              cp /mcp-source/mcp.json /mcp/mcp.json
               cp /git-http-source/credentials /git-http/credentials
+              cp /agent-config-source/coding-agent-config.json /agent-config/coding-agent-config.json
               cat > /git-http/credential-helper <<'EOF'
               #!/bin/sh
               if [ "$1" = get ]; then
@@ -47,9 +47,9 @@ spec:
                 UserKnownHostsFile /run/git-ssh/known_hosts
                 StrictHostKeyChecking yes
               EOF
-              chown -R 1000:1000 /git-ssh /mcp /git-http
-              chmod 0700 /git-ssh /mcp /git-http
-              chmod 0600 /git-ssh/id_ed25519 /git-ssh/config /mcp/mcp.json /git-http/credentials
+              chown -R 1000:1000 /git-ssh /git-http /agent-config
+              chmod 0700 /git-ssh /git-http /agent-config
+              chmod 0600 /git-ssh/id_ed25519 /git-ssh/config /git-http/credentials /agent-config/coding-agent-config.json
               chmod 0700 /git-http/credential-helper
               chmod 0644 /git-ssh/known_hosts
           volumeMounts:
@@ -58,11 +58,11 @@ spec:
               readOnly: true
             - name: forgejo-git
               mountPath: /git-ssh
-            - name: forgejo-mcp-source
-              mountPath: /mcp-source
+            - name: coding-agent-config-source
+              mountPath: /agent-config-source
               readOnly: true
-            - name: forgejo-mcp
-              mountPath: /mcp
+            - name: coding-agent-config
+              mountPath: /agent-config
             - name: forgejo-git-http-source
               mountPath: /git-http-source
               readOnly: true
@@ -110,8 +110,6 @@ spec:
                 secretKeyRef:
                   name: coding-agent-secrets
                   key: PI_TELEGRAM_CONFIG
-            - name: PI_MCP_CONFIG_PATH
-              value: /run/mcp/mcp.json
             - name: XDG_CACHE_HOME
               value: /data/cache
             - name: PLAYWRIGHT_CLI_CONFIG
@@ -151,9 +149,9 @@ spec:
             - name: forgejo-git
               mountPath: /run/git-ssh
               readOnly: true
-            - name: forgejo-mcp
-              mountPath: /run/mcp
-              readOnly: true
+            - name: coding-agent-config
+              mountPath: /home/pi/.pi/agent/coding-agent-config.json
+              subPath: coding-agent-config.json
             - name: forgejo-git-http
               mountPath: /run/git-http
               readOnly: true
@@ -179,14 +177,14 @@ spec:
         - name: forgejo-git
           emptyDir:
             medium: Memory
-        - name: forgejo-mcp-source
+        - name: coding-agent-config-source
           secret:
             secretName: coding-agent-secrets
             defaultMode: 256
             items:
-              - key: mcp.json
-                path: mcp.json
-        - name: forgejo-mcp
+              - key: coding-agent-config.json
+                path: coding-agent-config.json
+        - name: coding-agent-config
           emptyDir:
             medium: Memory
         - name: forgejo-git-http-source
