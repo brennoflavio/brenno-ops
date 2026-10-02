@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: coding-agent-browser
-          image: git.brennoflavio.com.br/brennoflavio/coding-agent-browser:main-ba79e8c-1790746108 # {"$imagepolicy": "coding-agent-browser:coding-agent-browser"}
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent-browser:main-4073d81-1790966821 # {"$imagepolicy": "coding-agent-browser:coding-agent-browser"}
           imagePullPolicy: IfNotPresent
           env:
             - name: CDP_PUBLIC_URL
