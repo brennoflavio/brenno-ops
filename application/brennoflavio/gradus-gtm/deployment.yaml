@@ -46,7 +46,6 @@ spec:
               test -d /workspace/gradus-gtm/.git
               test -s /workspace/gradus-gtm/agent/cron-jobs.json
               test -s /workspace/gradus-gtm/agent/AGENTS.md
-              test -s /workspace/gradus-gtm/INSTAGRAM.md
               test -d /workspace/gradus-gtm/.pi/extensions
               test -d /workspace/gradus-gtm/.pi/skills
               if [ -f /workspace/gradus-gtm/.pi/extensions/package.json ]; then
