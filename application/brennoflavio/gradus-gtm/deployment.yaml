@@ -33,18 +33,30 @@ spec:
                   "$checkout"
                 mv "$checkout" /workspace/gradus-gtm
               fi
+              if [ ! -e /workspace/gradus ]; then
+                checkout=$(mktemp -d /workspace/.gradus.XXXXXX)
+                git -c 'credential.helper=store --file=/run/source/git-credentials' \
+                  clone --depth 1 --branch master \
+                  https://git.brennoflavio.com.br/gradus/gradus.git \
+                  "$checkout"
+                mv "$checkout" /workspace/gradus
+              fi
+              test -d /workspace/gradus/.git
+              test -s /workspace/gradus/design-system/MANIFESTO.md
               test -d /workspace/gradus-gtm/.git
               test -s /workspace/gradus-gtm/agent/cron-jobs.json
               test -s /workspace/gradus-gtm/agent/AGENTS.md
               test -s /workspace/gradus-gtm/INSTAGRAM.md
               test -d /workspace/gradus-gtm/.pi/extensions
+              test -d /workspace/gradus-gtm/.pi/skills
               if [ -f /workspace/gradus-gtm/.pi/extensions/package.json ]; then
                 test -f /workspace/gradus-gtm/.pi/extensions/package-lock.json
                 npm ci --prefix /workspace/gradus-gtm/.pi/extensions --omit=dev --ignore-scripts
               fi
               cp /run/source/coding-agent-config.json /run/agent-config/coding-agent-config.json
               mkdir -p /data/gradus-gtm-assets
-              chown -R 1000:1000 /workspace/gradus-gtm /run/agent-config /data/gradus-gtm-assets
+              chown -R 1000:1000 /workspace/gradus-gtm /workspace/gradus /run/agent-config /data/gradus-gtm-assets
+              chmod -R u+rX /workspace/gradus-gtm/.pi/skills
               chmod 0700 /run/agent-config /data/gradus-gtm-assets
               chmod 0600 /run/agent-config/coding-agent-config.json
           resources:
