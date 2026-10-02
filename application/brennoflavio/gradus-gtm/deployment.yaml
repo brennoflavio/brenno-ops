@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 30
       initContainers:
         - name: prepare-gradus-gtm
-          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-b7bcb84-1790832103 # {"$imagepolicy": "gradus-gtm:gradus-gtm-coding-agent"}
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-de792e3-1790914282 # {"$imagepolicy": "gradus-gtm:gradus-gtm-coding-agent"}
           imagePullPolicy: IfNotPresent
           command:
             - /bin/sh
@@ -77,7 +77,7 @@ spec:
               mountPath: /run/agent-config
       containers:
         - name: coding-agent
-          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-b7bcb84-1790832103 # {"$imagepolicy": "gradus-gtm:gradus-gtm-coding-agent"}
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-de792e3-1790914282 # {"$imagepolicy": "gradus-gtm:gradus-gtm-coding-agent"}
           imagePullPolicy: IfNotPresent
           workingDir: /workspace/gradus-gtm
           env:
