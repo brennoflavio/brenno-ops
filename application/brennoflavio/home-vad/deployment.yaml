@@ -23,7 +23,7 @@ spec:
         fsGroup: 10001
       initContainers:
         - name: download-model
-          image: curlimages/curl:8.12.1
+          image: curlimages/curl:8.21.0
           env:
             - name: MODEL_REVISION
               value: 60b7ffa243625ebdc1070275a29f18c87843786a
