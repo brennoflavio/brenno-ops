@@ -1,0 +1,8 @@
+---
+backrest_version: "1.14.1"
+backrest_release_architectures:
+  x86_64: x86_64
+  aarch64: arm64
+backrest_release_checksums:
+  x86_64: acc7835a9c55b3d254f0fa285cacbe87ac912cb7e069d0211924838020e6921c
+  aarch64: b53718cd6e042e7d99538cb652968ab966a5c53fabd556785648ceb13320a320

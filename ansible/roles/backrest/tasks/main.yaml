@@ -1,0 +1,78 @@
+---
+- name: Install and configure Backrest
+  become: true
+  block:
+    - name: Check supported Backrest platform
+      ansible.builtin.assert:
+        that:
+          - ansible_system == "Linux"
+          - ansible_service_mgr == "systemd"
+          - ansible_architecture in backrest_release_architectures
+          - ansible_architecture in backrest_release_checksums
+
+    - name: Create Backrest release cache
+      ansible.builtin.file:
+        path: "/var/cache/backrest/{{ backrest_version }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Download verified Backrest release
+      ansible.builtin.get_url:
+        url: "https://github.com/garethgeorge/backrest/releases/download/v{{ backrest_version }}/backrest_Linux_{{ backrest_release_architectures[ansible_architecture] }}.tar.gz"
+        dest: "/var/cache/backrest/{{ backrest_version }}/backrest.tar.gz"
+        checksum: "sha256:{{ backrest_release_checksums[ansible_architecture] }}"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Extract Backrest binary
+      ansible.builtin.unarchive:
+        src: "/var/cache/backrest/{{ backrest_version }}/backrest.tar.gz"
+        dest: "/var/cache/backrest/{{ backrest_version }}"
+        remote_src: true
+        include:
+          - backrest
+        owner: root
+        group: root
+
+    - name: Install Backrest binary
+      ansible.builtin.copy:
+        src: "/var/cache/backrest/{{ backrest_version }}/backrest"
+        dest: /usr/local/bin/backrest
+        remote_src: true
+        owner: root
+        group: root
+        mode: "0755"
+        backup: true
+      notify: restart backrest
+
+    - name: Configure Backrest service
+      ansible.builtin.template:
+        src: backrest.service.j2
+        dest: /etc/systemd/system/backrest.service
+        owner: root
+        group: root
+        mode: "0644"
+        backup: true
+      notify: restart backrest
+
+    - name: Apply Backrest changes
+      ansible.builtin.meta: flush_handlers
+
+    - name: Ensure Backrest service is started and enabled
+      ansible.builtin.systemd_service:
+        name: backrest
+        state: started
+        enabled: true
+
+    - name: Wait for Backrest web UI
+      ansible.builtin.uri:
+        url: http://127.0.0.1:9898/
+        status_code: 200
+      register: backrest_health
+      until: backrest_health.status == 200
+      retries: 12
+      delay: 5
+      when: not ansible_check_mode

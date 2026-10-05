@@ -3,6 +3,8 @@
     - ssh-public-key
     - openrgb
     - k3s
+    - role: backrest
+      tags: backrest
 
 - hosts: monitoring
   roles:

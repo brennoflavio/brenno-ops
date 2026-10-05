@@ -1,0 +1,15 @@
+[Unit]
+Description=Backrest Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/local/bin/backrest
+Restart=on-failure
+Environment="HOME=/root"
+Environment="BACKREST_PORT=0.0.0.0:9898"
+
+[Install]
+WantedBy=multi-user.target

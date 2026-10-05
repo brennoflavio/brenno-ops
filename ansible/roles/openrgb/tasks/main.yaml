@@ -1,14 +1,37 @@
 ---
+- name: Download OpenRGB hidapi-hotplug dependencies
+  ansible.builtin.get_url:
+    url: "https://codeberg.org/OpenRGB/hidapi-hotplug/releases/download/hidapi-hotplug-0.15.0/{{ item.filename }}"
+    dest: "/tmp/{{ item.filename }}"
+    checksum: "sha256:{{ item.checksum }}"
+    mode: '0644'
+  loop:
+    - filename: libhidapi-hotplug-hidraw0_0.15.0-1_bookworm_amd64.deb
+      checksum: d0de851e65fac5943fb64a65f6098d3087fec164fbdfcdf9705a3aeee7205ebd
+    - filename: libhidapi-hotplug-libusb0_0.15.0-1_bookworm_amd64.deb
+      checksum: bbb50b314332b9f47fb91f630725e0005fb4338daef9426240d9c273f7f96dac
+  become: yes
+
+- name: Install OpenRGB hidapi-hotplug dependencies
+  ansible.builtin.apt:
+    deb: "/tmp/{{ item }}"
+    state: present
+  loop:
+    - libhidapi-hotplug-hidraw0_0.15.0-1_bookworm_amd64.deb
+    - libhidapi-hotplug-libusb0_0.15.0-1_bookworm_amd64.deb
+  become: yes
+
 - name: Download OpenRGB deb package
   ansible.builtin.get_url:
-    url: https://openrgb.org/releases/release_candidate_1.0rc1/openrgb_1.0rc1_amd64_bookworm_1fbacde.deb
-    dest: /tmp/openrgb_1.0rc1_amd64_bookworm_1fbacde.deb
+    url: https://codeberg.org/OpenRGB/OpenRGB/releases/download/release_1.0/openrgb_1.0_amd64_bookworm_81bbe18.deb
+    dest: /tmp/openrgb_1.0_amd64_bookworm_81bbe18.deb
+    checksum: sha256:be51c1d20fedb06f3c25baf61349c29c65ef92ab86f331b32a82d8c1eac217c3
     mode: '0644'
   become: yes
 
 - name: Install OpenRGB deb package
   ansible.builtin.apt:
-    deb: /tmp/openrgb_1.0rc1_amd64_bookworm_1fbacde.deb
+    deb: /tmp/openrgb_1.0_amd64_bookworm_81bbe18.deb
     state: present
   become: yes
 
