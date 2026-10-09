@@ -36,10 +36,10 @@ spec:
             periodSeconds: 20
           resources:
             limits:
-              memory: 16Mi
+              memory: 32Mi
             requests:
               cpu: 10m
-              memory: 16Mi
+              memory: 32Mi
           volumeMounts:
             - name: nitter-secrets
               mountPath: /config
