@@ -57,9 +57,9 @@ core:
   resources:
     requests:
       cpu: 100m
-      memory: 256Mi
+      memory: 128Mi
     limits:
-      memory: 256Mi
+      memory: 128Mi
 jobservice:
   resources:
     requests:

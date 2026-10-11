@@ -44,9 +44,9 @@ spec:
           resources:
             requests:
               cpu: "2"
-              memory: 8Gi
+              memory: 6Gi
             limits:
-              memory: 8Gi
+              memory: 6Gi
           volumeMounts:
             - name: saved
               mountPath: /pal/Package/Pal/Saved
