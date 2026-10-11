@@ -37,7 +37,7 @@ server:
                     resources:
                         requests:
                             memory: 4096Mi
-                            cpu: 400m
+                            cpu: 750m
                         limits:
                             memory: 4096Mi
     ingress:
