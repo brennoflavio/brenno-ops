@@ -21,7 +21,7 @@ spec:
             - containerPort: 80
           env:
             - name: REDIS_HOST
-              value: kittygram-valkey
+              value: kittygram-valkey.kittygram.svc.cluster.local
             - name: RESOLVER
               value: 10.43.0.10
             - name: BASE_ATOM_PATH
@@ -44,7 +44,7 @@ spec:
               port: 80
           resources:
             limits:
-              memory: 80Mi
+              memory: 128Mi
             requests:
               cpu: 10m
-              memory: 80Mi
+              memory: 128Mi
