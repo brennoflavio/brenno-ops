@@ -21,7 +21,7 @@ spec:
     image:
       repository: ghcr.io/rss-bridge/rss-bridge
       pullPolicy: IfNotPresent
-      tag: sha-5382dee
+      tag: sha-e980264
     ingress:
       main:
         enabled: true
