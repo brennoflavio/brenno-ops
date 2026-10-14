@@ -29,7 +29,7 @@ spec:
               memory: 4352Mi
           env:
             - name: SOLR_JAVA_MEM
-              value: "-Xms3g -Xmx3g"
+              value: "-Xms2g -Xmx2g"
             - name: SOLR_MODULES
               value: analysis-extras
           ports:
