@@ -1,10 +1,8 @@
-provider: aws
-aws:
-    region: sa-east-1
-    zoneType: public
-    preferCNAME: true
-    zoneIDFilters:
-        - Z09602182CS7HUQKW198W
+provider: cloudflare
+cloudflare:
+    proxied: false
+zoneIdFilters:
+    - f87d5fa126960dc50151c0169e63342c
 sources:
     - ingress
     - crd
@@ -16,6 +14,7 @@ txtPrefix: _externaldns
 txtEncrypt:
     enabled: true
 policy: sync
+dryRun: false
 resources:
     limits:
         memory: 144Mi

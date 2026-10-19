@@ -1,12 +1,10 @@
-aws:
-    credentials:
-        accessKey: ENC[AES256_GCM,data:KOxt404pd9Iv+9+b8uoOwHCaLG0=,iv:oZ4JOFEZd3pTW0yysRjPoGKcUEMcQMdB2GWsDooTBbY=,tag:3fy0CTyHWmZYRbcMn0zwfA==,type:str]
-        secretKey: ENC[AES256_GCM,data:TFVv0ZYnlaBnfCKjUcEGDebRgC7650szVKb8W/NrxpBFma25TbdDEw==,iv:JDR4NU2XqtlYPsW+5k7xKnUpegoWdgcaFOE+V424VbQ=,tag:h2tLCrxQHxJ1tcRMTCpr5Q==,type:str]
+cloudflare:
+    apiToken: ENC[AES256_GCM,data:+AjuE5Zt2gyfZSr8t8IhLvBJU79U4PLCxD33Lmb4Lo7CFAGfuAEE5JLMRKI0ICt5lL7WA50=,iv:W6lGd8fSwuIlgrPUmn9hnfLCYmY2MCStPGvfICtTV7k=,tag:CRJJsnudNykuJytVtjVLFw==,type:str]
 txtEncrypt:
     aesKey: ENC[AES256_GCM,data:Mie/RQ5NVbY89e2DECT5wG3gdy+hF5KnJRGY42TRt/s=,iv:0rOr7AQQIYuuIwfIhiQZDxp8g2ThE0TJR852boJowfg=,tag:knUCVtpbiYI4rvncpiU/QQ==,type:str]
 sops:
-    lastmodified: "2026-09-08T22:56:15Z"
-    mac: ENC[AES256_GCM,data:30EhZAEhPnEkLn3Hz+boi4msd3D/DiAUiY9kb9fCs2C9g5lStEoBZ7AmuxoHyhHo8Ih6w9AtI97CcHdOez855aFPPFvDMjstgufj3sroI8BpQQIeDKq2vV5PsWam4h7PiVNL/d+onRY8v5FhWp+gQcYe7qlYE11vJNLKA0JxGTs=,iv:zNBApyzre3d4HsomsmcQGODv8dy6PqNWiw4axYelxbA=,tag:KIf7Ueho0/cGwPxyp2lp7w==,type:str]
+    lastmodified: "2026-10-19T15:13:41Z"
+    mac: ENC[AES256_GCM,data:N+WY4JRL3MMZ7wTZkVj9QQ/GMAE9I+PvoWppzU0TegRvEvx59ozgONyHacIlVpJVNmDfkZGEOzhTiqAFdbvWoX2+ns6kxNgU8Gj1I4etVmZgToDAntllBhwDz8EsS3n51C8zb6jiSOPC39B5y6+1cx4gVDkzybx6pqKwMlkG/xw=,iv:+jiKKpl0yufGVfdh8sqyhhQr23xQ3MmQWMe90Rn/Az8=,tag:JJLzmSbWnDLVVyhppFEQTg==,type:str]
     pgp:
         - created_at: "2025-07-12T02:26:03Z"
           enc: |-
@@ -30,4 +28,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 6357449C423960593235FB6BE056C483022CCA1B
     unencrypted_suffix: _unencrypted
-    version: 3.11.0
+    version: 3.13.3
