@@ -13,12 +13,7 @@ spec:
           dnsZones:
             - brennoflavio.com.br
         dns01:
-          route53:
-            region: sa-east-1
-            hostedZoneID: Z09602182CS7HUQKW198W
-            accessKeyIDSecretRef:
-              name: route53-dns01-credentials
-              key: access-key-id
-            secretAccessKeySecretRef:
-              name: route53-dns01-credentials
-              key: secret-access-key
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-dns01-credentials
+              key: api-token
