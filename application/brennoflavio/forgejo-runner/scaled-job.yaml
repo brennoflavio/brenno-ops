@@ -93,7 +93,7 @@ spec:
               - -c
               - |
                 set -eu
-                dockerd -H tcp://127.0.0.1:2375 --tls=false &
+                dockerd -H tcp://127.0.0.1:2375 --tls=false --mtu=1450 &
                 dockerd_pid=$!
                 trap 'kill "$dockerd_pid"; wait "$dockerd_pid" || true' EXIT
 
