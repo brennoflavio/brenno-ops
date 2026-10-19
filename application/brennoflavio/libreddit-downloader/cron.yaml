@@ -1,0 +1,70 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: libreddit-downloader
+  namespace: libreddit-downloader
+spec:
+  schedule: "*/30 * * * *"
+  suspend: false
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 21600
+      template:
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: libreddit-downloader
+              image: git.brennoflavio.com.br/brennoflavio/libreddit-downloader:main-9c37446-1792372949 # {"$imagepolicy": "libreddit-downloader:libreddit-downloader"}
+              args:
+                - --profile-url
+                - $(PROFILE_URL)
+                - --output-dir
+                - /tmp/downloads
+                - --control-file
+                - /state/transfers.sqlite3
+              env:
+                - name: DOWNLOAD_DESTINATION
+                  value: webdav
+                - name: HOME
+                  value: /tmp
+              envFrom:
+                - secretRef:
+                    name: libreddit-downloader
+              securityContext:
+                readOnlyRootFilesystem: true
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 512Mi
+                  ephemeral-storage: 12Gi
+                limits:
+                  memory: 512Mi
+                  ephemeral-storage: 12Gi
+              volumeMounts:
+                - name: state
+                  mountPath: /state
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: state
+              persistentVolumeClaim:
+                claimName: libreddit-downloader
+            - name: tmp
+              emptyDir:
+                sizeLimit: 10Gi
