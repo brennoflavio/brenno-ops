@@ -16,6 +16,8 @@ spec:
       labels:
         app: forgejo
     spec:
+      securityContext:
+        fsGroup: 1000
       containers:
         - name: forgejo
           image: codeberg.org/forgejo/forgejo:16.0.4
@@ -71,7 +73,69 @@ spec:
           volumeMounts:
             - name: forgejo-data
               mountPath: /data
+        - name: anubis
+          image: ghcr.io/techarohq/anubis:v1.28.1
+          env:
+            - name: BIND
+              value: :8923
+            - name: TARGET
+              value: http://localhost:3000
+            - name: POLICY_FNAME
+              value: /etc/anubis/bot-policy.yaml
+            - name: ED25519_PRIVATE_KEY_HEX
+              valueFrom:
+                secretKeyRef:
+                  name: forgejo-anubis
+                  key: ED25519_PRIVATE_KEY_HEX
+            - name: REDIRECT_DOMAINS
+              value: git.brennoflavio.com.br
+            - name: SERVE_ROBOTS_TXT
+              value: "true"
+          ports:
+            - name: anubis
+              containerPort: 8923
+            - name: anubis-metrics
+              containerPort: 9090
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: anubis-metrics
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: anubis-metrics
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+          volumeMounts:
+            - name: anubis-policy
+              mountPath: /etc/anubis
+              readOnly: true
+            - name: anubis-data
+              mountPath: /data
       volumes:
         - name: forgejo-data
           persistentVolumeClaim:
             claimName: forgejo
+        - name: anubis-policy
+          configMap:
+            name: forgejo-anubis
+        - name: anubis-data
+          emptyDir: {}

@@ -20,7 +20,7 @@ spec:
           service:
             name: forgejo
             port:
-              number: 3000
+              name: anubis
   tls:
   - hosts:
     - git.brennoflavio.com.br

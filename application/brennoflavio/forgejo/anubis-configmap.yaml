@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: forgejo-anubis
+  namespace: forgejo
+data:
+  bot-policy.yaml: |
+    bots:
+      - name: forgejo-api
+        path_regex: ^/api(?:/.*)?$
+        action: ALLOW
+      - name: forgejo-registry
+        path_regex: ^/v2(?:/.*)?$
+        action: ALLOW
+      - name: forgejo-git-http
+        path_regex: ^/[^/]+/[^/]+/(?:info/refs|git-upload-pack|git-receive-pack|info/lfs(?:/.*)?)$
+        action: ALLOW
+      - name: challenge-web
+        user_agent_regex: .*
+        action: CHALLENGE
+        challenge:
+          algorithm: fast
+          difficulty: 4
+    store:
+      backend: bbolt
+      parameters:
+        path: /data/anubis.bdb
+    metrics:
+      bind: :9090
+      network: tcp
+    honeypot:
+      enabled: false

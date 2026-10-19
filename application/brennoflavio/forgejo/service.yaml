@@ -8,9 +8,9 @@ spec:
     app: forgejo
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000
-      name: forgejo
+      port: 8923
+      targetPort: anubis
+      name: anubis
   type: ClusterIP
 ---
 apiVersion: v1
