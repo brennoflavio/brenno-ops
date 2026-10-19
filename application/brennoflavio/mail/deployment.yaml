@@ -84,6 +84,10 @@ spec:
               mountPath: /etc/dovecot/conf.d/90-fts-solr.conf
               subPath: 90-fts-solr.conf
               readOnly: true
+            - name: rspamd-configs
+              mountPath: /tmp/docker-mailserver/rspamd/override.d/classifier-bayes.conf
+              subPath: classifier-bayes.conf
+              readOnly: true
           ports:
             - containerPort: 25
               hostPort: 25
@@ -119,3 +123,6 @@ spec:
         - name: dovecot-configs
           configMap:
             name: dovecot-configs
+        - name: rspamd-configs
+          configMap:
+            name: rspamd-configs

@@ -7,6 +7,7 @@ resources:
   - claim.yaml
   - secret.yaml
   - dovecot-configs.yaml
+  - rspamd-configs.yaml
   - solr-claim.yaml
   - solr-deployment.yaml
   - solr-service.yaml
