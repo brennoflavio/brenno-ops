@@ -26,6 +26,8 @@ spec:
               value: 10.43.0.10
             - name: BASE_ATOM_PATH
               value: https://kittygram.home.brennoflavio.com.br/
+            - name: ENABLE_ATOM
+              value: "true"
             - name: SECRET
               valueFrom:
                 secretKeyRef:
