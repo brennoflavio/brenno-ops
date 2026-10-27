@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: kittygram
-          image: codeberg.org/irelephant/kittygram@sha256:ce7fef137821f5fe4955c585c6d2f940f2b3a300d9c456ca79ccbf2d5cd74c68
+          image: git.brennoflavio.com.br/brennoflavio/kittygram:main-b1dd5b7-1793141490
           ports:
             - containerPort: 80
           env:
