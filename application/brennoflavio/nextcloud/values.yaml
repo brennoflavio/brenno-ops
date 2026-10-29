@@ -35,6 +35,9 @@ ingress:
             - nextcloud.brennoflavio.com.br
           secretName: nextcloud-ingress-tls
 replicaCount: 1
+startupProbe:
+    enabled: true
+    failureThreshold: 60
 nextcloud:
     host: nextcloud.brennoflavio.com.br
     username: brenno
