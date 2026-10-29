@@ -33,7 +33,7 @@ data:
         path_regex: ^/(?:index\.php/)?apps/oauth2/api/v1/token/?$
         action: ALLOW
       - name: nextcloud-status
-        path_regex: ^/(?:status\.php|(?:index\.php/)?204)$
+        path_regex: ^/(?:status\.php|(?:index\.php/)?(?:204|heartbeat))$
         action: ALLOW
       - name: nextcloud-discovery
         path_regex: ^/(?:index\.php/)?\.well-known/(?:caldav|carddav|webfinger|nodeinfo|host-meta(?:\.json)?)/?$
