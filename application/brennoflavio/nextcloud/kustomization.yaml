@@ -14,10 +14,6 @@ resources:
   - anubis-deployment.yaml
   - anubis-secret.yaml
   - anubis-service.yaml
-  - preview-service-account.yaml
-  - preview-role.yaml
-  - preview-role-binding.yaml
-  - preview-cron.yaml
 configMapGenerator:
   - name: nextcloud-public-values
     files:
