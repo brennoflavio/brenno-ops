@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-anubis
+  namespace: nextcloud
+data:
+  bot-policy.yaml: |
+    bots:
+      # These clients cannot solve browser challenges; Nextcloud still authenticates them.
+      - name: nextcloud-dav
+        path_regex: ^/(?:index\.php/)?remote\.php/(?:dav|webdav|caldav|carddav)(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-public-dav
+        path_regex: ^/public\.php/(?:dav|webdav)(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-ocs
+        path_regex: ^/(?:index\.php/)?ocs/v[12]\.php(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-files-api
+        path_regex: ^/(?:index\.php/)?apps/files/api/v1(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-previews
+        path_regex: ^/(?:index\.php/)?core/preview(?:\.png)?$
+        action: ALLOW
+      - name: nextcloud-avatars
+        path_regex: ^/(?:index\.php/)?avatar/[^/]+/[0-9]+(?:/dark)?$
+        action: ALLOW
+      # Only the machine-facing login endpoints bypass challenges, not the browser flow.
+      - name: nextcloud-client-login
+        path_regex: ^/(?:index\.php/)?login/v2(?:/poll)?/?$
+        action: ALLOW
+      - name: nextcloud-oauth-token
+        path_regex: ^/(?:index\.php/)?apps/oauth2/api/v1/token/?$
+        action: ALLOW
+      - name: nextcloud-status
+        path_regex: ^/(?:status\.php|(?:index\.php/)?204)$
+        action: ALLOW
+      - name: nextcloud-discovery
+        path_regex: ^/(?:index\.php/)?\.well-known/(?:caldav|carddav|webfinger|nodeinfo|host-meta(?:\.json)?)/?$
+        action: ALLOW
+      - name: nextcloud-host-meta
+        expression: 'path == "/public.php" && "service" in query && query["service"] in ["host-meta", "host-meta-json"]'
+        action: ALLOW
+      - name: nextcloud-office
+        path_regex: ^/(?:index\.php/)?apps/richdocuments/(?:wopi(?:/.*)?|assets/[^/]+)$
+        action: ALLOW
+      - name: challenge-web
+        user_agent_regex: .*
+        action: CHALLENGE
+        challenge:
+          algorithm: fast
+          difficulty: 4
+    store:
+      backend: bbolt
+      parameters:
+        path: /data/anubis.bdb
+    metrics:
+      bind: :9090
+      network: tcp
+    honeypot:
+      enabled: false
