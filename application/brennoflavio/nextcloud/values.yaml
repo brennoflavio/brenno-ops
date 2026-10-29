@@ -152,6 +152,10 @@ mariadb:
         security:
             allowInsecureImages: true
     primary:
+        extraFlags: >-
+            --innodb-log-file-size=256M
+            --slow-query-log=ON
+            --long-query-time=2
         persistence:
             enabled: true
             existingClaim: mariadb
