@@ -18,10 +18,20 @@ spec:
     remediation:
       retries: 3
   values:
-    image:
-      repository: ghcr.io/rss-bridge/rss-bridge
-      pullPolicy: IfNotPresent
-      tag: sha-e980264
+    configMaps:
+      php-security:
+        enabled: true
+        data:
+          security.ini: |
+            session.upload_progress.enabled=0
+    persistence:
+      php-security:
+        enabled: true
+        type: configMap
+        name: '{{ include "bjw-s.common.lib.chart.names.fullname" . }}-php-security'
+        mountPath: /etc/php/8.2/fpm/conf.d/99-security.ini
+        subPath: security.ini
+        readOnly: true
     ingress:
       main:
         enabled: true

@@ -115,6 +115,10 @@ spec:
                 }
               }
   values:
+    image: roundcube/roundcubemail:1.6.20-fpm-alpine
+    config:
+      customPhpConfig: |
+        session.upload_progress.enabled=0
     database:
       source: external
     externalDatabase:
