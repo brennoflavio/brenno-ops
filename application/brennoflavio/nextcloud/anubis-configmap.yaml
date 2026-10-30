@@ -7,6 +7,7 @@ data:
   bot-policy.yaml: |
     bots:
       # These clients cannot solve browser challenges; Nextcloud still authenticates them.
+      # Tasks/Calendar sync and ICS exports use DAV, including public-calendars.
       - name: nextcloud-dav
         path_regex: ^/(?:index\.php/)?remote\.php/(?:dav|webdav|caldav|carddav)(?:/.*)?$
         action: ALLOW
@@ -18,6 +19,24 @@ data:
         action: ALLOW
       - name: nextcloud-files-api
         path_regex: ^/(?:index\.php/)?apps/files/api/v1(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-news-api
+        path_regex: ^/(?:index\.php/)?apps/news/api(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-tasks-api
+        path_regex: ^/(?:index\.php/)?apps/tasks/api/v1(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-calendar-api
+        path_regex: ^/(?:index\.php/)?apps/calendar/v1(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-music-api
+        path_regex: ^/(?:index\.php/)?apps/music/api(?:/.*)?$
+        action: ALLOW
+      - name: nextcloud-music-subsonic
+        path_regex: ^/(?:index\.php/)?apps/music/subsonic/rest/[a-zA-Z0-9.]+$
+        action: ALLOW
+      - name: nextcloud-music-ampache
+        path_regex: ^/(?:index\.php/)?apps/music/ampache/(?:server/(?:xml|json)\.server\.php/?|image\.php)$
         action: ALLOW
       - name: nextcloud-previews
         path_regex: ^/(?:index\.php/)?core/preview(?:\.png)?$
