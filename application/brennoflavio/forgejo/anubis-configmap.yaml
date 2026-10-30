@@ -15,6 +15,9 @@ data:
       - name: forgejo-git-http
         path_regex: ^/[^/]+/[^/]+/(?:info/refs|git-upload-pack|git-receive-pack|info/lfs(?:/.*)?)$
         action: ALLOW
+      - name: forgejo-artifact-download
+        path_regex: ^/[^/]+/[^/]+/actions/runs/[0-9]+/artifacts/[^/]+$
+        action: ALLOW
       - name: challenge-web
         user_agent_regex: .*
         action: CHALLENGE
