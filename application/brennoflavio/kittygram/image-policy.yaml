@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: kittygram
+  namespace: kittygram
+spec:
+  imageRepositoryRef:
+    name: kittygram
+  filterTags:
+    pattern: '^main-[0-9a-f]+-(?P<ts>[0-9]+)$'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc
