@@ -11,6 +11,10 @@ data:
       - name: nextcloud-dav
         path_regex: ^/(?:index\.php/)?remote\.php/(?:dav|webdav|caldav|carddav)(?:/.*)?$
         action: ALLOW
+      # Mobile video streaming uses direct-download tokens validated by Nextcloud.
+      - name: nextcloud-direct-download
+        path_regex: ^/(?:index\.php/)?remote\.php/direct/[^/]+$
+        action: ALLOW
       - name: nextcloud-public-dav
         path_regex: ^/public\.php/(?:dav|webdav)(?:/.*)?$
         action: ALLOW
