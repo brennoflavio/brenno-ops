@@ -26,7 +26,7 @@ spec:
               type: RuntimeDefault
           containers:
             - name: libreddit-downloader
-              image: git.brennoflavio.com.br/brennoflavio/libreddit-downloader:main-6662aac-1792376513 # {"$imagepolicy": "libreddit-downloader:libreddit-downloader"}
+              image: git.brennoflavio.com.br/brennoflavio/libreddit-downloader:main-10340c8-1793425298 # {"$imagepolicy": "libreddit-downloader:libreddit-downloader"}
               args:
                 - --profile-url
                 - $(PROFILE_URL)
