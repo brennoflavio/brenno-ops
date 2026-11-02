@@ -26,3 +26,4 @@ crd:
 extraArgs:
     managed-record-types: CNAME
     ingress-class: external-nginx
+    txt-wildcard-replacement: wildcard

@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-pages-anubis
+  namespace: git-pages
+data:
+  bot-policy.yaml: |
+    bots:
+      - name: pages-publish
+        expression: 'method in ["PUT", "PATCH", "POST", "DELETE"]'
+        action: ALLOW
+      - name: pages-metadata
+        path_regex: ^/(?:[^/]+/)?\.git-pages/(?:health|manifest\.(?:json|pb)|archive\.tar)$
+        action: ALLOW
+      - name: machine-readable
+        path_regex: ^/(?:[^/]+/)?(?:robots\.txt|(?:index|atom|feed|rss)\.xml|sitemap(?:_index)?\.xml|favicon\.ico)$
+        action: ALLOW
+      - name: challenge-web
+        user_agent_regex: .*
+        action: CHALLENGE
+        challenge:
+          algorithm: fast
+          difficulty: 4
+    store:
+      backend: bbolt
+      parameters:
+        path: /data/anubis.bdb
+    metrics:
+      bind: :9090
+      network: tcp
+    honeypot:
+      enabled: false

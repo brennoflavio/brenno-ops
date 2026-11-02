@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: git-pages
+  namespace: git-pages
+spec:
+  secretName: git-pages-tls
+  issuerRef:
+    name: lets-encrypt-dns01
+    kind: ClusterIssuer
+  dnsNames:
+    - "*.pages.brennoflavio.com.br"

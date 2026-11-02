@@ -1,0 +1,130 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: git-pages
+  namespace: git-pages
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: git-pages
+  template:
+    metadata:
+      labels:
+        app: git-pages
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: git-pages
+          image: codeberg.org/git-pages/git-pages:0.10.1
+          args:
+            - git-pages
+            - -config
+            - /etc/git-pages/config.toml
+          ports:
+            - name: pages
+              containerPort: 3000
+            - name: pages-metrics
+              containerPort: 3002
+          readinessProbe:
+            tcpSocket:
+              port: pages
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: pages
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 10m
+              memory: 512Mi
+            limits:
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: config
+              mountPath: /etc/git-pages
+              readOnly: true
+            - name: data
+              mountPath: /data
+            - name: tmp
+              mountPath: /tmp
+        - name: anubis
+          image: ghcr.io/techarohq/anubis:v1.28.1
+          env:
+            - name: BIND
+              value: :8923
+            - name: TARGET
+              value: http://localhost:3000
+            - name: POLICY_FNAME
+              value: /etc/anubis/bot-policy.yaml
+            - name: ED25519_PRIVATE_KEY_HEX
+              valueFrom:
+                secretKeyRef:
+                  name: git-pages-anubis
+                  key: ED25519_PRIVATE_KEY_HEX
+            - name: REDIRECT_DOMAINS
+              value: "*.pages.brennoflavio.com.br"
+            - name: SERVE_ROBOTS_TXT
+              value: "false"
+          ports:
+            - name: anubis
+              containerPort: 8923
+            - name: anubis-metrics
+              containerPort: 9090
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: anubis-metrics
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: anubis-metrics
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+            limits:
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: anubis-policy
+              mountPath: /etc/anubis
+              readOnly: true
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: config
+          configMap:
+            name: git-pages
+        - name: anubis-policy
+          configMap:
+            name: git-pages-anubis
+        - name: data
+          persistentVolumeClaim:
+            claimName: git-pages
+        - name: tmp
+          emptyDir: {}

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-pages
+  namespace: git-pages
+data:
+  config.toml: |
+    [server]
+    pages = "tcp/:3000"
+    proxy = "-"
+    metrics = "tcp/:3002"
+    https = "-"
+
+    [storage]
+    type = "fs"
+
+    [storage.fs]
+    root = "/data/sites"
+
+    [[wildcard]]
+    domain = "pages.brennoflavio.com.br"
+    clone-url = "https://git.brennoflavio.com.br/<user>/<project>.git"
+    index-repo = "pages"
+    index-repo-branch = "pages"
+    authorization = "forgejo"
+
+    [limits]
+    allowed-repository-url-prefixes = ["https://git.brennoflavio.com.br/"]
