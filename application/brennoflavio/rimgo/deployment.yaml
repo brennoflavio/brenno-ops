@@ -18,16 +18,14 @@ spec:
     spec:
       containers:
       - name: rimgo
-        image: codeberg.org/rimgo/rimgo:1.3.0
+        image: codeberg.org/rimgo/rimgo:2.0-rc.3
         ports:
         - containerPort: 3000
         env:
-        - name: ADDRESS
+        - name: ADDR
           value: "0.0.0.0"
         - name: PORT
           value: "3000"
-        - name: FIBER_PREFORK
-          value: "false"
         - name: IMGUR_CLIENT_ID
           value: 546c25a59c58ad7
         resources:
