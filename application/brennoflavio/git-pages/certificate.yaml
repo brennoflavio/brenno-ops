@@ -9,4 +9,5 @@ spec:
     name: lets-encrypt-dns01
     kind: ClusterIssuer
   dnsNames:
-    - "*.pages.brennoflavio.com.br"
+    - brennoflavio.com.br
+    - "*.brennoflavio.com.br"

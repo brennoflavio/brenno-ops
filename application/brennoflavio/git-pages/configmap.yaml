@@ -18,11 +18,11 @@ data:
     root = "/data/sites"
 
     [[wildcard]]
-    domain = "pages.brennoflavio.com.br"
-    clone-url = "https://git.brennoflavio.com.br/<user>/<project>.git"
-    index-repo = "pages"
+    domain = "brennoflavio.com.br"
+    clone-url = "https://git.brennoflavio.com.br/brennoflavio/<project>.git"
+    index-repo = "<user>"
     index-repo-branch = "pages"
     authorization = "forgejo"
 
     [limits]
-    allowed-repository-url-prefixes = ["https://git.brennoflavio.com.br/"]
+    allowed-repository-url-prefixes = ["https://git.brennoflavio.com.br/brennoflavio/"]

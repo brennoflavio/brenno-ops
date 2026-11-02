@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: external-nginx
   rules:
-    - host: "*.pages.brennoflavio.com.br"
+    - host: "*.brennoflavio.com.br"
       http:
         paths:
           - path: /
@@ -25,5 +25,5 @@ spec:
                   name: anubis
   tls:
     - hosts:
-        - "*.pages.brennoflavio.com.br"
+        - "*.brennoflavio.com.br"
       secretName: git-pages-tls

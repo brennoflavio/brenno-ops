@@ -6,8 +6,11 @@ metadata:
 data:
   bot-policy.yaml: |
     bots:
+      - name: deny-webhooks
+        expression: 'method == "POST"'
+        action: DENY
       - name: pages-publish
-        expression: 'method in ["PUT", "PATCH", "POST", "DELETE"]'
+        expression: 'method in ["PUT", "PATCH", "DELETE"]'
         action: ALLOW
       - name: pages-metadata
         path_regex: ^/(?:[^/]+/)?\.git-pages/(?:health|manifest\.(?:json|pb)|archive\.tar)$
