@@ -5,4 +5,6 @@ resources:
   - namespace.yaml
   - deployment.yaml
   - service.yaml
+  - anubis-configmap.yaml
+  - anubis-secret.yaml
   - ingress.yaml

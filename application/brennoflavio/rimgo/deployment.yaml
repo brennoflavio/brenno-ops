@@ -16,6 +16,8 @@ spec:
       labels:
         app: rimgo
     spec:
+      securityContext:
+        fsGroup: 1000
       containers:
       - name: rimgo
         image: codeberg.org/rimgo/rimgo:2.0-rc.3
@@ -34,3 +36,66 @@ spec:
           requests:
             cpu: 10m
             memory: 64Mi
+      - name: anubis
+        image: ghcr.io/techarohq/anubis:v1.28.1
+        env:
+          - name: BIND
+            value: :8923
+          - name: TARGET
+            value: http://localhost:3000
+          - name: POLICY_FNAME
+            value: /etc/anubis/bot-policy.yaml
+          - name: ED25519_PRIVATE_KEY_HEX
+            valueFrom:
+              secretKeyRef:
+                name: anubis-secret
+                key: ED25519_PRIVATE_KEY_HEX
+          - name: REDIRECT_DOMAINS
+            value: rimgo.brennoflavio.com.br
+          - name: SERVE_ROBOTS_TXT
+            value: "true"
+        ports:
+          - name: anubis
+            containerPort: 8923
+          - name: anubis-metrics
+            containerPort: 9090
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: anubis-metrics
+          initialDelaySeconds: 2
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: anubis-metrics
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            memory: 256Mi
+        volumeMounts:
+          - name: anubis-policy
+            mountPath: /etc/anubis
+            readOnly: true
+          - name: anubis-data
+            mountPath: /data
+      volumes:
+        - name: anubis-policy
+          configMap:
+            name: rimgo-anubis
+        - name: anubis-data
+          emptyDir: {}

@@ -11,7 +11,7 @@ spec:
     app: rimgo
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 3000
-    name: rimgo
+    port: 8923
+    targetPort: anubis
+    name: anubis
   type: ClusterIP

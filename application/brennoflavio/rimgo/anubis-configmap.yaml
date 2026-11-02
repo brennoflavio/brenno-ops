@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rimgo-anubis
+  namespace: rimgo
+data:
+  bot-policy.yaml: |
+    bots:
+      - name: challenge-web
+        user_agent_regex: .*
+        action: CHALLENGE
+        challenge:
+          algorithm: fast
+          difficulty: 4
+    store:
+      backend: bbolt
+      parameters:
+        path: /data/anubis.bdb
+    metrics:
+      bind: :9090
+      network: tcp
+    honeypot:
+      enabled: false
