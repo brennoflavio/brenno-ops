@@ -70,6 +70,7 @@ spec:
               mountPath: /git-http
           resources:
             requests:
+              cpu: 10m
               memory: 16Mi
             limits:
               memory: 16Mi
@@ -136,7 +137,7 @@ spec:
           resources:
             requests:
               cpu: 2000m
-              memory: 1Gi
+              memory: 2Gi
             limits:
               memory: 2Gi
           volumeMounts:

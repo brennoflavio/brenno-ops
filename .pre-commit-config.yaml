@@ -1,0 +1,11 @@
+repos:
+  - repo: local
+    hooks:
+      - id: workload-resources
+        name: Validate workload resource policy
+        entry: python scripts/validate_resources.py
+        language: python
+        additional_dependencies:
+          - PyYAML==6.0.3
+        pass_filenames: false
+        always_run: true

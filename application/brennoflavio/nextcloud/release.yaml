@@ -51,6 +51,7 @@ spec:
                       - name: nextcloud-cron
                         resources:
                           requests:
+                            cpu: 50m
                             memory: 256Mi
                           limits:
                             memory: 256Mi
@@ -58,6 +59,7 @@ spec:
                       - name: mariadb-isalive
                         resources:
                           requests:
+                            cpu: 10m
                             memory: 16Mi
                           limits:
                             memory: 16Mi
@@ -78,6 +80,7 @@ spec:
                       - name: preserve-logs-symlinks
                         resources:
                           requests:
+                            cpu: 10m
                             memory: 2Gi
                           limits:
                             memory: 2Gi

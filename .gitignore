@@ -3,3 +3,4 @@
 .decrypted~*
 .playwright-cli
 .pi/
+__pycache__/

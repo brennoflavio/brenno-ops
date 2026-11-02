@@ -23,6 +23,12 @@ spec:
             - /bin/sh
             - -c
             - mkdir -p /saved/Config/LinuxServer && cp /settings/PalWorldSettings.ini /saved/Config/LinuxServer/PalWorldSettings.ini
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              memory: 16Mi
           volumeMounts:
             - name: saved
               mountPath: /saved
