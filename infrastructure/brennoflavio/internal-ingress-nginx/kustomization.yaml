@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: internal-ingress-nginx
 resources:
   - namespace.yaml
+  - dns.yaml
   - repository.yaml
   - release.yaml
