@@ -11,3 +11,5 @@ resources:
   - service.yaml
   - certificate.yaml
   - ingress.yaml
+  - apex-ingress.yaml
+  - apex-dns.yaml

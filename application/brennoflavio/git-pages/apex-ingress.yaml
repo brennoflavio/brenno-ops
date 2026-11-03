@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: git-pages-apex
+  namespace: git-pages
+  annotations:
+    # Preserve the existing apex DNS record instead of deriving one from this Ingress.
+    external-dns.alpha.kubernetes.io/controller: "ignore"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "128m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+spec:
+  ingressClassName: external-nginx
+  rules:
+    - host: brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: git-pages
+                port:
+                  name: anubis
+  tls:
+    - hosts:
+        - brennoflavio.com.br
+      secretName: git-pages-tls

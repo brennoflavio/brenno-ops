@@ -1,0 +1,12 @@
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: git-pages-apex-authorization
+  namespace: git-pages
+spec:
+  endpoints:
+    - dnsName: _git-pages-forge-allowlist.brennoflavio.com.br
+      recordType: TXT
+      recordTTL: 300
+      targets:
+        - https://git.brennoflavio.com.br/brennoflavio/brennoflavio.com.br.git

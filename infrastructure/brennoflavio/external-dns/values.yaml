@@ -23,7 +23,9 @@ resources:
         memory: 144Mi
 crd:
     create: true
+managedRecordTypesFilters:
+    - CNAME
+    - TXT
 extraArgs:
-    managed-record-types: CNAME
     ingress-class: external-nginx
     txt-wildcard-replacement: wildcard
