@@ -18,6 +18,9 @@ data:
       - name: forgejo-artifact-download
         path_regex: ^/[^/]+/[^/]+/actions/runs/[0-9]+/artifacts/[^/]+$
         action: ALLOW
+      - name: forgejo-release-download
+        path_regex: ^/[^/]+/[^/]+/releases/download/[^/]+/[^/]+$
+        action: ALLOW
       - name: challenge-web
         user_agent_regex: .*
         action: CHALLENGE
