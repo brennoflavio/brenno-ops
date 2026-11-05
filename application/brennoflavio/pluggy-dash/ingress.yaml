@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pluggy-dash
+  namespace: pluggy-dash
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: cartao.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pluggy-dash
+                port:
+                  number: 8000
+  tls:
+    - hosts:
+        - cartao.home.brennoflavio.com.br
+      secretName: pluggy-dash-tls

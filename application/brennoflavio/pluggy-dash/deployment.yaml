@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pluggy-dash
+  namespace: pluggy-dash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pluggy-dash
+  template:
+    metadata:
+      labels:
+        app: pluggy-dash
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: pluggy-dash
+          image: registry.home.brennoflavio.com.br/apps/pluggy-dash:master-997258a-1793904513 # {"$imagepolicy": "pluggy-dash:pluggy-dash"}
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: pluggy-dash-secrets
+          startupProbe:
+            tcpSocket:
+              port: 8000
+            failureThreshold: 30
+            periodSeconds: 2
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+          resources:
+            limits:
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 128Mi

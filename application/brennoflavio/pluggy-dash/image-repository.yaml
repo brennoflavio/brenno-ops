@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: pluggy-dash
+  namespace: pluggy-dash
+spec:
+  image: registry.home.brennoflavio.com.br/apps/pluggy-dash
+  interval: 5m
