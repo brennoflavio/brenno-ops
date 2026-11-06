@@ -28,6 +28,8 @@ spec:
               value: https://kittygram.home.brennoflavio.com.br/
             - name: ENABLE_ATOM
               value: "true"
+            - name: ATOM_REFRESH_INTERVAL
+              value: "21600"
             - name: SECRET
               valueFrom:
                 secretKeyRef:
