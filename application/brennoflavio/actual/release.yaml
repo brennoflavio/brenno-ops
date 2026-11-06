@@ -1,0 +1,53 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: actual
+  namespace: actual
+spec:
+  releaseName: actual
+  chart:
+    spec:
+      chart: actualbudget
+      version: 1.9.5
+      sourceRef:
+        kind: HelmRepository
+        name: actual
+        namespace: actual
+  interval: 30m
+  install:
+    remediation:
+      retries: 3
+  values:
+    replicaCount: 1
+    strategy:
+      type: Recreate
+    serviceAccount:
+      automount: false
+    login:
+      method: password
+      allowedLoginMethods:
+        - password
+    persistence:
+      enabled: true
+      existingClaim: actual-data
+    ingress:
+      enabled: true
+      className: internal-nginx
+      annotations:
+        cert-manager.io/cluster-issuer: lets-encrypt-dns01
+        nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+      hosts:
+        - host: actual.home.brennoflavio.com.br
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: actual-tls
+          hosts:
+            - actual.home.brennoflavio.com.br
+    resources:
+      requests:
+        cpu: 50m
+        memory: 512Mi
+      limits:
+        memory: 512Mi
