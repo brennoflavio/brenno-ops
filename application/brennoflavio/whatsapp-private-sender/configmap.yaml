@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: whatsapp-private-sender
+  namespace: whatsapp-private-sender
+data:
+  WHATSAPP_DB_FOLDER: /data
+  WHATSAPP_MESSAGES_TTL: "30"

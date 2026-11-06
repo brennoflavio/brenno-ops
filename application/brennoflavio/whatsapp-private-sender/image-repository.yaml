@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: whatsapp-private-sender
+  namespace: whatsapp-private-sender
+spec:
+  image: registry.home.brennoflavio.com.br/apps/whatsapp-private-sender
+  interval: 5m

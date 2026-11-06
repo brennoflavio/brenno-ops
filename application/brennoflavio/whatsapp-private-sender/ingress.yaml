@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: whatsapp-private-sender
+  namespace: whatsapp-private-sender
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-dns01
+spec:
+  ingressClassName: internal-nginx
+  rules:
+    - host: whatsapp.home.brennoflavio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: whatsapp-private-sender
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - whatsapp.home.brennoflavio.com.br
+      secretName: whatsapp-private-sender-tls
