@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: pluggy-dash
-          image: registry.home.brennoflavio.com.br/apps/pluggy-dash:master-6ebdafb-1794017124 # {"$imagepolicy": "pluggy-dash:pluggy-dash"}
+          image: registry.home.brennoflavio.com.br/apps/pluggy-dash:master-5c9acc2-1794017771 # {"$imagepolicy": "pluggy-dash:pluggy-dash"}
           ports:
             - containerPort: 8000
           envFrom:
