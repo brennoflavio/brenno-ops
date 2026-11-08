@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: kittygram
-          image: git.brennoflavio.com.br/brennoflavio/kittygram:main-f156b95-1793976248 # {"$imagepolicy": "kittygram:kittygram"}
+          image: git.brennoflavio.com.br/brennoflavio/kittygram:main-a5238da-1794096189 # {"$imagepolicy": "kittygram:kittygram"}
           ports:
             - containerPort: 80
           env:
