@@ -6,10 +6,10 @@ metadata:
   namespace: matrix
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt
-    nginx.ingress.kubernetes.io/proxy-body-size: 25m
+    traefik.ingress.kubernetes.io/router.middlewares: matrix_synapse-upload-limit@kubernetescrd
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
 spec:
-  ingressClassName: external-nginx
+  ingressClassName: external-traefik
   rules:
   - host: matrix.brennoflavio.com.br
     http:

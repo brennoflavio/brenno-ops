@@ -5,13 +5,11 @@ metadata:
   namespace: git-pages
   annotations:
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "128m"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
-    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    traefik.ingress.kubernetes.io/router.middlewares: git-pages_upload-limit@kubernetescrd
+    # Treat Pages as the fallback; exact hosts must win over this wildcard.
+    traefik.ingress.kubernetes.io/router.priority: "10"
 spec:
-  ingressClassName: external-nginx
+  ingressClassName: external-traefik
   rules:
     - host: "*.brennoflavio.com.br"
       http:

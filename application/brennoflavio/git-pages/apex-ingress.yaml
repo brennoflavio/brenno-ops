@@ -6,13 +6,9 @@ metadata:
   annotations:
     # Preserve the existing apex DNS record instead of deriving one from this Ingress.
     external-dns.alpha.kubernetes.io/controller: "ignore"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "128m"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
-    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    traefik.ingress.kubernetes.io/router.middlewares: git-pages_upload-limit@kubernetescrd
 spec:
-  ingressClassName: external-nginx
+  ingressClassName: external-traefik
   rules:
     - host: brennoflavio.com.br
       http:

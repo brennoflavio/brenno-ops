@@ -13,3 +13,5 @@ resources:
   - ingress.yaml
   - apex-ingress.yaml
   - apex-dns.yaml
+  - middleware.yaml
+  - servers-transport.yaml

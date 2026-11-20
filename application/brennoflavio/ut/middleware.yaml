@@ -1,0 +1,11 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: rate-limit
+  namespace: ut
+  annotations:
+    kubernetes.io/ingress.class: external-traefik
+spec:
+  rateLimit:
+    average: 10
+    burst: 50

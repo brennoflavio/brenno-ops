@@ -1,35 +1,10 @@
 ingress:
     enabled: true
-    className: external-nginx
+    className: external-traefik
     annotations:
         cert-manager.io/cluster-issuer: lets-encrypt
         external-dns.alpha.kubernetes.io/target: brennoflavio.com.br
-        nginx.ingress.kubernetes.io/affinity: cookie
-        nginx.ingress.kubernetes.io/server-snippet: |-
-            server_tokens off;
-            proxy_hide_header X-Powered-By;
-            rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-            rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-            rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-            rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-            location = /.well-known/carddav {
-              return 301 $scheme://$host/remote.php/dav;
-            }
-            location = /.well-known/caldav {
-              return 301 $scheme://$host/remote.php/dav;
-            }
-            location = /robots.txt {
-              allow all;
-              log_not_found off;
-              access_log off;
-            }
-            location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-              deny all;
-            }
-            location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-              deny all;
-            }
-        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        traefik.ingress.kubernetes.io/router.middlewares: nextcloud_hide-server-headers@kubernetescrd,nextcloud_dav-discovery@kubernetescrd
     tls:
         - hosts:
             - nextcloud.brennoflavio.com.br
@@ -39,6 +14,15 @@ startupProbe:
     enabled: true
     failureThreshold: 60
 nextcloud:
+    extraVolumes:
+        - name: nextcloud-apache-config
+          configMap:
+              name: nextcloud-apache-config
+    extraVolumeMounts:
+        - name: nextcloud-apache-config
+          mountPath: /etc/apache2/conf-enabled/nextcloud-ingress.conf
+          subPath: ingress.conf
+          readOnly: true
     host: nextcloud.brennoflavio.com.br
     username: brenno
     mail:
@@ -172,7 +156,7 @@ collabora:
         extra_params: --o:ssl.enable=false --o:ssl.termination=true
     ingress:
         enabled: true
-        className: external-nginx
+        className: external-traefik
         annotations:
             cert-manager.io/cluster-issuer: lets-encrypt
             external-dns.alpha.kubernetes.io/target: brennoflavio.com.br

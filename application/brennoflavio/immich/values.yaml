@@ -43,11 +43,11 @@ server:
     ingress:
         main:
             enabled: true
-            className: external-nginx
+            className: external-traefik
             annotations:
                 cert-manager.io/cluster-issuer: lets-encrypt
-                nginx.ingress.kubernetes.io/proxy-body-size: "0"
                 external-dns.alpha.kubernetes.io/target: brennoflavio.com.br
+                nginx.ingress.kubernetes.io/proxy-body-size: null
             hosts:
                 - host: photos.brennoflavio.com.br
                   paths:

@@ -7,9 +7,9 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
-    nginx.ingress.kubernetes.io/limit-rps: "10"
+    traefik.ingress.kubernetes.io/router.middlewares: ut_rate-limit@kubernetescrd
 spec:
-  ingressClassName: external-nginx
+  ingressClassName: external-traefik
   rules:
   - host: ut.brennoflavio.com.br
     http:

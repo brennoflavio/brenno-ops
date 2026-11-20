@@ -19,3 +19,4 @@ resources:
   - roundcube-repository.yaml
   - roundcube-claim.yaml
   - roundcube-release.yaml
+  - middleware.yaml

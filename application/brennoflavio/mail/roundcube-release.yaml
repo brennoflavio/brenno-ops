@@ -21,6 +21,20 @@ spec:
   - kustomize:
       patches:
       - target:
+          group: networking.k8s.io
+          version: v1
+          kind: Ingress
+          name: roundcube
+        patch: |
+          - op: remove
+            path: /metadata/annotations/nginx.ingress.kubernetes.io~1affinity
+          - op: remove
+            path: /metadata/annotations/nginx.ingress.kubernetes.io~1affinity-mode
+          - op: remove
+            path: /metadata/annotations/nginx.ingress.kubernetes.io~1proxy-body-size
+          - op: remove
+            path: /metadata/annotations/nginx.ingress.kubernetes.io~1session-cookie-name
+      - target:
           group: apps
           version: v1
           kind: Deployment
@@ -151,13 +165,20 @@ spec:
       - name: roundcube-db
         persistentVolumeClaim:
           claimName: roundcube-db
+    service:
+      additionalAnnotations:
+        traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+        traefik.ingress.kubernetes.io/service.sticky.cookie.name: roundcube_sessaffinity
+        traefik.ingress.kubernetes.io/service.sticky.cookie.secure: "true"
     ingress:
       enabled: true
       useTLS: true
       host: roundcube.brennoflavio.com.br
-      ingressClassName: external-nginx
+      class: ""
+      ingressClassName: external-traefik
       tls:
         secretName: roundcube-tls
       additionalAnnotations:
         cert-manager.io/cluster-issuer: lets-encrypt
         external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
+        traefik.ingress.kubernetes.io/router.middlewares: mail_roundcube-upload-limit@kubernetescrd

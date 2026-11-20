@@ -3,10 +3,8 @@ kind: Ingress
 metadata:
   name: matrix-well-known
   namespace: matrix
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  ingressClassName: external-nginx
+  ingressClassName: external-traefik
   rules:
     - host: brennoflavio.com.br
       http:

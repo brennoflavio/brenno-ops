@@ -58,20 +58,7 @@ data:
       interval = "10s"
       metric_version = 1
       monitor_kubernetes_pods = true
-      kubernetes_label_selector = "app.kubernetes.io/name=ingress-nginx,app.kubernetes.io/component=controller"
-      kubernetes_field_selector = "spec.nodeName=${NODE_NAME}"
-      pod_namespace_label_name = "controller_namespace"
-      namepass = ["nginx_ingress_controller_requests"]
-      taginclude = [
-        "host", "namespace", "ingress", "service", "path", "method", "status", "canary",
-        "controller_class", "controller_namespace", "controller_pod", "node_name",
-      ]
-
-    [[inputs.prometheus]]
-      interval = "10s"
-      metric_version = 1
-      monitor_kubernetes_pods = true
-      kubernetes_label_selector = "app.kubernetes.io/name=traefik,app.kubernetes.io/instance=internal-nginx-internal-ingress-nginx"
+      kubernetes_label_selector = "app.kubernetes.io/name=traefik"
       kubernetes_field_selector = "spec.nodeName=${NODE_NAME}"
       pod_namespace_label_name = "controller_namespace"
       namepass = ["traefik_service_requests_total"]

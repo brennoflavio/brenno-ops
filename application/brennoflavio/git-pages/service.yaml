@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: git-pages
   namespace: git-pages
+  annotations:
+    traefik.ingress.kubernetes.io/service.serverstransport: git-pages_backend@kubernetescrd
 spec:
   selector:
     app: git-pages

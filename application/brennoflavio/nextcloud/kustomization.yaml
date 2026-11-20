@@ -10,6 +10,8 @@ resources:
   - nextcloud-pvc.yaml
   - repository.yaml
   - release.yaml
+  - middleware.yaml
+  - apache-config.yaml
   - anubis-configmap.yaml
   - anubis-deployment.yaml
   - anubis-secret.yaml

@@ -7,9 +7,8 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt
     external-dns.alpha.kubernetes.io/target: "brennoflavio.com.br"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
-  ingressClassName: external-nginx
+  ingressClassName: external-traefik
   rules:
   - host: git.brennoflavio.com.br
     http:

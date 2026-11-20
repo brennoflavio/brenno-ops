@@ -13,7 +13,7 @@ txtOwnerId: brennoflavio
 txtPrefix: _externaldns
 txtEncrypt:
     enabled: true
-policy: sync
+policy: upsert-only
 dryRun: false
 resources:
     limits:
@@ -27,5 +27,5 @@ managedRecordTypesFilters:
     - CNAME
     - TXT
 extraArgs:
-    ingress-class: external-nginx
+    ingress-class: external-traefik
     txt-wildcard-replacement: wildcard

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-apache-config
+  namespace: nextcloud
+data:
+  ingress.conf: |
+    <Directory "/var/www/html">
+        RewriteEngine On
+        RewriteOptions InheritDownBefore
+        RewriteRule ^\.well-known/(webfinger|nodeinfo)/?$ /index.php/.well-known/$1 [L]
+        RewriteRule ^\.well-known/host-meta$ /public.php?service=host-meta [L,QSA]
+        RewriteRule ^\.well-known/host-meta\.json$ /public.php?service=host-meta-json [L,QSA]
+    </Directory>
+
+    <LocationMatch "^/(?:build|tests|config|lib|3rdparty|templates|data)(?:/|$)|^/(?:autotest|occ|issue|indie|db_|console)">
+        Require all denied
+    </LocationMatch>

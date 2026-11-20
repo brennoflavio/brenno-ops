@@ -8,43 +8,84 @@ spec:
     releaseName: ingress-nginx
     chart:
         spec:
-            chart: ingress-nginx
-            version: 4.15.1
+            chart: traefik
+            version: 42.4.1
             sourceRef:
                 kind: HelmRepository
-                name: ingress-nginx
+                name: traefik
                 namespace: external-ingress-nginx
     interval: 30m
     install:
+        crds: CreateReplace
         remediation:
             retries: 3
+    upgrade:
+        crds: CreateReplace
     values:
-        controller:
-            metrics:
-                enabled: true
+        fullnameOverride: external-traefik
+        ingressClass:
+            name: external-traefik
+            isDefaultClass: false
+        providers:
+            kubernetesIngress:
+                ingressClass: external-traefik
+                strictPrefixMatching: true
+                crossProviderNamespaces:
+                    - git-pages
+                    - mail
+                    - matrix
+                    - nextcloud
+                    - rimgo
+                    - ut
+            kubernetesCRD:
+                ingressClass: external-traefik
+                safeNaming: true
+        ports:
+            web:
+                http:
+                    redirections:
+                        entryPoint:
+                            to: websecure
+                            scheme: https
+                            permanent: true
+                            # Let cert-manager's HTTP-01 solver take precedence.
+                            priority: 1
+            websecure:
+                asDefault: true
+                http:
+                    middlewares:
+                        - external-ingress-nginx_hsts@kubernetescrd
+                transport:
+                    respondingTimeouts:
+                        readTimeout: 30m
+        extraObjects:
+            - apiVersion: traefik.io/v1alpha1
+              kind: Middleware
+              metadata:
+                  name: hsts
+                  namespace: external-ingress-nginx
+                  annotations:
+                      kubernetes.io/ingress.class: external-traefik
+              spec:
+                  headers:
+                      stsSeconds: 31536000
+                      stsIncludeSubdomains: true
+        service:
+            annotations:
+                metallb.io/loadBalancerIPs: 192.168.20.10
+            spec:
+                type: LoadBalancer
+                externalTrafficPolicy: Local
+        accessLog:
+            enabled: true
+            format: genericCLF
+        deployment:
             podAnnotations:
                 prometheus.io/scrape: "true"
-                prometheus.io/port: "10254"
-            resources:
-                limits:
-                    memory: 1Gi
-                requests:
-                    cpu: 150m
-                    memory: 1Gi
-            service:
-                annotations:
-                    metallb.io/loadBalancerIPs: 192.168.20.10
-            config:
-                strict-validate-path-type: false
-                annotations-risk-level: Critical
-                log-format-upstream: >-
-                    $remote_addr - $remote_user [$time_local] "$request" $status
-                    $body_bytes_sent "$http_referer" "$http_user_agent"
-            ingressClass: external-nginx
-            electionID: external-nginx-leader
-            ingressClassResource:
-                name: external-nginx
-                enabled: true
-                default: false
-                controllerValue: k8s.io/external-nginx
-            allowSnippetAnnotations: true
+                prometheus.io/port: "9100"
+        resources:
+            limits:
+                memory: 1Gi
+            requests:
+                cpu: 150m
+                memory: 1Gi
