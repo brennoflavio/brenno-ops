@@ -1,0 +1,91 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: external-traefik
+    namespace: external-ingress-traefik
+spec:
+    releaseName: external-traefik
+    chart:
+        spec:
+            chart: traefik
+            version: 42.4.1
+            sourceRef:
+                kind: HelmRepository
+                name: traefik
+                namespace: external-ingress-traefik
+    interval: 30m
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+    values:
+        fullnameOverride: external-traefik
+        ingressClass:
+            name: external-traefik
+            isDefaultClass: false
+        providers:
+            kubernetesIngress:
+                ingressClass: external-traefik
+                strictPrefixMatching: true
+                crossProviderNamespaces:
+                    - git-pages
+                    - mail
+                    - matrix
+                    - nextcloud
+                    - rimgo
+                    - ut
+            kubernetesCRD:
+                ingressClass: external-traefik
+                safeNaming: true
+        ports:
+            web:
+                http:
+                    redirections:
+                        entryPoint:
+                            to: websecure
+                            scheme: https
+                            permanent: true
+                            # Let cert-manager's HTTP-01 solver take precedence.
+                            priority: 1
+            websecure:
+                asDefault: true
+                http:
+                    middlewares:
+                        - external-ingress-traefik_hsts@kubernetescrd
+                transport:
+                    respondingTimeouts:
+                        readTimeout: 30m
+        extraObjects:
+            - apiVersion: traefik.io/v1alpha1
+              kind: Middleware
+              metadata:
+                  name: hsts
+                  namespace: external-ingress-traefik
+                  annotations:
+                      kubernetes.io/ingress.class: external-traefik
+              spec:
+                  headers:
+                      stsSeconds: 31536000
+                      stsIncludeSubdomains: true
+        service:
+            annotations:
+                metallb.io/loadBalancerIPs: 192.168.20.10
+            spec:
+                type: LoadBalancer
+                externalTrafficPolicy: Local
+        accessLog:
+            enabled: true
+            format: genericCLF
+        deployment:
+            podAnnotations:
+                prometheus.io/scrape: "true"
+                prometheus.io/port: "9100"
+        resources:
+            limits:
+                memory: 1Gi
+            requests:
+                cpu: 150m
+                memory: 1Gi
