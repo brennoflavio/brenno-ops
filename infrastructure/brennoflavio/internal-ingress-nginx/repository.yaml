@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: traefik
-  namespace: internal-ingress-nginx
-spec:
-  interval: 1m
-  url: https://traefik.github.io/charts
