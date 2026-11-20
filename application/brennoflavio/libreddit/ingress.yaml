@@ -7,7 +7,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt-dns01
 spec:
-  ingressClassName: internal-nginx
+  ingressClassName: internal-traefik
   rules:
   - host: libreddit.home.brennoflavio.com.br
     http:

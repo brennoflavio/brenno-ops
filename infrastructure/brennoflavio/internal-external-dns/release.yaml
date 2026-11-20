@@ -37,5 +37,5 @@ spec:
     crd:
       create: false
     extraArgs:
-      ingress-class: internal-nginx
+      ingress-class: internal-traefik
       pihole-api-version: 6

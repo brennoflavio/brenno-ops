@@ -67,6 +67,16 @@ data:
         "controller_class", "controller_namespace", "controller_pod", "node_name",
       ]
 
+    [[inputs.prometheus]]
+      interval = "10s"
+      metric_version = 1
+      monitor_kubernetes_pods = true
+      kubernetes_label_selector = "app.kubernetes.io/name=traefik,app.kubernetes.io/instance=internal-nginx-internal-ingress-nginx"
+      kubernetes_field_selector = "spec.nodeName=${NODE_NAME}"
+      pod_namespace_label_name = "controller_namespace"
+      namepass = ["traefik_service_requests_total"]
+      taginclude = ["service", "method", "code", "protocol", "controller_namespace", "node_name"]
+
     [[inputs.kernel]]
       interval = "10s"
       collect = ["psi"]

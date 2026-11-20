@@ -8,11 +8,13 @@ expose:
   ingress:
     hosts:
       core: registry.home.brennoflavio.com.br
-    className: internal-nginx
+    className: internal-traefik
     annotations:
       cert-manager.io/cluster-issuer: lets-encrypt-dns01
-      nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      ingress.kubernetes.io/proxy-body-size: null
+      ingress.kubernetes.io/ssl-redirect: null
+      nginx.ingress.kubernetes.io/proxy-body-size: null
+      nginx.ingress.kubernetes.io/ssl-redirect: null
 
 externalURL: https://registry.home.brennoflavio.com.br
 

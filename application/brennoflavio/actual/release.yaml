@@ -32,10 +32,10 @@ spec:
       existingClaim: actual-data
     ingress:
       enabled: true
-      className: internal-nginx
+      className: internal-traefik
       annotations:
         cert-manager.io/cluster-issuer: lets-encrypt-dns01
-        nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+        traefik.ingress.kubernetes.io/router.middlewares: actual_upload-limit@kubernetescrd
       hosts:
         - host: actual.home.brennoflavio.com.br
           paths:

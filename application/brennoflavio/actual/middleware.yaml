@@ -1,0 +1,10 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: upload-limit
+  namespace: actual
+  annotations:
+    kubernetes.io/ingress.class: internal-traefik
+spec:
+  buffering:
+    maxRequestBodyBytes: 52428800

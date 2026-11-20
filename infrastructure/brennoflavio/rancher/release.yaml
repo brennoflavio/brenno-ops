@@ -22,7 +22,7 @@ spec:
     hostname: "kubernetes.home.brennoflavio.com.br"
     bootstrapPassword: "admin-password"
     ingress:
-      ingressClassName: internal-nginx
+      ingressClassName: internal-traefik
       tls:
         source: secret
       extraAnnotations:

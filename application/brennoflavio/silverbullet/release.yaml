@@ -18,18 +18,17 @@ spec:
   values:
     ingress:
       enabled: true
-      className: internal-nginx
+      className: internal-traefik
       hosts:
         - host: notes.home.brennoflavio.com.br
           paths:
             - path: /
-              pathType: ImplementationSpecific
+              pathType: Prefix
       tls:
         - hosts:
             - notes.home.brennoflavio.com.br
           secretName: silverbullet-ingress-tls
       annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /
         cert-manager.io/cluster-issuer: lets-encrypt-dns01
     resources:
       requests:
