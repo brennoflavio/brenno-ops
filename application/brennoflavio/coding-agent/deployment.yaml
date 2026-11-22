@@ -76,7 +76,7 @@ spec:
               memory: 16Mi
       containers:
         - name: coding-agent
-          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-f292f35-1795332937 # {"$imagepolicy": "coding-agent:coding-agent"}
+          image: git.brennoflavio.com.br/brennoflavio/coding-agent:main-52bcb66-1795384973 # {"$imagepolicy": "coding-agent:coding-agent"}
           imagePullPolicy: IfNotPresent
           workingDir: /home/pi
           env:
