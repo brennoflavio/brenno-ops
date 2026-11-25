@@ -132,9 +132,9 @@ spec:
           resources:
             requests:
               cpu: 2000m
-              memory: 2Gi
+              memory: 4Gi
             limits:
-              memory: 2Gi
+              memory: 4Gi
           volumeMounts:
             - name: home
               mountPath: /home/pi
